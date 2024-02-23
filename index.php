@@ -10,20 +10,20 @@
 
 <?php
 
- // On recupère le recipes ma requete sql
-$afficheTitreFilm = $recipesAfficheEtTitreFilm->fetchAll();
+//  // On recupère le recipes ma requete sql
+// $afficheTitreFilm = $recipesAfficheEtTitreFilm->fetchAll();
 
- // Et je l'affiche ici
-foreach($afficheTitreFilm as $afficheTitre) {
+//  // Et je l'affiche ici
+// foreach($afficheTitreFilm as $afficheTitre) {
 
-    if ($afficheTitre['affiche'] == "") {
-        echo "";
-    }
+//     if ($afficheTitre['affiche'] == "") {
+//         echo "";
+//     }
     
-    else {
-    echo "<img src='" . $afficheTitre['affiche'] . "'><br>",
-            "<p id='teste'>" . $afficheTitre['titre'] . "</p>";
-}}
+//     else {
+//     echo "<img src='" . $afficheTitre['affiche'] . "'><br>",
+//             "<p id='teste'>" . $afficheTitre['titre'] . "</p>";
+// }}
 
 ?>
 
