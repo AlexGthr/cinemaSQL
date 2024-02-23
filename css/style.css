@@ -136,4 +136,17 @@ h2, p {
     border-radius: 15px;
     border: 1px solid;
 }
+
+#carousel {
+    color: black;
+}
+
+#titleContent {
+    color: #0F5494;
+}
+
+#teste {
+    color: black;
+}
+
 }
