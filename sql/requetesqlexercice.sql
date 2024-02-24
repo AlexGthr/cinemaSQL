@@ -142,3 +142,7 @@ INNER JOIN personne ON acteur.id_personne = personne.id_personne
 INNER JOIN film ON joue.id_film = film.id_film
 GROUP BY personne.id_personne
 HAVING nbFilm >= 3
+
+
+	-- DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y'),
+	-- TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%H:%i') AS dureeFilm

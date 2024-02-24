@@ -4,32 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
     <title> <?= $titrePage; ?> </title>
 </head>
 <body>
     <header>
 
+        <!-- Image MOVIE + titre -->
         <figure>
-            <img src="img/Movies.png" title="Movies, nom du site">
+            <img src="public/img/Movies.png" title="Movies, nom du site">
             <figcaption>
-                <h1>Movies</h1>
+                <a href="index.php"><h1>Movies</h1></a>
             </figcaption>
         </figure>
 
+        <!-- Menu de navigation -->
         <nav>
             <ul>
                 <li> <a href="index.php"> Acceuil </a></li>
-                <li> <a href="listeFilm.php"> Liste Film </a></li>
+                <li> 
+                    <span class="listeDeroulante"> Liste &#x21b4; </span> <!-- Liste déroulante -->
+                    <ul class="sous-nav"> 
+                    <li> <a href="index.php?action=listFilm">Film</a></li>
+                    <li> <a href="#">Acteur</a></li>
+                    <li> <a href="#">Réalisateur</a></li>
+                    <li> <a href="#">Role</a></li>
+                    </ul>
+                </li>
                 <li> <a href="recap.php"> Infos </a></li>
             </ul>
-            <div id="icons"></div>
+            <div id="icons"></div> <!-- Icone menu Burger -->
         </nav>
         
 
     </header>
 
 <main>
+
+        <!-- Barre de recherche -->
     <div class="searchBar">
         <input type="search" id="research" name="research" placeholder="&nbsp;&nbsp;&nbsp;Recherche ...">
         <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
@@ -51,6 +63,6 @@
         <p id="copyright">Copyright Alex -&nbsp;<a href="#">Mentions légal </a></p>
     </footer>
 
-    <script defer src="js/script.js"></script>
+    <script defer src="public/js/script.js"></script>
 </body>
 </html>

@@ -11,12 +11,19 @@ main {
 
 @media only screen and (min-width: 250px) {
 
+
+/* *******************************
+*********HEADER IMAGE***********
+******************************* */
+
 figure {
     position: relative;
 }
 
 figure img {
     display: block;
+    width: 100%;
+    height: 100px;
 }
 
 figcaption {
@@ -26,31 +33,49 @@ figcaption {
     margin: 0 40px;
 }
 
-h1 {
+figure h1 {
     color: white;
     font-size: 3em;
 }
 
-a {
+figure a {
+    text-decoration: none;
+}
+
+/* *******************************
+*********HEADER NAV***********
+******************************* */
+
+nav a {
     color: white;
     text-decoration: none;
 }
 
-figure img {
-    width: 100%;
-    height: 100px;
-}
 
-nav ul {
+nav > ul {
     position: fixed;
     top: -100%;
     width: 100vw;
-    height: 120px;
+    height: auto;
     flex-direction: column;
     background-color: #0F5494;
     text-align: center;
     transition: 0.25s;
 }
+
+.listeDeroulante {
+    color: white;
+}
+
+.sous-nav {
+    display: none;
+    transition: 0.5s;
+}
+
+.listeDeroulante:hover .sous-nav {
+    display: block;
+}
+
 
 #icons {
     display: block;
@@ -82,39 +107,9 @@ nav li {
     padding: 10px 0;
 }
 
-footer {
-    width: 100%;
-    background-color: #0F5494;
-}
-
-footer h2, p {
-    color: white;
-}
-
-h2 {
-    padding-top: 10px;
-}
-
-h2, p {
-    padding-left: 10px;
-}
-
-.reseau {
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-}
-
-.reseau i {
-    color: white;
-    margin: 0 15px;
-    font-size: 1.5em;
-}
-
-#copyright {
-    display: flex;
-    justify-content: center;
-}
+/* *******************************
+************   Body   ************
+******************************* */
 
 .searchBar {
     padding: 30px 0;
@@ -141,12 +136,90 @@ h2, p {
     color: black;
 }
 
-#titleContent {
+#titleSection {
     color: #0F5494;
 }
 
-#teste {
+.afficherTitreFilm {
+    display: flex;
+    width: 90%;
+}
+
+.afficheFilm {
+    height: 245px;
+    width: 80%;
+    text-align: center;
+    border-radius: 14px;
+}
+
+.acceuil {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.afficheActeur, .afficheReal {
+    height: 95px;
+    width: 95px;
+    border-radius: 50px;
+}
+
+.afficherActeurs, .afficherRealisateurs {
+    display: flex;
+}
+
+a {
     color: black;
 }
+
+
+/* *******************************
+************  FOOTER  ************
+******************************* */
+
+footer {
+    width: 100%;
+    background-color: #0F5494;
+}
+
+footer h2 {
+    color: white;
+}
+
+footer p {
+    color: white;
+}
+
+footer h2 {
+    padding-top: 10px;
+}
+
+footer h2, p {
+    padding-left: 10px;
+}
+
+footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+.reseau {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.reseau i {
+    color: white;
+    margin: 0 15px;
+    font-size: 1.5em;
+}
+
+#copyright {
+    display: flex;
+    justify-content: center;
+}
+
 
 }
