@@ -5,6 +5,7 @@
 
 <div class="listFilms">
 
+        <!-- Affiche le detail d'un film -->
     <?php 
         $film = $requete->fetch();
         echo 
@@ -19,6 +20,7 @@
                 <a href='index.php?action=detPersonne&id=" . $film['idPersonne'] . "'>" . $film['leRealisateur'] . "</a></p>";
     ?>
 
+        <!-- Affiche les roles et leurs acteur dans le film -->
     <?php 
         echo "<ul> Role / Acteur : ";
         foreach($requeteActeurRole->fetchAll() as $liste) { ?>

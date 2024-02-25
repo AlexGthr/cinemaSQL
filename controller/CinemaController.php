@@ -13,12 +13,14 @@ class CinemaController {
 
         $pdo = Connect::seConnecter();
 
+        // Requete pour l'affichage des films sur l'acceuil
         $requete = $pdo->query("
                 SELECT film.affiche, film.titre, film.id_film
                 FROM film
                 LIMIT 2
                 ");
 
+        // Requete pour l'affichage des acteurs sur l'acceuil
         $requeteA = $pdo->query("
         SELECT  personne.photo,
                 CONCAT(personne.prenom, ' ',personne.nom) AS acteur,
@@ -30,8 +32,12 @@ class CinemaController {
         OR personne.id_personne = 27
                 ");
 
+        // Requete pour l'affichage des réalisateurs sur l'acceuil
         $requeteR = $pdo->query("
-        SELECT personne.photo, CONCAT(personne.prenom, ' ',personne.nom) AS realisateur
+        SELECT 
+                personne.photo, 
+                CONCAT(personne.prenom, ' ',personne.nom) AS realisateur,
+                personne.id_personne
         FROM realisateur
         INNER JOIN personne ON realisateur.id_personne = personne.id_personne
         WHERE personne.id_personne = 2
@@ -45,6 +51,7 @@ class CinemaController {
 
         $pdo = Connect::seConnecter();
 
+        // Requete pour afficher la liste des films
         $requete = $pdo->query("
         SELECT 
             film.id_film,
@@ -62,6 +69,7 @@ class CinemaController {
         
         $pdo = Connect::seConnecter();
 
+        // Requete pour afficher le detail complet d'UN seul film
         $requete = $pdo->prepare("
         SELECT
                 film.id_film,
@@ -79,6 +87,7 @@ class CinemaController {
         ");
         $requete->execute(["id" => $id]);
 
+        // Requete pour afficher TOUT les roles et acteurs du film
         $requeteActeurRole = $pdo->prepare("
         SELECT 
                 role.id_role AS idRole,
@@ -100,6 +109,7 @@ class CinemaController {
 
         $pdo = Connect::seConnecter();
 
+        // Requete pour afficher la liste de tout les acteurs
         $requete = $pdo->query("
         SELECT  personne.id_personne,
                 personne.photo,
@@ -117,22 +127,28 @@ class CinemaController {
 
         $pdo = Connect::seConnecter();
 
+        // Requete pour afficher les infos d'une seul personne
         $requete = $pdo->prepare("
         SELECT
                 personne.photo,
                 CONCAT(personne.nom, ' ',personne.prenom) AS laPersonne,
                 personne.sexe,
-                DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') AS dateNaissance
+                DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') AS dateNaissance,
+                acteur.id_acteur AS idActeur,
+                realisateur.id_realisateur AS idRealisateur
         FROM personne
-        WHERE id_personne = :id
+        LEFT JOIN acteur ON personne.id_personne = acteur.id_personne
+        LEFT JOIN realisateur ON personne.id_personne = realisateur.id_personne
+        WHERE personne.id_personne = :id
         ");
         $requete->execute(["id" => $id]);
         
-        $requeteDetail = $pdo->prepare("
+        // Requete pour afficher la filmographie et le role d'un acteur
+        $requeteFilmoActeur = $pdo->prepare("
         SELECT
         film.id_film,  
         film.titre,
-        role.id_role, 
+        role.id_role AS idRole, 
         role.nom AS role,
         DATE_FORMAT(film.dateDeSortie, '%Y') AS dateSortie
         FROM joue
@@ -143,7 +159,19 @@ class CinemaController {
         WHERE personne.id_personne = :id
         ORDER BY dateSortie
         ");
-        $requeteDetail->execute(["id" => $id]);
+        $requeteFilmoActeur->execute(["id" => $id]);
+
+        $requeteFilmoRealisateur = $pdo->prepare("
+        SELECT
+                film.id_film,
+                film.titre,
+                YEAR(film.dateDeSortie) AS date
+        FROM film
+        INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
+        INNER JOIN personne ON realisateur.id_realisateur = personne.id_personne
+        WHERE realisateur.id_personne = :id
+        ");
+        $requeteFilmoRealisateur->execute(["id" => $id]);
 
         require "view/personne/detailPersonne.php";
 }

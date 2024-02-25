@@ -1,7 +1,7 @@
 <?php 
     ob_start();
 ?>
-
+        <!-- Liste déroulante pour faire un trie d'affichage -->
     <label for="orderby">Trier par :</label>
 
         <select name="order" id="orderby">
@@ -13,6 +13,8 @@
 
 <div class="listFilms">
 
+
+        <!-- Affiche la description d'un film, affiche/titre/date de sortie/durée/note -->
     <?php 
         foreach($requete->fetchAll() as $film) { ?>
 

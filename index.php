@@ -16,11 +16,11 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
 
     switch ($_GET["action"]) {  // Et j'effectue un switch suivant l'action :
 
-        case "acceuil": $ctlrCinema->afficheTitrefilm(); break;
-        case "listFilm": $ctlrCinema->listFilm(); break;
-        case "detFilm": $ctlrCinema->detFilm($id); break;
-        case "listActeur": $ctlrCinema->listActeur(); break;
-        case "detPersonne": $ctlrCinema->detPersonne($id); break;
+        case "acceuil": $ctlrCinema->afficheTitrefilm(); break; // Affiche la vue acceuil
+        case "listFilm": $ctlrCinema->listFilm(); break;  // Affiche la vue listeFilm
+        case "detFilm": $ctlrCinema->detFilm($id); break; // Affiche la vue Detail Film
+        case "listActeur": $ctlrCinema->listActeur(); break; // Affiche la vue Liste Acteur
+        case "detPersonne": $ctlrCinema->detPersonne($id); break; // Affiche la vue detail Personne
     }
 }
 else {  // Sinon, j'affiche la page d'acceuil

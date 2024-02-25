@@ -2,12 +2,13 @@
     ob_start();
 ?>
 
-<p>**********</br>ICI UN CAROUSSEL DANS LE FUTUR</br>**********</p>
+    <p>**********</br>ICI UN CAROUSSEL DANS LE FUTUR</br>**********</p>
 
-<h1 id="titleSection">A l'affiche !</h1>
+    <h1 id="titleSection">A l'affiche !</h1>
 
 <div class="afficherTitreFilm">
 
+        <!-- Affiche les affiches d'un film et le titre -->
     <?php 
         foreach($requete->fetchAll() as $film) { ?>
         <div class="acceuil">
@@ -18,10 +19,13 @@
 
 </div>
 
-<h1 id="titleSection">Acteur star !</h1>
+    <a href='index.php?action=listFilm'>view all</a>
+
+    <h1 id="titleSection">Acteur star !</h1>
 
 <div class="afficherActeurs">
 
+        <!-- Affiche la photo d'un acteur et son nom/prenom -->
     <?php 
         foreach($requeteA->fetchAll() as $acteur) { ?>
         <div class="acceuil">
@@ -32,19 +36,23 @@
 
 </div>
 
-<h1 id="titleSection">Réalisateur du moment !</h1>
+    <a href='index.php?action=listActeur'>view all</a>
+
+    <h1 id="titleSection">Réalisateur du moment !</h1>
 
 <div class="afficherRealisateurs">
 
+            <!-- Affiche la photo d'un réalisateur et son nom/prenom -->
     <?php 
         foreach($requeteR->fetchAll() as $realisateur) { ?>
         <div class="acceuil">
             <img class="afficheReal" src='<?= $realisateur["photo"] ?>' title='<?= $realisateur["realisateur"] ?>'>
-            <?= $realisateur["realisateur"] ?></br>
+            <a href='index.php?action=detPersonne&id=<?= $realisateur['id_personne']?>'><?= $realisateur["realisateur"] ?></a></br>
         </div>
         <?php } ?>
 
 </div>
+        <a href='index.php?action=listReal'>view all</a>
 
 <?php
 

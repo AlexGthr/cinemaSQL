@@ -1,7 +1,7 @@
 <?php 
     ob_start();
 ?>
-
+        <!-- Liste déroulante pour faire un trie -->
     <label for="orderby">Trier par :</label>
 
         <select name="order" id="orderby">
@@ -11,6 +11,7 @@
 
 <div class="listActeurs">
 
+        <!-- Affiche la liste des acteurs -->
     <?php 
         foreach($requete->fetchAll() as $acteur) { ?>
 
