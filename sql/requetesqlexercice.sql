@@ -146,3 +146,4 @@ HAVING nbFilm >= 3
 
 	-- DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y'),
 	-- TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%H:%i') AS dureeFilm
+	-- CONCAT(personne.nom, ' ',personne.prenom) AS leRealisateur

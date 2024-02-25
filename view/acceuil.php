@@ -26,7 +26,7 @@
         foreach($requeteA->fetchAll() as $acteur) { ?>
         <div class="acceuil">
             <img class="afficheActeur" src='<?= $acteur["photo"] ?>' title='<?= $acteur["acteur"] ?>'>
-            <?= $acteur["acteur"] ?></br>
+            <a href='index.php?action=detPersonne&id=<?= $acteur['id_personne']?>'><?= $acteur["acteur"] ?></a></br>
         </div>
         <?php } ?>
 

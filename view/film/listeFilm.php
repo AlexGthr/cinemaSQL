@@ -19,7 +19,9 @@
         <div class="acceuil">
 
             <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
-            <p>« <?= $film["titre"] ?> »</p>
+            <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
+                <p>« <?= $film["titre"] ?> »</p>
+            </a>
             <p>Date de sortie : <?= $film["dateDeSortie"] ?></p>
             <p>Durée : <?= $film["dureeFilm"] ?></p>
             <p>Note : <?= $film["note"] ?></p>

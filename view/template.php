@@ -26,7 +26,7 @@
                     <span class="listeDeroulante"> Liste &#x21b4; </span> <!-- Liste déroulante -->
                     <ul class="sous-nav"> 
                     <li> <a href="index.php?action=listFilm">Film</a></li>
-                    <li> <a href="#">Acteur</a></li>
+                    <li> <a href="index.php?action=listActeur">Acteur</a></li>
                     <li> <a href="#">Réalisateur</a></li>
                     <li> <a href="#">Role</a></li>
                     </ul>

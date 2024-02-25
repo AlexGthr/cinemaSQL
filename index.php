@@ -19,6 +19,8 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
         case "acceuil": $ctlrCinema->afficheTitrefilm(); break;
         case "listFilm": $ctlrCinema->listFilm(); break;
         case "detFilm": $ctlrCinema->detFilm($id); break;
+        case "listActeur": $ctlrCinema->listActeur(); break;
+        case "detPersonne": $ctlrCinema->detPersonne($id); break;
     }
 }
 else {  // Sinon, j'affiche la page d'acceuil
