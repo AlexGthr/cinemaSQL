@@ -3,7 +3,7 @@
 ?>
 
 
-<div class="listFilms">
+<div class="detFilms">
 
         <!-- Affiche le detail d'un film -->
     <?php 
@@ -15,7 +15,7 @@
             "<h2>" . $film['titre'] . "</h2>",
             "<p><span class='detail'> Durée : </span> " . $film['dureeFilm'] . "</p>",
             "<p><span class='detail'> Date de sortie : </span> " . $film['dateDeSortie'] . "</p>",
-            "<p><span class='detail'> Synopsys : </span> " . $film['dureeFilm'] . "</p>",
+            "<p><span class='detail'> Synopsys : </span> " . $film['synopsis'] . "</p>",
             "<p><span class='detail'> Réalisateur : </span>
                 <a href='index.php?action=detPersonne&id=" . $film['idPersonne'] . "'>" . $film['leRealisateur'] . "</a></p>";
     ?>
@@ -26,7 +26,7 @@
         foreach($requeteActeurRole->fetchAll() as $liste) { ?>
 
             <li class="roleActeur">
-                <a href='index.php?action=detrole&id=<?= $liste['idRole'] ?>'> <?= $liste['nomRole'] ?></a> 
+                <a href='index.php?action=detRole&id=<?= $liste['idRole'] ?>'> <?= $liste['nomRole'] ?></a> 
                 &#x2904;
                 <a href='index.php?action=detPersonne&id=<?= $liste['idPersonne'] ?>'> <?= $liste['nomActeurs'] ?></a>
             </li>

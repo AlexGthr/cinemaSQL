@@ -60,9 +60,6 @@
             <li>
                 <a href='index.php?action=detRole&id=<?= $role['idRole'] ?>'>
                 <?= $role['role']?></a>
-                &#x2904;
-                <a href='index.php?action=detFilm&id=<?= $role['id_film'] ?>'>
-                <?= $role['titre']?></a> (<?= $role['dateSortie']?>)
             </li>
 
 <?php   }

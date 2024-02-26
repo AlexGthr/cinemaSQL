@@ -27,9 +27,10 @@
                     <ul class="sous-nav"> 
                     <li> <a href="index.php?action=listFilm">Film</a></li>
                     <li> <a href="index.php?action=listActeur">Acteur</a></li>
-                    <li> <a href="#">Réalisateur</a></li>
-                    <li> <a href="#">Role</a></li>
-                    </ul>
+                    <li> <a href="index.php?action=listReal">Réalisateur</a></li>
+                    <li> <a href="index.php?action=listRole">Role</a></li>
+                    <li> <a href="index.php?action=listCategorie">Catégorie</a></li>
+                </ul>
                 </li>
                 <li> <a href="recap.php"> Infos </a></li>
             </ul>

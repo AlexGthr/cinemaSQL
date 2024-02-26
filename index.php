@@ -20,7 +20,13 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
         case "listFilm": $ctlrCinema->listFilm(); break;  // Affiche la vue listeFilm
         case "detFilm": $ctlrCinema->detFilm($id); break; // Affiche la vue Detail Film
         case "listActeur": $ctlrCinema->listActeur(); break; // Affiche la vue Liste Acteur
+        case "listReal": $ctlrCinema->listRealisateur(); break;
         case "detPersonne": $ctlrCinema->detPersonne($id); break; // Affiche la vue detail Personne
+        case "listRole": $ctlrCinema->listRole(); break;
+        case "detRole": $ctlrCinema->detRole($id); break;
+        case "listCategorie": $ctlrCinema->listCategorie(); break;
+        case "detCategorie": $ctlrCinema->detCategorie($id); break;
+        
     }
 }
 else {  // Sinon, j'affiche la page d'acceuil

@@ -53,14 +53,18 @@ class CinemaController {
 
         // Requete pour afficher la liste des films
         $requete = $pdo->query("
-        SELECT 
+        SELECT
             film.id_film,
             film.affiche,
             film.titre,
             DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie,
             TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%Hh%i') AS dureeFilm,
-            film.note
+            film.note,
+            GROUP_CONCAT(DISTINCT categorie.type ORDER BY categorie.type ASC SEPARATOR ', ') AS categories
         FROM film
+        LEFT JOIN categoriser ON film.id_film = categoriser.id_film
+        LEFT JOIN categorie ON categoriser.id_categorie = categorie.id_categorie
+        GROUP BY film.id_film
         ");
         require "view/film/listeFilm.php";
      }
@@ -79,6 +83,7 @@ class CinemaController {
                 DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie,
                 TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%Hh%i') AS dureeFilm,
                 film.note,
+                film.synopsis,
                 CONCAT(personne.prenom, ' ',personne.nom) AS leRealisateur
         FROM film
         INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
@@ -123,6 +128,23 @@ class CinemaController {
         require "view/acteur/listActeur.php";
      }
 
+     public function listRealisateur() {
+
+        $pdo = Connect::seConnecter();
+
+        $requete = $pdo->query("
+        SELECT  personne.id_personne,
+                personne.photo,
+                CONCAT(personne.prenom, ' ',personne.nom) AS leRealisateur,
+                DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
+        FROM realisateur
+        INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+        ORDER BY personne.sexe
+        ");
+        
+        require "view/realisateur/listRealisateur.php";
+     }
+
      public function detPersonne($id) {
 
         $pdo = Connect::seConnecter();
@@ -146,11 +168,11 @@ class CinemaController {
         // Requete pour afficher la filmographie et le role d'un acteur
         $requeteFilmoActeur = $pdo->prepare("
         SELECT
-        film.id_film,  
-        film.titre,
-        role.id_role AS idRole, 
-        role.nom AS role,
-        DATE_FORMAT(film.dateDeSortie, '%Y') AS dateSortie
+                film.id_film,  
+                film.titre,
+                role.id_role AS idRole, 
+                role.nom AS role,
+                DATE_FORMAT(film.dateDeSortie, '%Y') AS dateSortie
         FROM joue
         INNER JOIN acteur ON joue.id_acteur = acteur.id_acteur
         INNER JOIN personne ON acteur.id_personne = personne.id_personne
@@ -174,5 +196,84 @@ class CinemaController {
         $requeteFilmoRealisateur->execute(["id" => $id]);
 
         require "view/personne/detailPersonne.php";
-}
+    }
+
+    public function listRole() {
+
+        $pdo = Connect::seConnecter();
+
+        $requete = $pdo->query("
+        SELECT 
+                role.id_role AS idRole,
+                personne.id_personne AS idPersonne,
+	        role.nom AS nomRole,
+	        CONCAT(personne.prenom, ' ',personne.nom) AS nomActeurs
+        FROM joue
+        INNER JOIN acteur ON joue.id_acteur = acteur.id_acteur
+        INNER JOIN personne ON acteur.id_personne = personne.id_personne
+        INNER JOIN role ON joue.id_role = role.id_role
+        ");
+
+        require "view/role/listRole.php";
+
+        }
+
+     public function detRole($id) {
+
+        $pdo = Connect::seConnecter();
+
+        $requete = $pdo->prepare("
+        SELECT 
+                film.affiche,
+                film.titre AS titreFilm,
+                film.id_film AS idFilm,
+                role.id_role AS idRole,
+                personne.id_personne AS idPersonne,
+                role.nom AS nomRole,
+                CONCAT(personne.prenom, ' ',personne.nom) AS nomActeurs
+        FROM joue
+        INNER JOIN film ON joue.id_film = film.id_film
+        INNER JOIN acteur ON joue.id_acteur = acteur.id_acteur
+        INNER JOIN personne ON acteur.id_personne = personne.id_personne
+        INNER JOIN role ON joue.id_role = role.id_role
+        WHERE joue.id_role = :id
+        ");
+
+        $requete->execute(["id" => $id]);
+
+        require "view/role/detailRole.php";
+
+        }
+
+        public function listCategorie() {
+        
+        $pdo = Connect::seConnecter();
+
+        $requete = $pdo->query("        
+        SELECT *
+        FROM categorie
+        ");
+
+        require "view/categorie/listeCategorie.php";
+        }
+
+        public function detCategorie($id) {
+
+        $pdo = Connect::seConnecter();
+
+        $requete = $pdo->prepare("
+        SELECT
+                film.id_film AS idFilm,
+                film.titre,
+                categorie.type AS typeCategorie,
+                DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie
+        FROM categoriser
+        LEFT JOIN film ON categoriser.id_film = film.id_film
+        LEFT JOIN categorie ON categoriser.id_categorie = categorie.id_categorie
+        WHERE categorie.id_categorie = :id
+        ");
+        $requete->execute(["id" => $id]);
+
+        require "view/categorie/detailCategorie.php";
+        }
 }
