@@ -12,12 +12,15 @@
 
         echo "<h2> Catégorie « " . $detailCategorie['typeCategorie'] . " »</h2>",
                 "<ul>";
+    ?>
 
-        foreach($requete->fetchAll() as $categorie) { ?>
+    <?php
+
+        foreach($requeteFilmCategorie->fetchAll() as $categorie) { ?>
 
             <li>
                 <a href="index.php?action=detFilm&id=<?= $categorie['idFilm'] ?>">
-                <?= $categorie['titre'] ?></a> <?= $categorie['dateDeSortie'] ?>
+                <?= $categorie['titre'] ?></a> - <?= $categorie['dateDeSortie'] ?>
             </li>
 
         <?php } ?>

@@ -11,7 +11,7 @@
 
 <div class="listRealisateurs">
 
-        <!-- Affiche la liste des acteurs -->
+        <!-- Affiche la liste des réalisateurs -->
     <?php 
         foreach($requete->fetchAll() as $realisateur) { ?>
 

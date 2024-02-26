@@ -20,6 +20,21 @@
                 <a href='index.php?action=detPersonne&id=" . $film['idPersonne'] . "'>" . $film['leRealisateur'] . "</a></p>";
     ?>
 
+    <?php
+
+        echo "<p><span class='detail'> Catégorie : </span> ";
+
+            foreach($requeteCategorie->fetchAll() as $categorie) { ?>
+
+                <a href="index.php?action=detCategorie&id=<?= $categorie['idCategorie'] ?>">
+                <?= $categorie['typeCategorie'] ?>
+                </a>&nbsp;
+
+           <?php }
+        
+        echo "</p>";
+    ?>
+
         <!-- Affiche les roles et leurs acteur dans le film -->
     <?php 
         echo "<ul> Role / Acteur : ";

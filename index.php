@@ -18,15 +18,23 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
 
         case "acceuil": $ctlrCinema->afficheTitrefilm(); break; // Affiche la vue acceuil
         case "listFilm": $ctlrCinema->listFilm(); break;  // Affiche la vue listeFilm
-        case "detFilm": $ctlrCinema->detFilm($id); break; // Affiche la vue Detail Film
         case "listActeur": $ctlrCinema->listActeur(); break; // Affiche la vue Liste Acteur
-        case "listReal": $ctlrCinema->listRealisateur(); break;
+        case "listReal": $ctlrCinema->listRealisateur(); break; // Affiche la vue Liste Réalisateur
+        case "listRole": $ctlrCinema->listRole(); break; // Affiche la vue Liste Role
+        case "listCategorie": $ctlrCinema->listCategorie(); break; // Affiche la vue Liste Catégorie
+        case "detFilm": $ctlrCinema->detFilm($id); break; // Affiche la vue Detail Film
         case "detPersonne": $ctlrCinema->detPersonne($id); break; // Affiche la vue detail Personne
-        case "listRole": $ctlrCinema->listRole(); break;
-        case "detRole": $ctlrCinema->detRole($id); break;
-        case "listCategorie": $ctlrCinema->listCategorie(); break;
-        case "detCategorie": $ctlrCinema->detCategorie($id); break;
+        case "detRole": $ctlrCinema->detRole($id); break; // Affiche la vue Detail role
+        case "detCategorie": $ctlrCinema->detCategorie($id); break; // affiche la vue Detail Catégorie
         
+        case "gestion": $ctlrCinema->gestion(); break; // Affiche la vue GESTION
+
+        case "gestionRole" : $ctlrCinema->gestionRole(); break; // Affiche la vue gestion Role
+        case "gestionCategorie" : $ctlrCinema->gestionCategorie(); break; // Affiche la vue gestion Categorie
+        case "gestionPersonne": $ctlrCinema->gestionPersonne(); break;
+
+        case "addRole" : $ctlrCinema->addRole(); break; // Permet l'ajout d'un role
+        case "addCategorie": $ctlrCinema->addCategorie(); break; // Permet l'ajout d'une catégorie
     }
 }
 else {  // Sinon, j'affiche la page d'acceuil

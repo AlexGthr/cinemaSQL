@@ -27,7 +27,6 @@
             <p>Date de sortie : <?= $film["dateDeSortie"] ?></p>
             <p>Durée : <?= $film["dureeFilm"] ?></p>
             <p>Note : <?= $film["note"] ?></p>
-            <p>Catégorie : <?= $film['categories'] ?> </p>
 
         </div>
 

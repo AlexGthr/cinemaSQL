@@ -32,7 +32,7 @@
                     <li> <a href="index.php?action=listCategorie">Catégorie</a></li>
                 </ul>
                 </li>
-                <li> <a href="recap.php"> Infos </a></li>
+                <li> <a href="index.php?action=gestion"> Gestion </a></li>
             </ul>
             <div id="icons"></div> <!-- Icone menu Burger -->
         </nav>

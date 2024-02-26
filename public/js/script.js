@@ -11,3 +11,9 @@ icons.addEventListener("click", () => {
 listeDeroulante.addEventListener("click", () => {
     liste.classList.toggle("sous-nav");
 })
+
+function rediriger() {
+    let choixFormulaire = document.getElementById("choixFormulaire");
+    let formulaireValue = choixFormulaire.value;
+    window.location.href = 'index.php?action=gestion' + formulaireValue;
+}

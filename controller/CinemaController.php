@@ -1,5 +1,6 @@
 <?php 
 
+
 namespace Controller;
 use Model\Connect;
 
@@ -59,12 +60,8 @@ class CinemaController {
             film.titre,
             DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie,
             TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%Hh%i') AS dureeFilm,
-            film.note,
-            GROUP_CONCAT(DISTINCT categorie.type ORDER BY categorie.type ASC SEPARATOR ', ') AS categories
+            film.note
         FROM film
-        LEFT JOIN categoriser ON film.id_film = categoriser.id_film
-        LEFT JOIN categorie ON categoriser.id_categorie = categorie.id_categorie
-        GROUP BY film.id_film
         ");
         require "view/film/listeFilm.php";
      }
@@ -107,6 +104,19 @@ class CinemaController {
         WHERE film.id_film = :id
         ");
         $requeteActeurRole->execute(["id" => $id]);
+
+        $requeteCategorie = $pdo->prepare("
+        SELECT
+                categorie.id_categorie as idCategorie,
+                categorie.`type` AS typeCategorie
+        FROM categoriser
+        LEFT JOIN film ON categoriser.id_film = film.id_film
+        LEFT JOIN categorie ON categoriser.id_categorie = categorie.id_categorie
+        WHERE film.id_film = :id
+        ");
+
+        $requeteCategorie->execute(["id" => $id]);
+
         require "view/film/detailFilm.php";
      }
 
@@ -209,9 +219,9 @@ class CinemaController {
 	        role.nom AS nomRole,
 	        CONCAT(personne.prenom, ' ',personne.nom) AS nomActeurs
         FROM joue
-        INNER JOIN acteur ON joue.id_acteur = acteur.id_acteur
-        INNER JOIN personne ON acteur.id_personne = personne.id_personne
-        INNER JOIN role ON joue.id_role = role.id_role
+        LEFT JOIN acteur ON joue.id_acteur = acteur.id_acteur
+        LEFT JOIN personne ON acteur.id_personne = personne.id_personne
+        LEFT JOIN role ON joue.id_role = role.id_role
         ");
 
         require "view/role/listRole.php";
@@ -262,18 +272,105 @@ class CinemaController {
         $pdo = Connect::seConnecter();
 
         $requete = $pdo->prepare("
-        SELECT
-                film.id_film AS idFilm,
-                film.titre,
-                categorie.type AS typeCategorie,
-                DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie
-        FROM categoriser
-        LEFT JOIN film ON categoriser.id_film = film.id_film
-        LEFT JOIN categorie ON categoriser.id_categorie = categorie.id_categorie
+        SELECT 
+                categorie.id_categorie AS idCategorie,
+                categorie.type AS typeCategorie
+        FROM categorie
         WHERE categorie.id_categorie = :id
         ");
         $requete->execute(["id" => $id]);
 
+        $requeteFilmCategorie = $pdo->prepare("
+        SELECT
+                film.id_film AS idFilm,
+                film.titre,
+                categorie.type AS typeCategorie,
+                DATE_FORMAT(film.dateDeSortie, '%Y') AS dateDeSortie
+        FROM categoriser
+        INNER JOIN film ON categoriser.id_film = film.id_film
+        INNER JOIN categorie ON categoriser.id_categorie = categorie.id_categorie
+        WHERE categorie.id_categorie = :id
+        ORDER BY dateDeSortie
+        ");
+        $requeteFilmCategorie->execute(["id" => $id]);
+
         require "view/categorie/detailCategorie.php";
         }
+
+        public function gestion() {
+                require "view/formulaire/gestion.php";
+        }
+
+        public function gestionRole() {
+                require "view/formulaire/gestionRole.php";
+        }
+
+        public function gestionCategorie() {
+                require "view/formulaire/gestionCategorie.php";
+        }
+
+        public function gestionPersonne() {
+                require "view/formulaire/gestionPersonne.php";
+        }
+
+        public function addRole() {
+
+        session_start();
+
+        $pdo = Connect::seConnecter();
+
+        if(isset($_GET['action'])) {
+                $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_SPECIAL_CHARS);
+
+                if(!empty($role) && strlen($role) <= 20 && preg_match("/^[A-Za-z '-]+$/", $role)) {
+
+                        $requete = $pdo->prepare("
+                        INSERT INTO role
+                           (nom)
+                        VALUES
+                           (:nom)
+                        ");
+
+                        $requete->execute(['nom' => $role]);
+
+                        $_SESSION['message'] = "<p> Votre role à bien été enrengistré ! </p>";
+                        header("Location:index.php?action=gestionRole");
+                }
+                else {
+                        $_SESSION['message'] = "<p>Oups. Votre role n'as pas pu être enrengistré. Verifier vos informations.</p>";
+                        header("Location:index.php?action=gestionRole");
+                }
+        }
+        }
+
+        public function addCategorie() {
+
+                session_start();
+        
+                $pdo = Connect::seConnecter();
+        
+                if(isset($_GET['action'])) {
+                        $categorie = filter_input(INPUT_POST, "categorie", FILTER_SANITIZE_SPECIAL_CHARS);
+        
+                        if(!empty($categorie) && strlen($categorie) <= 20 && preg_match("/^[A-Za-z '-]+$/", $categorie)) {
+        
+                                $requete = $pdo->prepare("
+                                INSERT INTO categorie
+                                   (type)
+                                VALUES
+                                   (:nom)
+                                ON DUPLICATE KEY UPDATE type = :nom
+                                ");
+        
+                                $requete->execute(['nom' => $categorie]);
+        
+                                $_SESSION['message'] = "<p> Votre catégorie à bien été enrengistré ! </p>";
+                                header("Location:index.php?action=gestionCategorie");
+                        }
+                        else {
+                                $_SESSION['message'] = "<p>Oups. Votre catégorie n'as pas pu être enrengistré. Verifier vos informations.</p>";
+                                header("Location:index.php?action=gestionCategorie");
+                        }
+                }
+                }
 }

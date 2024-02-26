@@ -5,7 +5,7 @@
 
 <div class="detRoles">
 
-        <!-- Affiche la liste des acteurs -->
+        <!-- Affiche la liste des roles -->
     <?php 
         foreach($requete->fetchAll() as $role) { ?>
 
