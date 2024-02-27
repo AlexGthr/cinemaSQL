@@ -10,9 +10,9 @@
             <label for="choixFormulaire">Ajouter :</label>
 
             <select name="choix" id="choixFormulaire">
-                <option value="Role">Role</option>
                 <option value="Personne">Personne</option>
                 <option value="Film">Film</option>
+                <option value="Role">Role</option>
                 <option value="Categorie">Catégorie</option>
             </select>
 
@@ -23,14 +23,14 @@
 
     <h3> Ajouter une personne : </h3>
 
-    <form action="index.php?action=addPersonne" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
+    <form id="personne" action="index.php?action=addPersonne&type=" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
 <div>
     <div class="caseFormulaire">
     <p>
         <label> 
             Nom :
-            <input type="text" name="nom" required>
+            <input type="text" name="last" required>
         </label>
     </p>
     </div>
@@ -39,7 +39,7 @@
     <p>
         <label> 
             Prénom :
-            <input type="text" name="nom" required>
+            <input type="text" name="name" required>
         </label>
     </p>
     </div>
@@ -49,7 +49,7 @@
                 <label> 
                     Genre :
                     <select name="genre" required>
-                        <option value="M">Masculin</option>
+                        <option value="M" select>Masculin</option>
                         <option value="F">Féminin</option>
                     </select>
                 </label>
@@ -60,13 +60,31 @@
     <p>
                 <label> 
                     Date de Naissance :
-                    <input type="date" name="date_naissance" required>
+                    <input type="date" name="dateNaissance" required>
                 </label>
             </p>
     </div>
 
     <div class="caseFormulaire">
-            <!-- Ajout d'une photo -->
+    <p>
+        <label>
+            Photo (Format : jpg, png, jpeg - 1MO max):
+            <input type="file" name="file">
+        </label>
+    </p>
+    </div>
+
+    <div class="caseFormulaire">
+    <p>
+                <label> 
+                    Metier :
+                    <select name="metier" required>
+                        <option value="acteur" select>Acteur</option>
+                        <option value="realisateur">Réalisateur</option>
+                        <option value="lesdeux">Les deux</option>
+                    </select>
+                </label>
+            </p>
     </div>
 
     <div class="validation">

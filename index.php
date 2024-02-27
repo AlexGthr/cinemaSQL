@@ -35,6 +35,7 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
 
         case "addRole" : $ctlrCinema->addRole(); break; // Permet l'ajout d'un role
         case "addCategorie": $ctlrCinema->addCategorie(); break; // Permet l'ajout d'une catégorie
+        case "addPersonne": $ctlrCinema->addPersonne(); break;
     }
 }
 else {  // Sinon, j'affiche la page d'acceuil

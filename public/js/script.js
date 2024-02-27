@@ -12,8 +12,19 @@ listeDeroulante.addEventListener("click", () => {
     liste.classList.toggle("sous-nav");
 })
 
+
+
 function rediriger() {
     let choixFormulaire = document.getElementById("choixFormulaire");
     let formulaireValue = choixFormulaire.value;
     window.location.href = 'index.php?action=gestion' + formulaireValue;
 }
+
+
+let formulaire = document.getElementById("personne")
+
+formulaire.addEventListener('submit', function () {
+
+    let typeValue = formulaire.querySelector('[name="metier"]').value
+    formulaire.action += typeValue;
+});
