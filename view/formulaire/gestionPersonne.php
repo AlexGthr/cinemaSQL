@@ -67,8 +67,8 @@
 
     <div class="caseFormulaire">
     <p>
+        Photo (Format : jpg, png, jpeg - 1MO max):
         <label>
-            Photo (Format : jpg, png, jpeg - 1MO max):
             <input type="file" name="file">
         </label>
     </p>

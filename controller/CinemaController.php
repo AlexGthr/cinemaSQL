@@ -313,6 +313,28 @@ class CinemaController {
                 require "view/formulaire/gestionPersonne.php";
         }
 
+        public function gestionFilm() {
+
+                $pdo = Connect::seConnecter();
+
+                $requeteReal = $pdo->query("
+                SELECT
+                        CONCAT(personne.prenom, ' ',personne.nom) AS lesRealisateur, 
+                        realisateur.id_realisateur AS idRealisateur
+                FROM realisateur
+                INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+                ");
+
+                $requeteCategorie = $pdo->query("
+                SELECT 
+                        categorie.id_categorie AS idCategorie,
+                        categorie.`type` AS typeCategorie
+                FROM categorie
+                ");
+
+                require "view/formulaire/gestionFilm.php";
+        }
+
         public function addRole() {
 
         session_start();
@@ -511,6 +533,111 @@ class CinemaController {
                                 $_SESSION['message'] .= "<p> Votre REALISATEUR+ACTEUR est bien enrengistré </p>";
                                 header("Location:index.php?action=gestionPersonne");     
                         }
+                }
+        }
+
+        public function addFilm() {
+
+                session_start();
+                $pdo = Connect::seConnecter();
+
+                // Je vérifie que j'ai bien recu via le formulaire l'action :
+
+                if(isset($_GET['action']) && isset($_FILES['file'])) {
+
+        // Filtrage des données
+                        $titre = ucfirst(filter_input(INPUT_POST, "titre", FILTER_SANITIZE_SPECIAL_CHARS));
+                        $dateDeSortie = filter_input(INPUT_POST, "dateSortie", FILTER_SANITIZE_SPECIAL_CHARS);
+                        $duree = filter_input(INPUT_POST, "duree", FILTER_VALIDATE_INT);
+                        $synopsys = filter_input(INPUT_POST, "synopsys", FILTER_SANITIZE_SPECIAL_CHARS);
+                        $note = filter_input(INPUT_POST, "note", FILTER_VALIDATE_INT);
+                        $realisateur = filter_input(INPUT_POST, "realisateur", FILTER_VALIDATE_INT);
+
+                        // Je récupère l'image reçu
+                        $tmpName = $_FILES['file']['tmp_name'];
+                        $nameImg = $_FILES['file']['name'];
+                        $size = $_FILES['file']['size'];
+                        $erreur = $_FILES['file']['error'];
+
+                        // Je sépare le nom de l'extension
+                        $tabExtension = explode('.', $nameImg);
+                        // Je met l'extension en minuscule
+                        $extension = strtolower(end($tabExtension));
+                        // Je crée un tableau pour accepter UNIQUEMENT ce genre d'extension
+                        $extensions = ['jpg', 'png', 'jpeg'];
+                        // Et je crée une condition pour la taille MAX d'une image (1 MO ici)
+                        $maxSize = 1000000;
+
+                         // Je crée deux condition pour ne pas faire un IF à rallonge
+                        $condition1 = !empty($titre) && strlen($titre) <= 20 && preg_match("/^[A-Za-z0-9 '-]+$/", $titre);
+                        $condition2 = is_numeric($duree) && is_numeric($note) && is_numeric($realisateur);
+
+                        if (!$condition1) {
+                                $_SESSION['message'] .= "<p> Problème avec le titre. Merci de changer le titre </p>";
+                                header("Location:index.php?action=gestionFilm");
+                        } elseif (!is_numeric($duree) && $duree < 0) {
+                                $_SESSION['message'] .= "<p> La durée n'est pas correct. </p>";
+                                header("Location:index.php?action=gestionFilm");
+                        } elseif (!is_numeric($note) && $note > 5 && $note < 0) {
+                                $_SESSION['message'] .= "<p> La note n'est pas correct. </p>";
+                                header("Location:index.php?action=gestionFilm");
+                        } elseif (!is_numeric($realisateur)) {
+                                $_SESSION['message'] .= "<p> Problème avec le réalisateur. </p>";
+                                header("Location:index.php?action=gestionFilm");
+                        }  elseif ($condition1 && $condition2 && $size <= $maxSize && $erreur == 0) {
+                                
+                                $uniqueName = uniqid('', true);
+                                //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+                                $file = $uniqueName.".".$extension;
+                                move_uploaded_file($tmpName, './public/img/afficheFilm/'.$file);
+
+                                // Je crée le chemin de l'image pour la BDD
+                                $cheminfile = "public/img/afficheFilm/" . $file;
+
+                                $requete = $pdo->prepare("
+                                INSERT INTO film
+                                        (titre, dateDeSortie, duree, synopsis, note, affiche, id_realisateur)
+                                VALUES
+                                        (:titre, :dateDeSortie, :duree, :synopsis, :note, :affiche, :id_realisateur)
+                                ");
+        
+                                $requete->execute([
+                                        'titre' => $titre,
+                                        'dateDeSortie' => $dateDeSortie, 
+                                        'duree' => $duree, 
+                                        'synopsis' => $synopsys, 
+                                        'note' => $note,
+                                        'affiche' => $cheminfile,
+                                        'id_realisateur' => $realisateur]);
+
+                                $lastFilm = $pdo->lastInsertId();
+
+                                foreach ($_POST['categorie'] as $categorieFilm) {
+
+                                        $categorieFilm = filter_var($categorieFilm, FILTER_VALIDATE_INT);
+
+                                        if ($categorieFilm) {
+
+                                                $requeteCategorie = $pdo->prepare("
+                                                INSERT INTO categoriser
+                                                        (id_film, id_categorie)
+                                                VALUES
+                                                        (:id_film, :id_categorie)
+                                                ");
+                
+                                                $requeteCategorie->execute([
+                                                        'id_film' => $lastFilm,
+                                                        'id_categorie' => $categorieFilm]);
+                                        }
+                                        
+                                }
+
+
+                                $_SESSION['message'] .= "<p> Votre film est bien enrengistré </p>";
+                                header("Location:index.php?action=gestionFilm");
+                        }
+                        
+                        
                 }
         }
 }
