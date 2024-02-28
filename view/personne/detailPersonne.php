@@ -89,6 +89,7 @@
 
 <?php
     $titrePage = "Movies - Detail";
+    $backLastPage = "";
     $content = ob_get_clean();
 
     require_once "view/template.php";  

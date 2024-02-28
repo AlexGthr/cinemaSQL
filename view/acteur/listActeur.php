@@ -21,7 +21,7 @@
             <a href="index.php?action=detPersonne&id=<?= $acteur["id_personne"] ?>">
                 <p>« <?= $acteur["acteur"] ?> »</p>
             </a>
-            <p>Date de naissance : <?= $acteur["dateDeNaissance"] ?></p>
+            <p><span>Date de naissance : </span><?= $acteur["dateDeNaissance"] ?></p>
 
         </div>
 
@@ -31,6 +31,7 @@
 
 <?php
     $titrePage = "Movies - Acteurs";
+    $backLastPage = "";
     $content = ob_get_clean();
 
     require_once "view/template.php";  

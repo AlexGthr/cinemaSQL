@@ -17,11 +17,13 @@
 
         <div class="listRole">
 
+        <hr class="solid">
+
             <h2><a href="index.php?action=detRole&id=<?= $role["idRole"] ?>">
                 <?= $role["nomRole"] ?>
             </a></h2>
 
-            <h3>Acteur ayant joué ce role :</h3>
+            <h3>Acteur ayant joué ce role</h3>
 
             <p>
                 <a href="index.php?action=detPersonne&id=<?= $role['idPersonne']?>">
@@ -31,12 +33,15 @@
 
         </div>
 
+        <hr class="solid">
+
         <?php } ?>
 
 </div>
 
 <?php
     $titrePage = "Movies - Role";
+    $backLastPage = "";
     $content = ob_get_clean();
 
     require_once "view/template.php";  

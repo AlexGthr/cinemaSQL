@@ -13,6 +13,7 @@
                 <option value="Film">Film</option>
                 <option value="Role">Role</option>
                 <option value="Categorie">Catégorie</option>
+                <option value="Casting">Casting</option>
             </select>
 
             <button type="button" onclick="rediriger()">Valider</button>
@@ -21,8 +22,10 @@
     </div>
 
     <h3> Merci de faire un choix dans la liste </h3>
+
 <?php
     $titrePage = "Movies - Gestion";
+    $backLastPage = "";
     $content = ob_get_clean();
 
     require_once "view/template.php";  

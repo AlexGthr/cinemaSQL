@@ -33,11 +33,13 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
         case "gestionCategorie" : $ctlrCinema->gestionCategorie(); break; // Affiche la vue gestion Categorie
         case "gestionPersonne": $ctlrCinema->gestionPersonne(); break;
         case "gestionFilm": $ctlrCinema->gestionFilm(); break;
+        case "gestionCasting": $ctlrCinema->gestionCasting(); break;
 
         case "addRole" : $ctlrCinema->addRole(); break; // Permet l'ajout d'un role
         case "addCategorie": $ctlrCinema->addCategorie(); break; // Permet l'ajout d'une catégorie
         case "addPersonne": $ctlrCinema->addPersonne(); break;
         case "addFilm": $ctlrCinema->addFilm(); break;
+        case "addCasting": $ctlrCinema->addCasting(); break;
     }
 }
 else {  // Sinon, j'affiche la page d'acceuil

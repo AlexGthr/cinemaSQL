@@ -41,6 +41,7 @@
 
 <?php
     $titrePage = "Movies - Role";
+    $backLastPage = "<a href='index.php?action=listRole'>Revenir aux roles</a>";
     $content = ob_get_clean();
 
     require_once "view/template.php";  

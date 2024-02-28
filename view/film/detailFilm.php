@@ -2,7 +2,6 @@
     ob_start();
 ?>
 
-
 <div class="detFilms">
 
         <!-- Affiche le detail d'un film -->
@@ -52,6 +51,7 @@
 
 <?php
     $titrePage = "Movies - Films";
+    $backLastPage = "<a href='index.php?action=listFilm'>Revenir aux films</a>";
     $content = ob_get_clean();
 
     require_once "view/template.php";  

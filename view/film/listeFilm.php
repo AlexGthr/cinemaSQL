@@ -5,7 +5,6 @@
     <label for="orderby">Trier par :</label>
 
         <select name="order" id="orderby">
-            <option value="">Catégorie</option>
             <option value="date">Date de sortie</option>
             <option value="duree">Durée</option>
             <option value="note">Note</option>
@@ -18,15 +17,15 @@
     <?php 
         foreach($requete->fetchAll() as $film) { ?>
 
-        <div class="acceuil">
+        <div class="acceuilFilm">
 
             <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
             <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
-                <p>« <?= $film["titre"] ?> »</p>
+                <p id="titleFilm"><?= $film["titre"] ?></p>
             </a>
-            <p>Date de sortie : <?= $film["dateDeSortie"] ?></p>
-            <p>Durée : <?= $film["dureeFilm"] ?></p>
-            <p>Note : <?= $film["note"] ?></p>
+            <p><span id="note"> <?= $film["note"] ?></span></p>
+            <p><span>Durée :</span> <?= $film["dureeFilm"] ?></p>
+            <p><span>Date de sortie :</span> <?= $film["dateDeSortie"] ?></p>
 
         </div>
 
@@ -36,6 +35,7 @@
 
 <?php
     $titrePage = "Movies - Films";
+    $backLastPage = "";
     $content = ob_get_clean();
 
     require_once "view/template.php";  

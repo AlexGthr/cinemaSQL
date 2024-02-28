@@ -4,14 +4,14 @@
 
     <p>**********</br>ICI UN CAROUSSEL DANS LE FUTUR</br>**********</p>
 
-    <h1 id="titleSection">A l'affiche !</h1>
+    <h1 id="titleSection" class="SectionTitle">A l'affiche !</h1>
 
 <div class="afficherTitreFilm">
 
         <!-- Affiche les affiches d'un film et le titre -->
     <?php 
         foreach($requete->fetchAll() as $film) { ?>
-        <div class="acceuil">
+        <div class="film">
             <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
             <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>"><?= $film["titre"] ?></a>
         </div>
@@ -19,9 +19,9 @@
 
 </div>
 
-    <a href='index.php?action=listFilm'>view all</a>
+    <a href='index.php?action=listFilm' class="viewAll">view all</a>
 
-    <h1 id="titleSection">Acteur star !</h1>
+    <h1 id="titleSection" class="SectionTitle">Acteur star !</h1>
 
 <div class="afficherActeurs">
 
@@ -36,7 +36,7 @@
 
 </div>
 
-    <a href='index.php?action=listActeur'>view all</a>
+    <a href='index.php?action=listActeur' class="viewAll">view all</a>
 
     <h1 id="titleSection">Réalisateur du moment !</h1>
 
@@ -52,11 +52,12 @@
         <?php } ?>
 
 </div>
-        <a href='index.php?action=listReal'>view all</a>
+        <a href='index.php?action=listReal' class="viewAll">view all</a>
 
 <?php
 
     $titrePage = "Movies - Acceuil";
+    $backLastPage = "";
     $content = ob_get_clean();
 
     require_once "view/template.php"; 

@@ -8,7 +8,7 @@
         <!-- Affiche la liste des categories -->
     <?php 
 
-        echo "<h2> Catégorie de film : </h2>",
+        echo "<h2> Catégorie de film </h2>",
                 "<ul>";
 
         foreach($requete->fetchAll() as $categorie) { ?>
@@ -18,12 +18,15 @@
                 <?= $categorie['type'] ?></a>
             </li>
 
+            <hr class="solid">
+
         <?php } ?>
 
 </div>
 
 <?php
     $titrePage = "Movies - Catégorie";
+    $backLastPage = "";
     $content = ob_get_clean();
 
     require_once "view/template.php";  
