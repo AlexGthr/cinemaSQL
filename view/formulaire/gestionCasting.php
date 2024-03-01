@@ -22,14 +22,14 @@
 
     </div>
 
-    <h3> Ajouter un casting : </h3>
+    <h3 class="titleFormulaire"> Ajouter un casting : </h3>
 
     <form action="index.php?action=addCasting" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
     <div class="caseFormulaire">
     <p>
-        Film :
         <label>
+            Film :
             <select name="film" required>
 
                 <?php foreach($requeteFilm->fetchall() as $film) { ?>
@@ -47,8 +47,8 @@
 
     <div class="caseFormulaire">
     <p>
-        Acteur :
         <label>
+            Acteur :
             <select name="acteur" required>
 
                 <?php foreach($requeteActeur->fetchall() as $acteur) { ?>
@@ -66,8 +66,8 @@
 
     <div class="caseFormulaire">
     <p>
-        Role :
         <label>
+            Role :
             <select name="role" required>
 
                 <?php foreach($requeteRole->fetchall() as $role) { ?>

@@ -158,7 +158,7 @@ nav li {
 }
 
 .SectionTitle {
-    width: 60%;
+    width: fit-content;
 }
 
 .afficherTitreFilm {
@@ -183,6 +183,7 @@ nav li {
 }
 
 .film img {
+    object-fit: cover;
     margin-bottom: 5px;
     width: 90%;
 }
@@ -207,6 +208,7 @@ nav li {
 .afficheActeur, .afficheReal {
     height: 90px;
     width: 90px;
+    object-fit: cover;
     border-radius: 50px;
 }
 
@@ -461,7 +463,7 @@ a {
 }
 
 .detFilms p {
-    padding-left: 0;
+    padding-left: 5px;
     padding-bottom: 5px;
 }
 
@@ -469,6 +471,171 @@ a {
     font-weight: 600;
     font-size: 1.2em;
 }
+
+.listRoleFilm h2 {
+    padding: 15px 0px;
+}
+
+.listRoleFilm li {
+    padding: 15px 0px;
+    text-align: center;
+}
+
+/* *******************************
+*****  VUES Detail personne  *****
+******************************* */
+
+.detailPersonne figure {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+.detailPersonne img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+.detailPersonne h2 {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.detailPersonne li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.detailPersonne p {
+    font-size: 1.2em;
+}
+
+.noFilm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 10px;
+    text-align: center;
+}
+
+.DetPersonneTitle {
+    padding-top: 15px;
+}
+
+/* *******************************
+************  GESTION  ************
+******************************* */
+
+.wrapperGestion {
+    height: 100%;
+}
+
+#monFormulaire {
+    font-size: 2em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#monFormulaire label {
+    padding: 10px 0;
+}
+
+#monFormulaire button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-color: #004170;
+    background-color: #2585ca17;
+    border-radius: 10px;
+}
+
+#choixFormulaire {
+    height: 50px;
+    text-align: center;
+    width: 80%;
+}
+
+.wrapperGestion figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapperGestion h3 {
+    padding-top: 15px;
+}
+
+.wrapperGestion img {
+    padding: 15px 0;
+    height: 300px;
+    width: 80%;
+}
+
+.titleFormulaire {
+    font-size: 2em;
+    padding: 15px 0;
+}
+
+.caseFormulaire label {
+    font-size: 1.3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.caseFormulaire input {
+    height: 30px;
+    width: 70%;
+    text-align: center;
+    margin: 5px;
+}
+
+.caseFormulaire select {
+    height: 30px;
+    width: 70%;
+    text-align: center;
+    margin: 5px;
+}
+
+.caseFormulaireCheckbox legend {
+    font-size: 1.3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caseFormulaireCheckbox label {
+    font-size: 1.2em;
+    padding: 5px 5px;
+}
+
+.checkboxAll {
+    padding-left: 15px;
+}
+
+.validation {
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.validation input {
+    padding: 20px 40px;
+    border-radius: 20px;
+    border-color: #004170;
+    background-color: #2585ca17;
+}
+
+
+
+
+
 
 
 /* *******************************

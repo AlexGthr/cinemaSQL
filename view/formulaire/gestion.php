@@ -1,6 +1,11 @@
 <?php 
     ob_start();
 ?>
+<div class='wrapperGestion'>
+
+<h1 id="titleSection" class="SectionTitle">Gestion</h1>
+
+
     <div class="listeFormulaire">
 
         
@@ -23,6 +28,10 @@
 
     <h3> Merci de faire un choix dans la liste </h3>
 
+    <figure>
+        <img src='public/img/thinker.png' title='Thinker waiting'>
+    </figure>
+</div>
 <?php
     $titrePage = "Movies - Gestion";
     $backLastPage = "";

@@ -9,6 +9,8 @@
             <option value="date">Date</option>
         </select>
 
+        <h1 id="titleSection" class="SectionTitle">Nos roles</h1>
+
 <div class="listRoles">
 
         <!-- Affiche la liste des roles -->

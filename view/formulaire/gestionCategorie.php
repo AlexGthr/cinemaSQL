@@ -22,11 +22,11 @@
 
     </div>
 
-    <h3> Ajouter une catégorie : </h3>
+    <h3 class="titleFormulaire"> Ajouter une catégorie : </h3>
 
     <form action="index.php?action=addCategorie" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
-<div>
+    <div class="caseFormulaire">
     <p>
         <label> 
             Nom de la catégorie :

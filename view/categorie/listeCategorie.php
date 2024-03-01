@@ -2,6 +2,8 @@
     ob_start();
 ?>
 
+<h1 id="titleSection" class="SectionTitle">Nos catégories</h1>
+
 
 <div class="listCategorie">
 

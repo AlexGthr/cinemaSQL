@@ -22,7 +22,7 @@
 
     </div>
 
-    <h3> Ajouter une personne : </h3>
+    <h3 class="titleFormulaire"> Ajouter une personne : </h3>
 
     <form id="personne" action="index.php?action=addPersonne&type=" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
@@ -68,8 +68,8 @@
 
     <div class="caseFormulaire">
     <p>
-        Photo (Format : jpg, png, jpeg - 1MO max):
         <label>
+            Photo (Format : jpg, png, jpeg - 1MO max):
             <input type="file" name="file">
         </label>
     </p>

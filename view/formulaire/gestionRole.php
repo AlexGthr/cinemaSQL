@@ -22,11 +22,11 @@
 
     </div>
 
-    <h3> Ajouter un role : </h3>
+    <h3 class="titleFormulaire"> Ajouter un role : </h3>
 
     <form action="index.php?action=addRole" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
-<div>
+    <div class="caseFormulaire">
     <p>
         <label> 
             Nom du role :

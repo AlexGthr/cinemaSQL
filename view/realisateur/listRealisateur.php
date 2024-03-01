@@ -9,6 +9,8 @@
             <option value="date">Date de naissance</option>
         </select>
 
+        <h1 id="titleSection" class="SectionTitle">Nos Réalisateurs</h1>
+
 <div class="listRealisateurs">
 
         <!-- Affiche la liste des réalisateurs -->

@@ -22,7 +22,7 @@
 
     </div>
 
-    <h3> Ajouter une personne : </h3>
+    <h3 class="titleFormulaire"> Ajouter un film : </h3>
 
     <form id="personne" action="index.php?action=addFilm" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
@@ -57,8 +57,8 @@
     <div class="caseFormulaire">
     <p>
                 <label> 
-                    Synopsys (255 caractères max):
-                    <textarea name="synopsys" placeholder="Votre texte ici..."></textarea>
+                    Synopsis :
+                    <textarea name="synopsys" placeholder="Votre texte ici..." rows="5"></textarea>
                 </label>
             </p>
     </div>
@@ -90,8 +90,8 @@
 
     <div class="caseFormulaire">
     <p>
-        Réalisateur :
         <label>
+            Réalisateur :
             <select name="realisateur" required>
 
                 <?php foreach($requeteReal->fetchall() as $real) { ?>
@@ -107,18 +107,20 @@
     </p>
     </div>
 
-    <div class="caseFormulaire">
+    <div class="caseFormulaireCheckbox">
     <p>
-        Catégorie :
-        <label>
+        <legend class='checkboxForm'>
+            Catégorie :
+        </legend>
 
                 <?php foreach($requeteCategorie->fetchall() as $categorie) { ?>
                     <br>
-                    <input type="checkbox" name="categorie[]" value="<?= $categorie['idCategorie'] ?>"> <?= $categorie['typeCategorie'] ?>
+                <div class='checkboxAll'>
+                    <input type="checkbox" name="categorie[]" id='<?= $categorie['typeCategorie'] ?>' value="<?= $categorie['idCategorie'] ?>">
+                     <label for='<?= $categorie['typeCategorie'] ?>'> <?= $categorie['typeCategorie'] ?>  </label>
+                </div>
                     
               <?php  } ?>
-
-        </label>
     </p>
     </div>
 

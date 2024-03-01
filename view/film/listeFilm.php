@@ -10,6 +10,8 @@
             <option value="note">Note</option>
         </select>
 
+        <h1 id="titleSection" class="SectionTitle">Nos films</h1>
+
 <div class="listFilms">
 
 
@@ -19,8 +21,8 @@
 
         <div class="acceuilFilm">
 
-            <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
             <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
+            <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
                 <p id="titleFilm"><?= $film["titre"] ?></p>
             </a>
             <p><span id="note"> <?= $film["note"] ?></span></p>

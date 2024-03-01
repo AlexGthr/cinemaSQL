@@ -35,17 +35,22 @@
     ?>
 
         <!-- Affiche les roles et leurs acteur dans le film -->
-    <?php 
-        echo "<ul> Role / Acteur : ";
-        foreach($requeteActeurRole->fetchAll() as $liste) { ?>
+
+        <div class='listRoleFilm'>
+            <h2> Role / Acteur </h2>
+                <ul>
+        <hr class='solid'>
+
+  <?php      foreach($requeteActeurRole->fetchAll() as $liste) { ?>
 
             <li class="roleActeur">
                 <a href='index.php?action=detRole&id=<?= $liste['idRole'] ?>'> <?= $liste['nomRole'] ?></a> 
                 &#x2904;
                 <a href='index.php?action=detPersonne&id=<?= $liste['idPersonne'] ?>'> <?= $liste['nomActeurs'] ?></a>
             </li>
+            <hr class="solid">
 
-       <?php }; echo "</ul>"; ?>
+       <?php }; echo "</ul></div>"; ?>
 
 </div>
 
