@@ -33,13 +33,13 @@
             <input type="text" name="role" required>
         </label>
     </p>
+    </div>
 
     <div class="validation">
         <p>
             <input type="submit" name="submit" value="Ajouter un role">
         </p>
     </div>
-</div>
 
 </form>
 

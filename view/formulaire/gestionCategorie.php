@@ -33,6 +33,7 @@
             <input type="text" name="categorie" required>
         </label>
     </p>
+</div>
 
     <div class="validation">
         <p>

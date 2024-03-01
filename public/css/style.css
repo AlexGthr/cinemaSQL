@@ -481,6 +481,18 @@ a {
     text-align: center;
 }
 
+.editOrDel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editOrDel i {
+    font-size: 1.5em;
+    padding: 5px 20px;
+    color: #004170;
+}
+
 /* *******************************
 *****  VUES Detail personne  *****
 ******************************* */
@@ -521,6 +533,37 @@ a {
 
 .DetPersonneTitle {
     padding-top: 15px;
+}
+
+/* *******************************
+*****  VUES Detail personne  *****
+******************************* */
+
+.detRoles figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.detRoles img {
+    height: 400px;
+    width: 80%;
+    border-radius: 14px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+}
+
+.detRoles h2 {
+    text-align: center;
+}
+
+.detRoles h3 {
+    padding: 15px 0;
+    text-align: center;
+}
+
+.detRoles p {
+    text-align: center;
 }
 
 /* *******************************
@@ -623,6 +666,7 @@ a {
     margin: 25px 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .validation input {

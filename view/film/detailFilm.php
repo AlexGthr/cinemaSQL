@@ -54,6 +54,14 @@
 
 </div>
 
+<div class="editOrDel">
+
+    <a href='index.php?action=editerFilm&id=<?= $film['id_film'] ?>' title="edit"> <i class="fa-solid fa-pen-to-square"></i></a>
+
+    <a href="#" title="trash"> <i class="fa-regular fa-trash-can"></i></a>
+
+</div>
+
 <?php
     $titrePage = "Movies - Films";
     $backLastPage = "<a href='index.php?action=listFilm'>Revenir aux films</a>";

@@ -108,7 +108,7 @@ class FilmController {
         ");
 
         require "view/formulaire/gestionFilm.php";
-}
+    }
 
     public function addFilm() {
 
@@ -212,6 +212,55 @@ class FilmController {
             }
             
             
+        }
+    }
+
+    public function editFilms($id) {
+
+        $pdo = Connect::seConnecter();
+
+        if(!Service::exist("film", $id)) {
+                header("Location:index.php?action=listFilm");
+                exit;
+        } else {
+
+        $requete = $pdo->prepare("
+        SELECT
+                film.id_film,
+                film.titre AS titre,
+                film.dateDeSortie,
+                film.duree,
+                film.synopsis AS synopsis,
+                film.note,
+                film.affiche,
+                film.id_realisateur AS idReal,
+                categoriser.id_categorie AS idCateg,
+                CONCAT(personne.prenom, ' ',personne.nom) AS lesRealisateur
+        FROM film
+        INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur
+        INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+        INNER JOIN categoriser ON film.id_film = categoriser.id_film
+        WHERE film.id_film = :id
+        ");
+
+        $requete->execute(["id" => $id]);
+
+        $requeteReal = $pdo->query("
+        SELECT
+                CONCAT(personne.prenom, ' ',personne.nom) AS lesRealisateur, 
+                realisateur.id_realisateur AS idRealisateur
+        FROM realisateur
+        INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+        ");
+
+        $requeteCategorie = $pdo->query("
+        SELECT 
+                categorie.id_categorie AS idCategorie,
+                categorie.`type` AS typeCategorie
+        FROM categorie
+        ");
+
+        require "view/formulaire/editFilm.php";
         }
     }
 }

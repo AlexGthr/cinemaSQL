@@ -9,7 +9,6 @@
     <?php 
         foreach($requete->fetchAll() as $role) { ?>
 
-        <div class="detRole">
 
             <figure>
                 <img src='<?= $role['affiche'] ?>'>
@@ -19,21 +18,20 @@
                 <?= $role["nomRole"] ?>
             </a></h2>
 
-            <h3>Acteur ayant joué ce role :</h3>
+            <h3>Acteur ayant joué ce role</h3>
 
             <p>
                 <a href="index.php?action=detPersonne&id=<?= $role['idPersonne']?>">
                 <?= $role['nomActeurs'] ?>
                 </a>
 
-                dans le film : 
+            dans le film : 
 
                 <a href="index.php?action=detFilm&id=<?= $role['idFilm'] ?>">
                 <?= $role['titreFilm'] ?>
                 </a>
             </p><br>
 
-        </div>
 
         <?php } ?>
 

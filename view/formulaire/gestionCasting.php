@@ -85,10 +85,9 @@
 
     <div class="validation">
         <p>
-            <input type="submit" name="submit" value="Ajouter un role">
+            <input type="submit" name="submit" value="Ajouter un casting">
         </p>
     </div>
-</div>
 
 </form>
 
