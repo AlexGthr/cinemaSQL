@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   PRIMARY KEY (`id_categorie`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table cinema.categorie : ~7 rows (environ)
+-- Listage des données de la table cinema.categorie : ~6 rows (environ)
 INSERT INTO `categorie` (`id_categorie`, `type`) VALUES
 	(1, 'Fantastique'),
 	(2, 'Super héros'),
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `categoriser` (
   CONSTRAINT `categoriser_ibfk_2` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id_categorie`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table cinema.categoriser : ~16 rows (environ)
+-- Listage des données de la table cinema.categoriser : ~19 rows (environ)
 INSERT INTO `categoriser` (`id_film`, `id_categorie`) VALUES
 	(1, 1),
 	(3, 1),
@@ -129,9 +129,9 @@ INSERT INTO `film` (`id_film`, `titre`, `dateDeSortie`, `duree`, `synopsis`, `no
 	(1, 'Spider Man', '2002-06-12', 121, 'L\'histoire d\'un homme qui se fais piquer par une araignée et deviens un super héros', 4.00, 'public/img/afficheFilm/spiderman.jpg', 1),
 	(2, 'The Big Bang Theory', '2024-09-15', 155, 'Découvrez la vie et les galères de trois scientifiques et un ingénieur.', 5.00, 'public/img/afficheFilm/bigbangtheory.jpg', 2),
 	(3, 'Avatar', '2009-12-16', 162, 'Sur le monde extraterrestre luxuriant de Pandora vivent les Na\'vi, des êtres qui semblent primitifs, mais qui sont très évolués.', 5.00, 'public/img/afficheFilm/avatar.jpg', 3),
-	(4, 'Barbie', '2023-07-19', 114, 'Barbie, qui vit à Barbie Land, est expulsée du pays pour être loin d\'être une poupée à l\'apparence parfaite; n\'ayant nulle part où aller, elle part pour le monde humain et cherche le vrai bonheur.', 5.00, '', 4),
-	(5, 'Suicide Squad', '2016-08-03', 123, 'Face à une menace aussi énigmatique qu\'invincible, l\'agent secret Amanda Waller réunit une armada de crapules de la pire espèce. Armés jusqu\'aux dents par le gouvernement, ces super-méchants s\'embarquent alors pour une mission-suicide.', 3.00, '', 5),
-	(6, 'PHP - Le film', '2024-01-17', 167, 'Un film ou le héros sauve le monde avec une function PHP', 2.00, NULL, 2),
+	(4, 'Barbie', '2023-07-19', 114, 'Barbie, qui vit à Barbie Land, est expulsée du pays pour être loin d\'être une poupée à l\'apparence parfaite; n\'ayant nulle part où aller, elle part pour le monde humain et cherche le vrai bonheur.', 5.00, 'public/img/afficheFilm/barbie.jpg', 4),
+	(5, 'Suicide Squad', '2016-08-03', 123, 'Face à une menace aussi énigmatique qu\'invincible, l\'agent secret Amanda Waller réunit une armada de crapules de la pire espèce. Armés jusqu\'aux dents par le gouvernement, ces super-méchants s\'embarquent alors pour une mission-suicide.', 3.00, 'public/img/afficheFilm/suicidesquad.jpg', 5),
+	(6, 'PHP - Le film', '2024-01-17', 167, 'Un film ou le héros sauve le monde avec une function PHP', 2.00, 'public/img/afficheFilm/phplefilm.png', 2),
 	(11, 'Kill Bill', '2003-11-26', 135, 'Au cours d&#39;une cérémonie de mariage en plein désert, un commando fait irruption dans la chapelle et tire sur les convives. Laissée pour morte, la mariée enceinte retrouve ses esprits après un coma de quatre ans.', 3.00, 'public/img/afficheFilm/65ddfa202bd030.90129246.jpg', 10);
 
 -- Listage de la structure de table cinema. joue
@@ -178,7 +178,8 @@ INSERT INTO `joue` (`id_film`, `id_acteur`, `id_role`) VALUES
 	(6, 24, 29),
 	(5, 25, 24),
 	(5, 26, 25),
-	(11, 30, 29);
+	(11, 30, 29),
+	(11, 33, 29);
 
 -- Listage de la structure de table cinema. personne
 CREATE TABLE IF NOT EXISTS `personne` (
