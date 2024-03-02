@@ -33,7 +33,8 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
         case "detFilm": $ctlrFilm->detFilm($id); break; // Affiche la vue Detail Film
         case "gestionFilm": $ctlrFilm->gestionFilm(); break;
         case "addFilm": $ctlrFilm->addFilm(); break;
-        case "editerFilm": $ctlrFilm->editFilms($id); break;
+        case "editerFilm": $ctlrFilm->editerFilm($id); break;
+        case "editFilm": $ctlrFilm->editFilm($id); break;
 
         case "listActeur": $ctlrPersonne->listActeur(); break; // Affiche la vue Liste Acteur
         case "listReal": $ctlrPersonne->listRealisateur(); break; // Affiche la vue Liste Réalisateur

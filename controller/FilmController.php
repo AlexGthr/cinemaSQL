@@ -215,7 +215,7 @@ class FilmController {
         }
     }
 
-    public function editFilms($id) {
+    public function editerFilm($id) {
 
         $pdo = Connect::seConnecter();
 
@@ -260,7 +260,105 @@ class FilmController {
         FROM categorie
         ");
 
-        require "view/formulaire/editFilm.php";
+        $requeteCategoriesFilm = $pdo->prepare("
+        SELECT id_categorie
+        FROM categoriser
+        WHERE id_film = :id
+        ");
+        $requeteCategoriesFilm->execute(["id" => $id]);
+
+        require "view/film/editFilm.php";
         }
     }
+
+    public function editFilm($id) {
+
+        session_start();
+        $pdo = Connect::seConnecter();
+
+        // Je vérifie que j'ai bien recu via le formulaire l'action :
+
+        if(isset($_GET['action'])) {
+
+            // Filtrage des données
+            $titre = ucfirst(filter_input(INPUT_POST, "titre", FILTER_SANITIZE_SPECIAL_CHARS));
+            $dateDeSortie = filter_input(INPUT_POST, "dateSortie", FILTER_SANITIZE_SPECIAL_CHARS);
+            $duree = filter_input(INPUT_POST, "duree", FILTER_VALIDATE_INT);
+            $synopsys = filter_input(INPUT_POST, "synopsys", FILTER_SANITIZE_SPECIAL_CHARS);
+            $note = filter_input(INPUT_POST, "note", FILTER_VALIDATE_INT);
+            $realisateur = filter_input(INPUT_POST, "realisateur", FILTER_VALIDATE_INT);
+
+             // Je crée deux condition pour ne pas faire un IF à rallonge
+            $condition1 = !empty($titre) && strlen($titre) <= 20 && preg_match("/^[A-Za-z0-9 '-]+$/", $titre);
+            $condition2 = is_numeric($duree) && is_numeric($note) && is_numeric($realisateur);
+
+            if (!$condition1) {
+                    $_SESSION['message'] .= "<p> Problème avec le titre. Merci de changer le titre </p>";
+                    header("Location:index.php?action=gestionFilm");
+            } elseif (!is_numeric($duree) && $duree < 0) {
+                    $_SESSION['message'] .= "<p> La durée n'est pas correct. </p>";
+                    header("Location:index.php?action=gestionFilm");
+            } elseif (!is_numeric($note) && $note > 5 && $note < 0) {
+                    $_SESSION['message'] .= "<p> La note n'est pas correct. </p>";
+                    header("Location:index.php?action=gestionFilm");
+            } elseif (!is_numeric($realisateur)) {
+                    $_SESSION['message'] .= "<p> Problème avec le réalisateur. </p>";
+                    header("Location:index.php?action=gestionFilm");
+            }  elseif ($condition1 && $condition2) {
+                $requete = $pdo->prepare("
+                UPDATE film
+                SET 
+                        titre = :titre,
+                        dateDeSortie = :dateDeSortie,
+                        duree = :duree,
+                        synopsis = :synopsis,
+                        note = :note,
+                        id_realisateur = :id_realisateur
+                WHERE film.id_film = :id
+                ");
+
+                $requete->execute([
+                        'titre' => $titre,
+                        'dateDeSortie' => $dateDeSortie, 
+                        'duree' => $duree, 
+                        'synopsis' => $synopsys, 
+                        'note' => $note,
+                        'id_realisateur' => $realisateur,
+                        'id' => $id]);
+
+                $requeteDeleteCategories = $pdo->prepare("
+                        DELETE FROM categoriser
+                        WHERE id_film = :id_film 
+                        ");
+
+                $requeteDeleteCategories->execute(['id_film' => $id]);
+
+                foreach ($_POST['categorie'] as $categorieFilm) {
+                        $categorieFilm = filter_var($categorieFilm, FILTER_VALIDATE_INT);
+                        
+                        if ($categorieFilm) {
+
+
+                $requeteCategorie = $pdo->prepare("
+                        INSERT INTO categoriser (id_film, id_categorie)
+                        VALUES (:id_film, :id_categorie)
+                        ON DUPLICATE KEY UPDATE id_categorie = :id_categorie
+                        ");
+
+                $requeteCategorie->execute([
+                        'id_film' => $id,
+                        'id_categorie' => $categorieFilm
+                        ]);
+                }
+                }
+                        
+                }
+        
+        $_SESSION['message'] .= "<p> Modification reussi !</p>
+                                <a href='index.php?action=detFilm&id=". $id . "'> Accès au film </a>";
+        header("Location:index.php?action=editerFilm&id=$id");
+
+        }
+     }
+
 }

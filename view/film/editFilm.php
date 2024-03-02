@@ -1,13 +1,22 @@
 <?php 
+    session_start();
     ob_start();
+?>
+
+<?php
+    if (isset($_SESSION['message'] )){
+        echo $_SESSION['message'] ;
+        unset($_SESSION['message'] );
+    }
 ?>
 
 
 <h3 class="titleFormulaire"> Modifier un film : </h3>
 
-<form id="personne" action="index.php?action=addFilm" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
-
 <?php $film = $requete->fetch(); ?>
+
+<form id="personne" action="index.php?action=editFilm&id=<?= $film['id_film']?>" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
+
 
 <div>
 <div class="caseFormulaire">
@@ -68,7 +77,7 @@
 <p>
     <label>
         Affiche (Format : jpg, png, jpeg - 1MO max):
-        <input type="file" name="file">
+        <input type="file" name="file" value="<?= $film['affiche'] ?>">
     </label>
 </p>
 </div>
@@ -107,23 +116,20 @@
         Catégorie :
     </legend>
 
-            <?php foreach($requeteCategorie->fetchall() as $categorie) { ?>
-            
-            <?php if($categorie['idCategorie'] === $film['idCateg']) {
-                $isChecked = true;
-            }
-            else {
-                $isChecked = false;
-            } ?>
+<?php    
 
-            <br><div class='checkboxAll'>
-                <input type="checkbox" name="categorie[]" id='<?= $categorie['typeCategorie'] ?>' value="<?= $categorie['idCategorie'] ?>" <?= $isChecked ?>>
-                 <label for='<?= $categorie['typeCategorie'] ?>'> <?= $categorie['typeCategorie'] ?>  </label>
-            </div>
-                
-          <?php  } ?>
-</p>
-</div>
+$filmCategories = $requeteCategoriesFilm->fetchAll();
+
+foreach ($requeteCategorie->fetchAll() as $categorie) { 
+    $isChecked = in_array($categorie['idCategorie'], array_column($filmCategories, 'id_categorie'));
+?>
+    <br>
+    <div class='checkboxAll'>
+        <input type="checkbox" name="categorie[]" id='<?= $categorie['typeCategorie'] ?>' value="<?= $categorie['idCategorie'] ?>" <?= $isChecked ? 'checked' : '' ?>>
+        <label for='<?= $categorie['typeCategorie'] ?>'> <?= $categorie['typeCategorie'] ?>  </label>
+    </div>
+
+<?php } ?>
 
 <div class="validation">
     <p>
@@ -133,13 +139,6 @@
 </div>
 
 </form>
-
-<?php
-    if (isset($_SESSION['message'] )){
-        echo $_SESSION['message'] ;
-        unset($_SESSION['message'] );
-    }
-?>
 
 <?php
     $titrePage = "Movies - Gestion";

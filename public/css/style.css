@@ -493,6 +493,11 @@ a {
     color: #004170;
 }
 
+.noteCenter {
+    padding: 15px 0;
+    text-align: center;
+}
+
 /* *******************************
 *****  VUES Detail personne  *****
 ******************************* */

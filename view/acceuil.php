@@ -12,8 +12,12 @@
     <?php 
         foreach($requete->fetchAll() as $film) { ?>
         <div class="film">
+            
+        <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
             <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
+        </a>
             <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>"><?= $film["titre"] ?></a>
+        
         </div>
         <?php } ?>
 
@@ -29,8 +33,12 @@
     <?php 
         foreach($requeteA->fetchAll() as $acteur) { ?>
         <div class="acceuil">
+            
+        <a href='index.php?action=detPersonne&id=<?= $acteur['id_personne']?>'>
             <img class="afficheActeur" src='<?= $acteur["photo"] ?>' title='<?= $acteur["acteur"] ?>'>
+        </a>
             <a href='index.php?action=detPersonne&id=<?= $acteur['id_personne']?>'><?= $acteur["acteur"] ?></a></br>
+        
         </div>
         <?php } ?>
 
@@ -46,8 +54,12 @@
     <?php 
         foreach($requeteR->fetchAll() as $realisateur) { ?>
         <div class="acceuil">
+
+        <a href='index.php?action=detPersonne&id=<?= $realisateur['id_personne']?>'>
             <img class="afficheReal" src='<?= $realisateur["photo"] ?>' title='<?= $realisateur["realisateur"] ?>'>
+        </a>
             <a href='index.php?action=detPersonne&id=<?= $realisateur['id_personne']?>'><?= $realisateur["realisateur"] ?></a></br>
+        
         </div>
         <?php } ?>
 
