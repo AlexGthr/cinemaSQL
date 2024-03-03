@@ -1,10 +1,10 @@
-**** Exercice Projet site Cinéma ****
+<h1> **** Exercice Projet site Cinéma **** </h1>
 
 Require :
 
 Visual studio code : https://code.visualstudio.com/download <br>
 Laragon : https://laragon.org/download/index.html <br>
-Un éditeur SQL (HeidiSQL de mon côtés)
+Un système de gestion de base de données (SGBD) (MySQL / HeidiSQL)
 
 ****************
 
