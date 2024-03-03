@@ -1,5 +1,13 @@
 <?php 
+    session_start();
     ob_start();
+?>
+
+<?php
+        if (isset($_SESSION['message'] )){
+            echo $_SESSION['message'] ;
+            unset($_SESSION['message'] );
+        }
 ?>
 
 
@@ -60,6 +68,9 @@
             <li>
                 <a href='index.php?action=detRole&id=<?= $role['idRole'] ?>'>
                 <?= $role['role']?></a>
+                <button title="trash" id="trashActor">
+                    <a href="index.php?action=delRoleFilm&id=<?= $role['id_film'] ?>&idActeur=<?= $role['idActeur'] ?>&idRole=<?= $role['idRole'] ?>"><i class="fa-regular fa-trash-can"></i></a>
+                </button>
             </li>         <hr class="solid">
 
 <?php   }
@@ -85,6 +96,24 @@
 <?php       }
         }?>
 
+</div>
+
+<div class="editOrDel">
+
+    <a href='index.php?action=editerPersonne&id=<?= $personne['id_personne'] ?>' title="edit"> <i class="fa-solid fa-pen-to-square"></i></a>
+
+    <button title="trash" id="alertOn"> <i class="fa-regular fa-trash-can"></i></button>
+
+</div>
+
+
+<div class="alert">
+<div class="alertBox">
+    <p> Êtes vous sur de vouloir supprimer cette personne ? </p>
+    <div class="alertFlex">
+        <button class="alertDisplayOn" id="alertOk"><a href="index.php?action=delPersonne&id=<?= $personne['id_personne'] ?>&idActeur=<?= $personne['idActeur']?>"> Valider </a></button>      
+    </div>
+</div>
 </div>
 
 <?php

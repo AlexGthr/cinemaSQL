@@ -488,7 +488,7 @@ a {
 }
 
 .editOrDel i {
-    font-size: 1.5em;
+    font-size: 2em;
     padding: 5px 20px;
     color: #004170;
 }
@@ -496,6 +496,70 @@ a {
 .noteCenter {
     padding: 15px 0;
     text-align: center;
+}
+
+
+.roleActeur {
+    position: relative;
+}
+
+#trashActor {
+    position: absolute;
+    right: 10px;
+    font-size: large;
+}
+
+
+.alert {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+
+.alertBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    padding: 10px 0;
+    background-color: #1d7abd65;
+    border: solid 2px #004170;
+    border-radius: 14px;
+    box-shadow: rgba(0, 0, 0, 0.65) 0px 5px 15px;
+    transition: all 0.25s;
+}
+
+.alertBox p {
+    padding: 15px 0;
+}
+
+.alertBox button {
+    padding: 15px 15px;
+    font-weight: 600;
+}
+
+.alertDisplayOff {
+    background-color: rgba(255, 0, 0, 0.226);
+    border: solid 2px rgba(255, 0, 0, 0.466);
+    border-radius: 14px;
+}
+
+.alertDisplayOn {
+    background-color: rgba(5, 94, 20, 0.226);
+    border: solid 2px rgba(5, 94, 20, 0.426);
+    border-radius: 14px;
+}
+
+.alertOnOff {
+    display: flex;
+}
+
+#alertOn, #trashActor {
+    border: none;
+    background: none;
 }
 
 /* *******************************
@@ -539,7 +603,6 @@ a {
 .DetPersonneTitle {
     padding-top: 15px;
 }
-
 /* *******************************
 *****  VUES Detail personne  *****
 ******************************* */

@@ -8,10 +8,11 @@ use Model\Service;
 class CastingController { 
 
 
-    public function gestionCasting() {
+    public function gestionCasting() {  // Récupère les requêtes SQL pour le formulaire d'un casting
 
         $pdo = Connect::seConnecter();
 
+        // Je récupère l'id d'un film et son titre
         $requeteFilm = $pdo->query("
         SELECT 
                 film.id_film AS idFilm,
@@ -20,6 +21,7 @@ class CastingController {
         ORDER BY idFilm DESC
         ");
 
+        // Je récupère l'id d'un acteur et son nom/prénom
         $requeteActeur = $pdo->query("
         SELECT 
                 acteur.id_acteur AS idActeur,
@@ -29,6 +31,7 @@ class CastingController {
         ORDER BY idActeur DESC
         ");
 
+        // Je récupère l'id d'un role et son nom
         $requeteRole = $pdo->query("
         SELECT
                 role.id_role AS idRole,
@@ -40,29 +43,41 @@ class CastingController {
         require "view/formulaire/gestionCasting.php";
     }
 
-    public function addCasting() {
+    public function addCasting() { // Permet l'ajout d'un casting
 
         session_start();
 
         $pdo = Connect::seConnecter();
 
-        if(isset($_GET['action'])) {
+        // Je récupère l'action
+        if(isset($_GET['action'])) { 
+
+                // Puis je filtre mes résultats
                 $film = filter_input(INPUT_POST, "film", FILTER_VALIDATE_INT);
                 $acteur = filter_input(INPUT_POST, "acteur", FILTER_VALIDATE_INT);
                 $role = filter_input(INPUT_POST, "role", FILTER_VALIDATE_INT);
 
+                // Je crée une/des conditions
                 $condition = is_numeric($film) && is_numeric($acteur) && is_numeric($role);
 
+                // En fonctions de l'erreur, j'affiche un message personnalisé
                 if(!is_numeric($film)) {
+
                         $_SESSION['message'] = "<p>Oups. Problème avec le film.</p>";
                         header("Location:index.php?action=gestionCasting");
+
                 } else if (!is_numeric($acteur)) {
+
                         $_SESSION['message'] = "<p>Oups. Problème avec l'acteur.</p>";
-                        header("Location:index.php?action=gestionCasting");   
+                        header("Location:index.php?action=gestionCasting"); 
+
                 } else if (!is_numeric($role)) {
+
                         $_SESSION['message'] = "<p>Oups. Problème avec le role.</p>";
                         header("Location:index.php?action=gestionCasting");
-                } else if ($condition) {
+
+                } else if ($condition) { // Si tout vas bien, je crée mon casting
+
                         $requete = $pdo->prepare("
                         INSERT INTO joue
                            (id_film, id_acteur, id_role)

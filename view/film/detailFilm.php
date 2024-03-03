@@ -48,6 +48,9 @@
                 <a href='index.php?action=detRole&id=<?= $liste['idRole'] ?>'> <?= $liste['nomRole'] ?></a> 
                 &#x2904;
                 <a href='index.php?action=detPersonne&id=<?= $liste['idPersonne'] ?>'> <?= $liste['nomActeurs'] ?></a>
+                <button title="trash" id="trashActor">
+                    <a href="index.php?action=delRoleFilm&id=<?= $film['id_film'] ?>&idActeur=<?= $liste['idActeur'] ?>&idRole=<?= $liste['idRole'] ?>"><i class="fa-regular fa-trash-can"></i></a>
+                </button>
             </li>
             <hr class="solid">
 
@@ -59,8 +62,18 @@
 
     <a href='index.php?action=editerFilm&id=<?= $film['id_film'] ?>' title="edit"> <i class="fa-solid fa-pen-to-square"></i></a>
 
-    <a href="#" title="trash"> <i class="fa-regular fa-trash-can"></i></a>
+    <button title="trash" id="alertOn"> <i class="fa-regular fa-trash-can"></i></button>
 
+</div>
+
+
+<div class="alert">
+<div class="alertBox">
+    <p> Êtes vous sur de vouloir supprimer ce film ? </p>
+    <div class="alertFlex">
+        <button class="alertDisplayOn" id="alertOk"><a href="index.php?action=delFilm&id=<?= $film['id_film'] ?>"> Valider </a></button>      
+    </div>
+</div>
 </div>
 
 <?php

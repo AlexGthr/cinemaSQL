@@ -7,10 +7,11 @@ use Model\Service;
 
 class CategorieController {
 
-    public function listCategorie() {
+    public function listCategorie() { // Function qui gère l'affichage de la liste de mes catégories
         
         $pdo = Connect::seConnecter();
 
+        // Je récupère tout mes éléments dans ma table catégories (id et type)
         $requete = $pdo->query("        
         SELECT *
         FROM categorie
@@ -19,8 +20,9 @@ class CategorieController {
         require "view/categorie/listeCategorie.php";
     }
 
-    public function detCategorie($id) {
+    public function detCategorie($id) {  // Requête permettant d'afficher le detail d'une catégorie
         
+        // Function si l'ID existe ou pas, permettant de gerer le cas d'un id inexistant via l'url
         if(!Service::exist("categorie", $id)) {
                 header("Location:index.php?action=listCategorie");
                 exit;
@@ -28,6 +30,7 @@ class CategorieController {
 
         $pdo = Connect::seConnecter();
 
+        // Je récupère mon id catégorie ainsi que mon type de catégorie par rapport à mon ID
         $requete = $pdo->prepare("
         SELECT 
                 categorie.id_categorie AS idCategorie,
@@ -37,6 +40,7 @@ class CategorieController {
         ");
         $requete->execute(["id" => $id]);
 
+        // Je récupère l'id d'un film, son titre, le nom des categories et la dae de sortie d'un film par rapport à son ID
         $requeteFilmCategorie = $pdo->prepare("
         SELECT
                 film.id_film AS idFilm,
@@ -55,19 +59,23 @@ class CategorieController {
         }
     }
 
-    public function gestionCategorie() {
+    public function gestionCategorie() { // Formulaire pour l'ajout de catégorie (affiche uniquement la vue)
         require "view/formulaire/gestionCategorie.php";
     }
 
-    public function addCategorie() {
+    public function addCategorie() { // Traitement pour l'ajout d'une catégorie
 
         session_start();
 
         $pdo = Connect::seConnecter();
 
+        // Je vérifie qu'il existe une action
         if(isset($_GET['action'])) {
+
+                // Je filtre mon resultat
                 $categorie = filter_input(INPUT_POST, "categorie", FILTER_SANITIZE_SPECIAL_CHARS);
 
+                // J'applique des conditions puis j'ajoute ma catégorie
                 if(!empty($categorie) && strlen($categorie) <= 20 && preg_match("/^[A-Za-z '-]+$/", $categorie)) {
 
                         $requete = $pdo->prepare("

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `acteur` (
   CONSTRAINT `acteur_ibfk_1` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table cinema.acteur : ~30 rows (environ)
+-- Listage des données de la table cinema.acteur : ~8 rows (environ)
 INSERT INTO `acteur` (`id_acteur`, `id_personne`) VALUES
 	(1, 1),
 	(27, 2),
@@ -85,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `categoriser` (
   KEY `id_categorie` (`id_categorie`),
   CONSTRAINT `categoriser_ibfk_1` FOREIGN KEY (`id_film`) REFERENCES `film` (`id_film`),
   CONSTRAINT `categoriser_ibfk_2` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id_categorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table cinema.categoriser : ~19 rows (environ)
+-- Listage des données de la table cinema.categoriser : ~22 rows (environ)
 INSERT INTO `categoriser` (`id_film`, `id_categorie`) VALUES
 	(1, 1),
 	(3, 1),
@@ -95,16 +95,19 @@ INSERT INTO `categoriser` (`id_film`, `id_categorie`) VALUES
 	(5, 1),
 	(6, 1),
 	(11, 1),
+	(12, 1),
 	(1, 2),
 	(5, 2),
 	(6, 2),
 	(11, 2),
+	(12, 2),
 	(1, 3),
 	(3, 3),
 	(4, 3),
 	(5, 3),
 	(6, 3),
 	(11, 3),
+	(12, 3),
 	(2, 4),
 	(2, 5),
 	(4, 5);
@@ -122,17 +125,18 @@ CREATE TABLE IF NOT EXISTS `film` (
   PRIMARY KEY (`id_film`),
   KEY `id_realisateur` (`id_realisateur`),
   CONSTRAINT `film_ibfk_1` FOREIGN KEY (`id_realisateur`) REFERENCES `realisateur` (`id_realisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table cinema.film : ~7 rows (environ)
+-- Listage des données de la table cinema.film : ~8 rows (environ)
 INSERT INTO `film` (`id_film`, `titre`, `dateDeSortie`, `duree`, `synopsis`, `note`, `affiche`, `id_realisateur`) VALUES
 	(1, 'Spider Man', '2002-06-12', 121, 'L\'histoire d\'un homme qui se fais piquer par une araignée et deviens un super héros', 4.00, 'public/img/afficheFilm/spiderman.jpg', 1),
-	(2, 'The Big Bang Theory', '2024-09-15', 155, 'Découvrez la vie et les galères de trois scientifiques et un ingénieur.', 5.00, 'public/img/afficheFilm/bigbangtheory.jpg', 2),
+	(2, 'The Big Bang Theory', '2024-09-15', 165, 'Découvrez la vie et les galères de trois scientifiques et un ingénieur.', 5.00, 'public/img/afficheFilm/65e3bf184a38a1.50126003.jpg', 2),
 	(3, 'Avatar', '2009-12-16', 162, 'Sur le monde extraterrestre luxuriant de Pandora vivent les Na\'vi, des êtres qui semblent primitifs, mais qui sont très évolués.', 5.00, 'public/img/afficheFilm/avatar.jpg', 3),
 	(4, 'Barbie', '2023-07-19', 114, 'Barbie, qui vit à Barbie Land, est expulsée du pays pour être loin d\'être une poupée à l\'apparence parfaite; n\'ayant nulle part où aller, elle part pour le monde humain et cherche le vrai bonheur.', 5.00, 'public/img/afficheFilm/barbie.jpg', 4),
 	(5, 'Suicide Squad', '2016-08-03', 123, 'Face à une menace aussi énigmatique qu\'invincible, l\'agent secret Amanda Waller réunit une armada de crapules de la pire espèce. Armés jusqu\'aux dents par le gouvernement, ces super-méchants s\'embarquent alors pour une mission-suicide.', 3.00, 'public/img/afficheFilm/suicidesquad.jpg', 5),
-	(6, 'PHP - Le film', '2024-01-17', 167, 'Un film ou le héros sauve le monde avec une function PHP', 2.00, 'public/img/afficheFilm/phplefilm.png', 2),
-	(11, 'Kill Bill', '2003-11-26', 135, 'Au cours d&#39;une cérémonie de mariage en plein désert, un commando fait irruption dans la chapelle et tire sur les convives. Laissée pour morte, la mariée enceinte retrouve ses esprits après un coma de quatre ans.', 3.00, 'public/img/afficheFilm/65ddfa202bd030.90129246.jpg', 10);
+	(6, 'PHP - Le film', '2024-01-17', 167, 'Un film ou le héros sauve le monde avec une function PHP', 3.00, 'public/img/afficheFilm/phplefilm.png', 3),
+	(11, 'Kill Bill', '2003-11-26', 135, 'Au cours d&#39;une cérémonie de mariage en plein désert, un commando fait irruption dans la chapelle et tire sur les convives. Laissée pour morte, la mariée enceinte retrouve ses esprits après un coma de quatre ans.', 3.00, 'public/img/afficheFilm/65ddfa202bd030.90129246.jpg', 10),
+	(12, 'Teste', '1997-01-17', 160, 'aaaaaa', 3.00, 'public/img/afficheFilm/65e3cc29951ef0.82598442.png', 5);
 
 -- Listage de la structure de table cinema. joue
 CREATE TABLE IF NOT EXISTS `joue` (
@@ -147,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `joue` (
   CONSTRAINT `joue_ibfk_3` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table cinema.joue : ~30 rows (environ)
+-- Listage des données de la table cinema.joue : ~31 rows (environ)
 INSERT INTO `joue` (`id_film`, `id_acteur`, `id_role`) VALUES
 	(1, 1, 1),
 	(1, 2, 3),
@@ -236,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `realisateur` (
   CONSTRAINT `realisateur_ibfk_1` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table cinema.realisateur : ~6 rows (environ)
+-- Listage des données de la table cinema.realisateur : ~0 rows (environ)
 INSERT INTO `realisateur` (`id_realisateur`, `id_personne`) VALUES
 	(1, 2),
 	(2, 8),

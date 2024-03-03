@@ -77,7 +77,7 @@
 <p>
     <label>
         Affiche (Format : jpg, png, jpeg - 1MO max):
-        <input type="file" name="file" value="<?= $film['affiche'] ?>">
+        <input type="file" name="file">
     </label>
 </p>
 </div>
@@ -133,7 +133,7 @@ foreach ($requeteCategorie->fetchAll() as $categorie) {
 
 <div class="validation">
     <p>
-        <input type="submit" name="submit" value="Ajouter un film">
+        <input type="submit" name="submit" value="Editer un film">
     </p>
 </div>
 </div>

@@ -7,7 +7,7 @@ use Model\Service;
 
 class FilmController { 
 
-    public function listFilm() {
+    public function listFilm() { // Requete pour l'affichage de la liste des films
 
         $pdo = Connect::seConnecter();
 
@@ -27,7 +27,7 @@ class FilmController {
     }
 
 
-    public function detFilm($id) {
+    public function detFilm($id) { // Requète pour afficher le detail d'un film
         
         $pdo = Connect::seConnecter();
 
@@ -61,7 +61,8 @@ class FilmController {
                         role.id_role AS idRole,
                         personne.id_personne AS idPersonne,
                         role.nom AS nomRole,
-                        CONCAT(personne.prenom, ' ',personne.nom) AS nomActeurs
+                        CONCAT(personne.prenom, ' ',personne.nom) AS nomActeurs,
+                        acteur.id_acteur AS idActeur
                 FROM joue
                 INNER JOIN film ON joue.id_film = film.id_film
                 INNER JOIN acteur ON joue.id_acteur = acteur.id_acteur
@@ -71,6 +72,7 @@ class FilmController {
                 ");
                 $requeteActeurRole->execute(["id" => $id]);
         
+                // Requete pour afficher mes catégories
                 $requeteCategorie = $pdo->prepare("
                 SELECT
                         categorie.id_categorie as idCategorie,
@@ -88,10 +90,11 @@ class FilmController {
     }
 
 
-    public function gestionFilm() {
+    public function gestionFilm() { // Récupère les éléments pour la gestion du formulaire d'ajout d'un film (le choix du réalisateur et des catégories)
 
         $pdo = Connect::seConnecter();
 
+        // Requete pour les réalisateurs
         $requeteReal = $pdo->query("
         SELECT
                 CONCAT(personne.prenom, ' ',personne.nom) AS lesRealisateur, 
@@ -100,6 +103,7 @@ class FilmController {
         INNER JOIN personne ON realisateur.id_personne = personne.id_personne
         ");
 
+        // Requete pour les catégories
         $requeteCategorie = $pdo->query("
         SELECT 
                 categorie.id_categorie AS idCategorie,
@@ -146,19 +150,39 @@ class FilmController {
             $condition1 = !empty($titre) && strlen($titre) <= 20 && preg_match("/^[A-Za-z0-9 '-]+$/", $titre);
             $condition2 = is_numeric($duree) && is_numeric($note) && is_numeric($realisateur);
 
+
+            // Je teste mes conditions et j'affiche un message personnalisé en fonction de l'erreur
             if (!$condition1) {
+
                     $_SESSION['message'] .= "<p> Problème avec le titre. Merci de changer le titre </p>";
                     header("Location:index.php?action=gestionFilm");
+
             } elseif (!is_numeric($duree) && $duree < 0) {
+
                     $_SESSION['message'] .= "<p> La durée n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
+
             } elseif (!is_numeric($note) && $note > 5 && $note < 0) {
+
                     $_SESSION['message'] .= "<p> La note n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
+
             } elseif (!is_numeric($realisateur)) {
+
                     $_SESSION['message'] .= "<p> Problème avec le réalisateur. </p>";
-                    header("Location:index.php?action=gestionFilm");
-            }  elseif ($condition1 && $condition2 && $size <= $maxSize && $erreur == 0) {
+                    header("Location:index.php?action=gestionFilm"); 
+
+            } else if ($size >= $maxSize) { // Si la taille de l'image n'est pas correct
+                                
+                        $_SESSION['message'] .= "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
+                        header("Location:index.php?action=gestionFilm");
+
+            } elseif ($erreur > 0) { // Si l'image à une erreur
+
+                        $_SESSION['message'] .= "<p> Erreur upload file. </p>";
+                        header("Location:index.php?action=gestionFilm");
+
+            }  elseif ($condition1 && $condition2 && $size <= $maxSize && $erreur == 0) { // Si tout vas bien, on ajoute le film
                     
                     $uniqueName = uniqid('', true);
                     //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
@@ -168,6 +192,7 @@ class FilmController {
                     // Je crée le chemin de l'image pour la BDD
                     $cheminfile = "public/img/afficheFilm/" . $file;
 
+                    // Je prépare et j'ajoute le film
                     $requete = $pdo->prepare("
                     INSERT INTO film
                             (titre, dateDeSortie, duree, synopsis, note, affiche, id_realisateur)
@@ -184,8 +209,10 @@ class FilmController {
                             'affiche' => $cheminfile,
                             'id_realisateur' => $realisateur]);
 
+                            // Je récupère l'id du dernier élément inséré (ici l'id du film)
                     $lastFilm = $pdo->lastInsertId();
 
+                    // Et je crée une boucle pour lui ajouter les catégories sélectionner.
                     foreach ($_POST['categorie'] as $categorieFilm) {
 
                             $categorieFilm = filter_var($categorieFilm, FILTER_VALIDATE_INT);
@@ -215,7 +242,7 @@ class FilmController {
         }
     }
 
-    public function editerFilm($id) {
+    public function editerFilm($id) { // Je récupère les éléments pour mon formulaire d'édit, et pouvoir les afficher directement dans le formulaire
 
         $pdo = Connect::seConnecter();
 
@@ -271,7 +298,7 @@ class FilmController {
         }
     }
 
-    public function editFilm($id) {
+    public function editFilm($id) { // Function pour editer un film (traitement)
 
         session_start();
         $pdo = Connect::seConnecter();
@@ -280,6 +307,74 @@ class FilmController {
 
         if(isset($_GET['action'])) {
 
+            if(isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+
+                // Je récupère l'url de l'affiche du film
+                $requeteAffiche = $pdo->prepare("
+                SELECT film.affiche
+                FROM film
+                WHERE film.id_film = :id ");
+
+                $requeteAffiche->execute(['id' => $id]);
+
+                $afficheFilm = $requeteAffiche->fetch();
+                $lienAffiche = $afficheFilm['affiche'];
+
+                // Si elle existe, je la supprime pour ajouter la nouvelle
+                if(isset($lienAffiche)) {
+
+                        unlink($lienAffiche);
+
+                }
+
+                // Je récupère l'image reçu
+                $tmpName = $_FILES['file']['tmp_name'];
+                $nameImg = $_FILES['file']['name'];
+                $size = $_FILES['file']['size'];
+                $erreur = $_FILES['file']['error'];
+
+                // Je sépare le nom de l'extension
+                $tabExtension = explode('.', $nameImg);
+                // Je met l'extension en minuscule
+                $extension = strtolower(end($tabExtension));
+                // Je crée un tableau pour accepter UNIQUEMENT ce genre d'extension
+                $extensions = ['jpg', 'png', 'jpeg'];
+                // Et je crée une condition pour la taille MAX d'une image (1 MO ici)
+                $maxSize = 1000000;
+
+                $uniqueName = uniqid('', true);
+                //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
+
+                if ($size >= $maxSize) { // Si la taille de l'image n'est pas correct
+                                
+                        $_SESSION['message'] .= "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
+                        header("Location:index.php?action=editerFilm&id=$id");
+
+                } elseif ($erreur > 0) { // Si l'image à une erreur
+
+                        $_SESSION['message'] .= "<p> Erreur upload file. </p>";
+                        header("Location:index.php?action=editerFilm&id=$id");
+
+                } else {
+
+                $file = $uniqueName.".".$extension;
+                move_uploaded_file($tmpName, './public/img/afficheFilm/'.$file);
+
+                // Je crée le chemin de l'image pour la BDD
+                $cheminfile = "public/img/afficheFilm/" . $file;
+
+                $requeteModifierAffiche = $pdo->prepare("
+                UPDATE film
+                SET 
+                        affiche = :affiche
+                WHERE id_film = :id
+                ");
+
+                $requeteModifierAffiche->execute([
+                        'affiche' => $cheminfile,
+                        'id' => $id]);
+
+            }}
             // Filtrage des données
             $titre = ucfirst(filter_input(INPUT_POST, "titre", FILTER_SANITIZE_SPECIAL_CHARS));
             $dateDeSortie = filter_input(INPUT_POST, "dateSortie", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -292,19 +387,30 @@ class FilmController {
             $condition1 = !empty($titre) && strlen($titre) <= 20 && preg_match("/^[A-Za-z0-9 '-]+$/", $titre);
             $condition2 = is_numeric($duree) && is_numeric($note) && is_numeric($realisateur);
 
+            // Je teste chaque conditions pour afficher un message personnalisé en fonction de l'erreur
             if (!$condition1) {
+
                     $_SESSION['message'] .= "<p> Problème avec le titre. Merci de changer le titre </p>";
                     header("Location:index.php?action=gestionFilm");
+
             } elseif (!is_numeric($duree) && $duree < 0) {
+
                     $_SESSION['message'] .= "<p> La durée n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
+
             } elseif (!is_numeric($note) && $note > 5 && $note < 0) {
+
                     $_SESSION['message'] .= "<p> La note n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
+                    
             } elseif (!is_numeric($realisateur)) {
+
                     $_SESSION['message'] .= "<p> Problème avec le réalisateur. </p>";
                     header("Location:index.php?action=gestionFilm");
-            }  elseif ($condition1 && $condition2) {
+
+            }  elseif ($condition1 && $condition2) { // Et si tout vas bien, j'edit mon film
+
+                // J'edit ici le film
                 $requete = $pdo->prepare("
                 UPDATE film
                 SET 
@@ -326,6 +432,7 @@ class FilmController {
                         'id_realisateur' => $realisateur,
                         'id' => $id]);
 
+                // Je delete les catégories que le film posseder, pour pouvoir lui ajouter les nouvelles valeur
                 $requeteDeleteCategories = $pdo->prepare("
                         DELETE FROM categoriser
                         WHERE id_film = :id_film 
@@ -333,6 +440,7 @@ class FilmController {
 
                 $requeteDeleteCategories->execute(['id_film' => $id]);
 
+                // J'ajoute ici les nouvelles valeur de catégories au film
                 foreach ($_POST['categorie'] as $categorieFilm) {
                         $categorieFilm = filter_var($categorieFilm, FILTER_VALIDATE_INT);
                         
@@ -360,5 +468,90 @@ class FilmController {
 
         }
      }
+
+    public function delFilm($id) { // Function pour delete un film (traitement)
+        $pdo = Connect::seConnecter();
+
+        if(!Service::exist("film", $id)) {
+                header("Location:index.php?action=listFilm");
+                exit;
+        } else {
+
+        // Je récupère l'url de l'affiche du film
+        $requeteAffiche = $pdo->prepare("
+        SELECT film.affiche
+        FROM film
+        WHERE film.id_film = :id ");
+        
+        $requeteAffiche->execute(['id' => $id]);
+        
+        $afficheFilm = $requeteAffiche->fetch();
+        $lienAffiche = $afficheFilm['affiche'];
+        
+        // Si elle existe, je la supprime pour ajouter la nouvelle
+        if(isset($lienAffiche)) {
+        
+                unlink($lienAffiche);
+        
+        }
+
+        // Je supprime les roles du film
+        $requeteRole = $pdo->prepare("
+        DELETE FROM joue
+        WHERE id_film = :id
+        ");
+
+        $requeteRole->execute(["id" => $id]);
+
+        // Je supprime aussi les liens avec les catégories
+        $requeteCategoriser = $pdo->prepare("
+        DELETE FROM categoriser
+        WHERE id_film = :id
+        ");
+
+        $requeteCategoriser->execute(["id" => $id]);
+
+        // Puis je supprime le film.
+        $requete = $pdo->prepare("
+        DELETE FROM film
+        WHERE id_film = :id
+        ");
+
+        $requete->execute(["id" => $id]);
+        header("Location:index.php");
+        }
+
+     }
+
+     public function delRoleFilm($id) { // Fonction pour supprimer un casting 
+
+        $pdo = Connect::seConnecter();
+
+        // Je récupère l'idActeur et Role depuis l'url
+        $idActeur = (isset($_GET["idActeur"])) ? $_GET["idActeur"] : null;
+        $idRole = (isset($_GET["idRole"])) ? $_GET["idRole"] : null;
+
+        if(!Service::exist("film", $id) && !Service::exist("acteur", $idActeur) && !Service::exist("role", $idRole)) {
+                header("Location:index.php?action=detFilm&id=$id");
+                exit;
+        } else {
+
+                // Puis je delete dans la table joue ce que je désire
+                $requeteRole = $pdo->prepare("
+                DELETE FROM joue
+                WHERE id_film = :id
+                AND id_acteur = :idActeur
+                AND id_role = :idRole
+                ");
+        
+                $requeteRole->execute([
+                        "id" => $id,
+                        "idActeur" => $idActeur,
+                        "idRole" => $idRole
+                ]);
+                header("location:" . $_SERVER['HTTP_REFERER']);
+     }
+
+}
 
 }

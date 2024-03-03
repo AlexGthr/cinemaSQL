@@ -1,16 +1,16 @@
-let icons = document.querySelector('#icons')
-let nav = document.querySelector('nav')
-let links = document.querySelectorAll('nav a')
-let listeDeroulante = document.querySelector('.listeDeroulante')
-let liste = document.querySelector('.sous-nav')
+let icons = document.querySelector('#icons');
+let nav = document.querySelector('nav');
+let links = document.querySelectorAll('nav a');
+let listeDeroulante = document.querySelector('.listeDeroulante');
+let liste = document.querySelector('.sous-nav');
 
 icons.addEventListener("click", () => {
     nav.classList.toggle("active");
-})
+});
 
 listeDeroulante.addEventListener("click", () => {
     liste.classList.toggle("sous-nav");
-})
+});
 
 
 
@@ -18,7 +18,7 @@ function rediriger() {
     let choixFormulaire = document.getElementById("choixFormulaire");
     let formulaireValue = choixFormulaire.value;
     window.location.href = 'index.php?action=gestion' + formulaireValue;
-}
+};
 
 
 
@@ -48,6 +48,7 @@ noteElements.forEach(function(noteElement) {
     noteElement.innerHTML = starsHTML;
 });
 
+// Gestion de l'ajout d'une personne en Acteur/Réalisateur/les deux
 document.addEventListener("DOMContentLoaded", function() {
     let formulaire = document.getElementById("personne");
 
@@ -57,4 +58,14 @@ document.addEventListener("DOMContentLoaded", function() {
             formulaire.action += typeValue;
         });
     }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    let alertOn = document.getElementById("alertOn");
+    let alertBox = document.querySelector(".alert");
+
+    alertOn.addEventListener("click", function() {
+    alertBox.classList.toggle('alertOnOff');
+});
+
 });
