@@ -89,9 +89,9 @@ nav > ul {
     font-size: 1.5em;
     background-color: white;
     border-radius: 50%;
-    position: absolute;
-    top: -12px;
-    right: -5px;
+    position: fixed;
+    top: -10px;
+    right: -12px;
 }
 
 .active #icons:before {
@@ -117,7 +117,7 @@ nav li {
     padding-left: 5px;
 }
 
-.searchBar {
+.searchBar form {
     padding: 20px 0;
     position: relative;
     display: flex;
@@ -125,20 +125,23 @@ nav li {
     align-items: center;
 }
 
-/* .searchBar a {
-    color: black;
-    position: absolute;
-    top: 26px;
-    right: 35px;
-} */
-
 #research {
+    padding: 0 10px;
     height: 28px;
     width: 70%;
     border-radius: 15px;
     border: 1px solid;
 }
 
+.searchBar button {
+    font-size: 1em;
+    background: none;
+    border: none;
+}
+
+.searchBar i {
+    padding: 0 5px;
+}
 
 /* *******************************
 ************  VUES ACCEUIL  ************
@@ -156,6 +159,7 @@ nav li {
     background-color: #b1d6f186;
     border-left: solid 4px #103956;
     color: #004170;
+    width: fit-content;
 }
 
 .SectionTitle {
@@ -799,4 +803,57 @@ footer a {
 }
 
 
+}
+
+@media only screen and (min-width: 650px) { 
+
+    /********************************
+    ************  VUES ACCEUIL  ************
+    ******************************* */
+    
+    .afficherTitreFilm {
+        font-size: 1.5em;
+    }
+    
+    .afficheFilm {
+        height: 500px;
+        width: 80%;
+        text-align: center;
+        border-radius: 14px;
+    }
+    
+    .afficheActeur, .afficheReal {
+        height: 160px;
+        width: 160px;
+        border-radius: 50%;
+    }
+    
+    .afficherActeurs, .afficherRealisateurs {
+        font-size: 1.5em;
+    }
+    .detFilms img {
+        height: auto;
+        width: 50%;
+        border-radius: 14px;
+    }
+
+    .acceuilFilm img {
+        width: 70%;
+        height: auto;
+    }
+
+    .listRealisateur img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+    }
+    .listActeur img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+    }
+
+    .wrapperGestion img {
+        width: 50%;
+    }
 }

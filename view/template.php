@@ -49,9 +49,16 @@
 
         <!-- Barre de recherche -->
     <div class="searchBar">
-        <input type="search" id="research" name="research" placeholder="Recherche ...">
-        <a href="index.php?action=research" title="researchLogo"><i class="fa-solid fa-magnifying-glass"></i></a>
-    </div>
+
+    <form action="index.php?action=research" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
+
+
+    <input type="search" id="research" name="research" placeholder="Recherche film, acteur ...">
+    <button type="submit" name="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+</div>
+
+</form>
     
     <?= $content; ?>
 

@@ -30,7 +30,8 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
     switch ($_GET["action"]) {  // Et j'effectue un switch suivant l'action :
 
         case "acceuil": $ctlrCinema->afficheTitrefilm(); break; // Affiche la vue acceuil
-        case "gestion": $ctlrCinema->gestion(); break; // Affiche la vue GESTION
+        case "gestion": $ctlrCinema->gestion(); break;
+        case "research": $ctlrCinema->research(); break; // Affiche la vue GESTION
 
         case "listFilm": $ctlrFilm->listFilm(); break;  // Affiche la vue listeFilm
         case "detFilm": $ctlrFilm->detFilm($id); break; // Affiche la vue Detail Film

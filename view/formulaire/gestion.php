@@ -29,7 +29,7 @@
     <h3> Merci de faire un choix dans la liste </h3>
 
     <figure>
-        <img src='public/img/thinker.png' title='Thinker waiting'>
+        <img src='public/img/thinker.png' class="questionBonhomme" title='Thinker waiting'>
     </figure>
 </div>
 <?php

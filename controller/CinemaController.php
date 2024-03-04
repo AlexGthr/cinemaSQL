@@ -54,5 +54,56 @@ class CinemaController {
      public function gestion() {
         require "view/formulaire/gestion.php";
      }
+
+     public function research() {
+        $pdo = Connect::seConnecter();
+
+        if (isset($_GET['action'])) {
+                $research = filter_input(INPUT_POST, "research", FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $requeteFilm = $pdo->prepare("
+            SELECT
+                film.id_film,
+                film.titre
+            FROM film
+            WHERE film.titre LIKE :research
+            "); 
+            
+            $requeteFilm->execute(["research" => '%' . $research . '%']);
+
+            $requetePersonne = $pdo->prepare("
+            SELECT
+                CONCAT(personne.prenom, ' ',personne.nom) AS nomPersonne,
+                id_personne
+            FROM personne
+            WHERE personne.prenom LIKE :research
+            OR personne.nom LIKE :research
+            ");
+
+            $requetePersonne->execute(["research" => '%' . $research . '%']);
+
+            $requeteRole = $pdo->prepare("
+            SELECT
+                nom,
+                id_role
+            FROM role
+            WHERE nom LIKE :research
+            ");
+
+            $requeteRole->execute(["research" => '%' . $research . '%']);
+
+            $requeteCategorie = $pdo->prepare("
+            SELECT
+                type,
+                id_categorie
+            FROM categorie
+            WHERE type LIKE :research
+            ");
+
+            $requeteCategorie->execute(["research" => '%' . $research . '%']);
+
+            require "view/research.php";
+        }
+     }
    
 }
