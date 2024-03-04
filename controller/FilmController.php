@@ -309,7 +309,7 @@ class FilmController {
 
             if(isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
 
-                // Je récupère l'url de l'affiche du film
+                // Je récupère le lien de l'affiche du film
                 $requeteAffiche = $pdo->prepare("
                 SELECT film.affiche
                 FROM film
@@ -469,7 +469,8 @@ class FilmController {
         }
      }
 
-    public function delFilm($id) { // Function pour delete un film (traitement)
+    
+     public function delFilm($id) { // Function pour delete un film (traitement)
         $pdo = Connect::seConnecter();
 
         if(!Service::exist("film", $id)) {

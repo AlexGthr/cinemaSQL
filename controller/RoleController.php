@@ -94,4 +94,59 @@ class RoleController {
                 }
         }
     }
+
+    public function editerRole($id) {
+
+        $pdo = Connect::seConnecter();
+
+        if(!Service::exist("role", $id)) {
+                header("Location:index.php?action=listRole");
+                exit;
+        } else {
+
+                $requete = $pdo->prepare("
+                SELECT 
+                        role.id_role,
+                        role.nom
+                FROM role
+                WHERE id_role = :id
+                ");
+
+                $requete->execute(["id" => $id]);
+                require "view/role/editRole.php";
+        }
+}
+
+        public function editRole($id) {
+
+        session_start();
+
+        $pdo = Connect::seConnecter();
+
+        if(isset($_GET['action'])) {
+                $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_SPECIAL_CHARS);
+
+                if(!empty($role) && strlen($role) <= 20 && preg_match("/^[A-Za-z '-]+$/", $role)) {
+
+                        $requete = $pdo->prepare("
+                        UPDATE role
+                        SET 
+                                nom = :role
+                        WHERE id_role = :id
+                        ");
+
+                        $requete->execute([
+                                'role' => $role,
+                                'id' => $id]);
+
+                        $_SESSION['message'] = "<p> Votre role à bien été enrengistré ! </p>
+                                                <a href='index.php?action=detRole&id=". $id . "'> Accès au role </a>";
+                        header("Location:index.php?action=editerRole&id=$id");
+                }
+                else {
+                        $_SESSION['message'] = "<p>Oups. Votre role n'as pas pu être enrengistré. Verifier vos informations.</p>";
+                        header("Location:index.php?action=editerRole&id=$id");
+                }
+        }
+    }
 }

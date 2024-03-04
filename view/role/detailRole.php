@@ -37,6 +37,24 @@
 
 </div>
 
+<div class="editOrDel">
+
+    <a href='index.php?action=editerRole&id=<?= $role["idRole"] ?>' title="edit"> <i class="fa-solid fa-pen-to-square"></i></a>
+
+    <button title="trash" id="alertOn"> <i class="fa-regular fa-trash-can"></i></button>
+
+</div>
+
+
+<div class="alert">
+<div class="alertBox">
+    <p> Êtes vous sur de vouloir supprimer ce role ? </p>
+    <div class="alertFlex">
+        <button class="alertDisplayOn" id="alertOk"><a href="index.php?action=delRole&id=<?= $role["idRole"] ?>"> Valider </a></button>      
+    </div>
+</div>
+</div>
+
 <?php
     $titrePage = "Movies - Role";
     $backLastPage = "<a href='index.php?action=listRole'>Revenir aux roles</a>";

@@ -15,6 +15,7 @@ class CategorieController {
         $requete = $pdo->query("        
         SELECT *
         FROM categorie
+        ORDER BY type
         ");
 
         require "view/categorie/listeCategorie.php";
@@ -40,7 +41,7 @@ class CategorieController {
         ");
         $requete->execute(["id" => $id]);
 
-        // Je récupère l'id d'un film, son titre, le nom des categories et la dae de sortie d'un film par rapport à son ID
+        // Je récupère l'id d'un film, son titre, le nom des categories et la date de sortie d'un film par rapport à son ID
         $requeteFilmCategorie = $pdo->prepare("
         SELECT
                 film.id_film AS idFilm,
@@ -95,6 +96,86 @@ class CategorieController {
                         $_SESSION['message'] = "<p>Oups. Votre catégorie n'as pas pu être enrengistré. Verifier vos informations.</p>";
                         header("Location:index.php?action=gestionCategorie");
                 }
+        }
+    }
+
+    public function editerCategorie($id) {
+        $pdo = Connect::seConnecter();
+
+        if(!Service::exist("categorie", $id)) {
+                header("Location:index.php?action=listRole");
+                exit;
+        } else { 
+
+                $requete = $pdo->prepare("
+                SELECT
+                        categorie.id_categorie,
+                        categorie.type
+                FROM categorie
+                WHERE id_categorie = :id
+                ");
+
+                $requete->execute(["id" => $id]);
+                require "view/categorie/editCategorie.php";
+        }
+    }
+
+    public function editCategorie($id) {
+        
+        session_start();
+
+        $pdo = Connect::seConnecter();
+
+        if(isset($_GET['action'])) {
+                $categorie = filter_input(INPUT_POST, "categorie", FILTER_SANITIZE_SPECIAL_CHARS);
+
+                if(!empty($categorie) && strlen($categorie) <= 20 && preg_match("/^[A-Za-z '-]+$/", $categorie)) {
+
+                        $requete = $pdo->prepare("
+                        UPDATE categorie
+                        SET 
+                                type = :categorie
+                        WHERE id_categorie = :id
+                        ");
+
+                        $requete->execute([
+                                'categorie' => $categorie,
+                                'id' => $id]);
+
+                        $_SESSION['message'] = "<p> Votre categorie à bien été enrengistré ! </p>
+                                                <a href='index.php?action=detCategorie&id=". $id . "'> Accès à la catégorie </a>";
+                        header("Location:index.php?action=editerCategorie&id=$id");
+                }
+                else {
+                        $_SESSION['message'] = "<p>Oups. Votre categorie n'as pas pu être enrengistré. Verifier vos informations.</p>";
+                        header("Location:index.php?action=editerCategorie&id=$id");
+                }
+        }
+    }
+
+    public function delCategorie($id) {
+
+        $pdo = Connect::seConnecter();
+
+        if(!Service::exist("categorie", $id)) {
+                header("Location:index.php?action=listCategorie");
+                exit;
+        } else { 
+
+                $requeteCategoriser = $pdo->prepare("
+                DELETE FROM categoriser
+                WHERE id_categorie = :id
+                ");
+
+                $requeteCategoriser->execute(["id" => $id]);
+
+                $requete = $pdo->prepare("
+                DELETE FROM categorie
+                WHERE id_categorie = :id
+                ");
+                $requete->execute(["id" => $id]);
+
+                header("Location:index.php");
         }
     }
  }

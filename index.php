@@ -53,12 +53,17 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
         case "listRole": $ctlrRole->listRole(); break; // Affiche la vue Liste Role
         case "detRole": $ctlrRole->detRole($id); break; // Affiche la vue Detail role
         case "gestionRole" : $ctlrRole->gestionRole(); break; // Affiche la vue gestion Role
-        case "addRole" : $ctlrRole->addRole(); break; // Permet l'ajout d'un role
+        case "addRole" : $ctlrRole->addRole(); break; // Permet l'ajout d'un Role
+        case "editerRole" : $ctlrRole->editerRole($id); break;
+        case "editRole" : $ctlrRole->editRole($id); break;
 
         case "listCategorie": $ctlrCategorie->listCategorie(); break; // Affiche la vue Liste Catégorie
         case "detCategorie": $ctlrCategorie->detCategorie($id); break; // affiche la vue Detail Catégorie
         case "gestionCategorie" : $ctlrCategorie->gestionCategorie(); break; // Affiche la vue gestion Categorie
         case "addCategorie": $ctlrCategorie->addCategorie(); break; // Permet l'ajout d'une catégorie
+        case "editerCategorie": $ctlrCategorie->editerCategorie($id); break;
+        case "editCategorie": $ctlrCategorie->editCategorie($id); break;
+        case "delCategorie": $ctlrCategorie->delCategorie($id); break;
 
         case "gestionCasting": $ctlrCasting->gestionCasting(); break; // Affiche la gestion d'un ajout de casting (formulaire)
         case "addCasting": $ctlrCasting->addCasting(); break; // Effectue l'ajout d'un casting (traitement)

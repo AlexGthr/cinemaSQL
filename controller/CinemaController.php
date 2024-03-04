@@ -16,6 +16,7 @@ class CinemaController {
         $requete = $pdo->query("
                 SELECT film.affiche, film.titre, film.id_film
                 FROM film
+                ORDER BY film.dateDeSortie DESC
                 LIMIT 2
                 ");
 
@@ -23,12 +24,14 @@ class CinemaController {
         $requeteA = $pdo->query("
         SELECT  personne.photo,
                 CONCAT(personne.prenom, ' ',personne.nom) AS acteur,
-                personne.id_personne
+                personne.id_personne,
+                COUNT(joue.id_role) AS nbRole
         FROM acteur
         INNER JOIN personne ON acteur.id_personne = personne.id_personne
-        WHERE personne.id_personne = 21 
-        OR personne.id_personne = 22 
-        OR personne.id_personne = 27
+        INNER JOIN joue ON acteur.id_acteur = joue.id_acteur
+        GROUP BY acteur.id_acteur
+        ORDER BY nbRole DESC
+        LIMIT 3
                 ");
 
         // Requete pour l'affichage des réalisateurs sur l'acceuil
@@ -36,12 +39,14 @@ class CinemaController {
         SELECT 
                 personne.photo, 
                 CONCAT(personne.prenom, ' ',personne.nom) AS realisateur,
-                personne.id_personne
+                personne.id_personne,
+                COUNT(film.id_realisateur) AS nbFilm
         FROM realisateur
         INNER JOIN personne ON realisateur.id_personne = personne.id_personne
-        WHERE personne.id_personne = 2
-        OR personne.id_personne = 8
-        OR personne.id_personne = 14
+        INNER JOIN film ON realisateur.id_realisateur = film.id_realisateur
+	GROUP BY realisateur.id_realisateur
+	ORDER BY nbFilm DESC
+	LIMIT 3
                 ");
         require "view/acceuil.php";
      }
