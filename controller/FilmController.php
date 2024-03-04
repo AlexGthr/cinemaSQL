@@ -189,8 +189,17 @@ class FilmController {
                     $file = $uniqueName.".".$extension;
                     move_uploaded_file($tmpName, './public/img/afficheFilm/'.$file);
 
-                    // Je crée le chemin de l'image pour la BDD
-                    $cheminfile = "public/img/afficheFilm/" . $file;
+                        // Je récupère mon image dans le dossier
+                        $image = imagecreatefromstring(file_get_contents('./public/img/afficheFilm/' . $file));
+                        // Je prépare ma nouvelle image
+                        $webpPath = "./public/img/afficheFilm/" . $uniqueName . ".webp";
+                        // Je convertie en webP
+                        imagewebp($image, $webpPath);
+                        // Et je supprime mon ancienne image
+                        unlink('./public/img/afficheFilm/'.$file);
+
+                        // Je définie le chemin pour le BDD
+                        $cheminfile = $webpPath;
 
                     // Je prépare et j'ajoute le film
                     $requete = $pdo->prepare("

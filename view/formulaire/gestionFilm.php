@@ -2,6 +2,14 @@
     session_start();
     ob_start();
 ?>
+
+<?php
+        if (isset($_SESSION['message'] )){
+            echo $_SESSION['message'] ;
+            unset($_SESSION['message'] );
+        }
+?>
+
     <div class="listeFormulaire">
 
         
@@ -30,7 +38,7 @@
     <div class="caseFormulaire">
     <p>
         <label> 
-            Titre du film :
+            Titre du film : *
             <input type="text" name="titre" required>
         </label>
     </p>
@@ -39,7 +47,7 @@
     <div class="caseFormulaire">
     <p>
                 <label> 
-                    Date de sortie :
+                    Date de sortie : *
                     <input type="date" name="dateSortie" required>
                 </label>
             </p>
@@ -48,7 +56,7 @@
     <div class="caseFormulaire">
     <p>
         <label> 
-            Durée (En minute) :
+            Durée (En minute) : *
             <input type="number" name="duree" required>
         </label>
     </p>
@@ -66,7 +74,7 @@
     <div class="caseFormulaire">
     <p>
         <label> 
-            Note :
+            Note : 
             <select name="note" required>
                 <option value="0" select>0</option>
                 <option value="1">1</option>
@@ -81,7 +89,7 @@
 
     <div class="caseFormulaire">
     <p>
-        Affiche (Format : jpg, png, jpeg - 1MO max):
+        Affiche (Format : jpg, png, jpeg - 1MO max): *
         <label>
             <input type="file" name="file">
         </label>
@@ -91,7 +99,7 @@
     <div class="caseFormulaire">
     <p>
         <label>
-            Réalisateur :
+            Réalisateur : *
             <select name="realisateur" required>
 
                 <?php foreach($requeteReal->fetchall() as $real) { ?>
@@ -110,7 +118,7 @@
     <div class="caseFormulaireCheckbox">
     <p>
         <legend class='checkboxForm'>
-            Catégorie :
+            Catégorie : *
         </legend>
 
                 <?php foreach($requeteCategorie->fetchall() as $categorie) { ?>
@@ -133,13 +141,7 @@
 
 </form>
 
-<?php
-        if (isset($_SESSION['message'] )){
-            echo $_SESSION['message'] ;
-            unset($_SESSION['message'] );
-        }
-?>
-
+<p> * : Obligatoire pour la création d'un film. </p>
 
 <?php
     $titrePage = "Movies - Gestion";

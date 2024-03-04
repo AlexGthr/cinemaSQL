@@ -122,14 +122,15 @@ nav li {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-.searchBar a {
+/* .searchBar a {
     color: black;
     position: absolute;
     top: 26px;
-    right: 18%;
-}
+    right: 35px;
+} */
 
 #research {
     height: 28px;

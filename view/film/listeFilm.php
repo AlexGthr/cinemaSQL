@@ -22,7 +22,7 @@
         <div class="acceuilFilm">
 
             <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
-            <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
+            <img src='<?= $film["affiche"] ?>' class="afficheFilm" title='<?= $film["titre"] ?>'>
                 <p id="titleFilm"><?= $film["titre"] ?></p>
             </a>
             <p><span id="note"> <?= $film["note"] ?></span></p>

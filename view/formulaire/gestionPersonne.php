@@ -38,7 +38,7 @@
     <div class="caseFormulaire">
     <p>
         <label> 
-            Nom :
+            Nom : *
             <input type="text" name="last" required>
         </label>
     </p>
@@ -47,7 +47,7 @@
     <div class="caseFormulaire">
     <p>
         <label> 
-            Prénom :
+            Prénom : *
             <input type="text" name="name" required>
         </label>
     </p>
@@ -56,7 +56,7 @@
     <div class="caseFormulaire">
     <p>
                 <label> 
-                    Genre :
+                    Genre : *
                     <select name="genre" required>
                         <option value="M" select>Masculin</option>
                         <option value="F">Féminin</option>
@@ -68,7 +68,7 @@
     <div class="caseFormulaire">
     <p>
                 <label> 
-                    Date de Naissance :
+                    Date de Naissance : *
                     <input type="date" name="dateNaissance" required>
                 </label>
             </p>
@@ -77,7 +77,7 @@
     <div class="caseFormulaire">
     <p>
         <label>
-            Photo (Format : jpg, png, jpeg - 1MO max):
+            Photo (Format : jpg, png, jpeg - 1MO max): *
             <input type="file" name="file">
         </label>
     </p>
@@ -86,7 +86,7 @@
     <div class="caseFormulaire">
     <p>
                 <label> 
-                    Metier :
+                    Metier : *
                     <select name="metier" required>
                         <option value="acteur" select>Acteur</option>
                         <option value="realisateur">Réalisateur</option>
@@ -104,6 +104,8 @@
 </div>
 
 </form>
+
+<p> * : Obligatoire pour la création d'une personne. </p>
 
 
 <?php

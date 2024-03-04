@@ -49,8 +49,8 @@
 
         <!-- Barre de recherche -->
     <div class="searchBar">
-        <input type="search" id="research" name="research" placeholder="&nbsp;&nbsp;&nbsp;Recherche ...">
-        <a href="#" title="researchLogo"><i class="fa-solid fa-magnifying-glass"></i></a>
+        <input type="search" id="research" name="research" placeholder="Recherche ...">
+        <a href="index.php?action=research" title="researchLogo"><i class="fa-solid fa-magnifying-glass"></i></a>
     </div>
     
     <?= $content; ?>
