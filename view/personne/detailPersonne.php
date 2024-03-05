@@ -65,7 +65,7 @@
 
         foreach($filmographieActeur as $role) { ?>
 
-            <li>
+            <li class="roleActeur">
                 <a href='index.php?action=detRole&id=<?= $role['idRole'] ?>'>
                 <?= $role['role']?></a>
                 <button title="trash" id="trashActor">

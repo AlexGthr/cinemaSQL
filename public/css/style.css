@@ -7,18 +7,20 @@
 body {
     background-color: #9e9e9e3b;
     scroll-behavior: smooth;
+}
 
+main {
+    min-height: 80vh;
 }
 
 @media only screen and (min-width: 250px) {
-
-
 /* *******************************
 *********HEADER IMAGE***********
 ******************************* */
 
 figure {
     position: relative;
+    width: 100%;
 }
 
 figure img {
@@ -47,6 +49,10 @@ figure a {
 *********HEADER NAV***********
 ******************************* */
 
+.searchNav {
+    display: none;
+}
+
 nav a {
     color: white;
     text-decoration: none;
@@ -74,6 +80,10 @@ nav > ul {
 }
 
 .listeDeroulante:hover .sous-nav {
+    display: block;
+}
+
+.active {
     display: block;
 }
 
@@ -107,6 +117,48 @@ nav.active ul {
 nav li {
     padding: 10px 0;
 }
+
+/* *******************************
+*********HEADER Caroussel***********
+******************************* */
+
+.slider-1 {
+    max-width: 800px;
+    margin: 100px auto;
+    overflow: hidden;
+}
+
+.slider-1 .slider {
+    animation: slider-1 15s infinite ease-in-out;
+    display: flex;
+}
+
+.slider-1 .sliders {
+    flex-shrink: 0;
+    width: 100%;
+}
+
+/* @keyframes slider-1 {
+    0%,
+    20% {
+      transform: translateX(0);
+    }
+    25%,
+    45% {
+      transform: translateX(-100%);
+    }
+    50%,
+    70% {
+      transform: translateX(-200%);
+    }
+    75%,
+    95% {
+      transform: translateX(-300%);
+    }
+    100% {
+      transform: translateX(-400%);
+    }
+  }  */
 
 /* *******************************
 ************   Body   ************
@@ -202,9 +254,7 @@ nav li {
 }
 
 .viewAll {
-    display: flex;
-    justify-content: end;
-    align-items: end;
+    text-decoration: none;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 900;
     margin: 10px;
@@ -237,6 +287,44 @@ nav li {
 a {
     color: black;
 }
+
+.home__buttons {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.button{
+    background-color: #2585CA;
+    color: white;
+    font-weight: 500;
+    padding: .5rem 1.5rem .5rem .5rem;
+    border-radius: 4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: end;
+    column-gap: .75rem;
+  }
+  
+  .button span {
+    background-color: white;
+    color: #2585CA;
+    padding: .5rem;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: transform .4s;
+  }
+  
+  .button:hover span {
+    transform: translateX(.15rem) rotate(-30deg)
+  }
+  
+  .button__link {
+    font-weight: 400;
+    transition: color .4s;
+  }
 
 /* *******************************
 ************  VUES Liste Film  ************
@@ -506,6 +594,7 @@ a {
 
 .roleActeur {
     position: relative;
+    list-style: none;
 }
 
 #trashActor {
@@ -749,7 +838,28 @@ a {
     background-color: #2585ca17;
 }
 
-
+/*=============== SCROLL UP ===============*/
+.scrollup {
+    position: fixed;
+    right: 3rem;
+    bottom: -50%;
+    background-color: #2585CA;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 0 12px 24px #05070f80;
+    padding: 8px;
+    font-size: 1.25rem;
+    z-index: 2;
+    transition: bottom .6s, transform .4s;
+  }
+  
+  .scrollup:hover {
+    transform: translateY(-.5rem);
+  }
+  /* Show Scroll Up */
+  .show-scroll {
+    bottom: 30px;
+  }
 
 
 
@@ -856,4 +966,233 @@ footer a {
     .wrapperGestion img {
         width: 50%;
     }
+
+    .detRoles img {
+        height: 400px;
+        width: 50%;
+        border-radius: 14px;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+    }
 }
+
+@media only screen and (min-width: 900px) {
+
+    .acceuilFilm img {
+        width: 50%;
+        height: auto;
+    }
+
+    #titleFilm {
+        width:fit-content;
+        margin: auto;
+        padding: 0 10px;
+    }
+    .detRoles {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .detRoles img {
+        height: 500px;
+        width: 70%;
+        border-radius: 14px;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+    }
+
+ }
+
+@media only screen and (min-width: 1024px) {
+    main {
+        margin: 0 auto;
+        max-width: 1024px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    
+    nav > ul {
+        position: relative;
+        top: 0;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 5px 0px;
+        list-style: none;
+        transition: 0.25s;
+    }
+
+    nav li {
+        padding: 15px 90px;
+        position: relative;
+        font-size: 1.2em;
+    }
+    
+    .listeDeroulante {
+        color: white;
+        position: relative;
+        cursor: pointer;
+    }
+    
+    .sous-nav {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: -15px;
+        list-style: none;
+        background-color: #0F5494; /* Centrer horizontalement */
+        width: auto;
+        transition: 0.5s;
+    }
+
+    .sous-nav li:hover {
+        background-color: #2585CA;
+    }
+
+    .active {
+        display: block;
+    }
+    
+    .listeDeroulante:hover .sous-nav {
+        display: block;
+    }
+    
+    
+    #icons {
+        display: none;
+    }
+    
+    #icons:before {
+        display: none;
+    }
+    
+    .active #icons:before {
+        display: none;
+    }
+    
+    nav.active ul {
+        display: none;
+    }
+
+    .searchNav {
+        display: block;
+        position: absolute;
+        width: 400px;
+        top: 205px;
+        right: 0;
+    }
+
+    .searchNav form {
+        padding: 20px 0;
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    #research {
+        padding: 0 10px;
+        height: 28px;
+        width: 70%;
+        border-radius: 15px;
+        border: 1px solid;
+    }
+    
+    .searchNav button {
+        font-size: 1em;
+        background: none;
+        border: none;
+    }
+    
+    .searchNav i {
+        padding: 0 5px;
+    }
+
+    .searchBar {
+        display: none;
+    }
+    
+    figure img {
+        display: block;
+        width: 100vw;
+        height: 200px;
+    }
+    
+    figure h1 {
+        padding: 35px 0;
+    }
+
+    .listFilms {
+        width: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 400px);
+        justify-items: center;
+    }
+
+    .acceuilFilm {
+        width: auto;
+    }
+
+
+    .acceuilFilm img {
+        width: 80%;
+        height: 500px;
+    }
+
+    .listActeurs,
+    .listRealisateurs,
+    .listRoles,
+    .listCategorie {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+
+    .listRoles hr,
+    .listCategorie hr {
+        display: none;
+    }
+
+    .listRole {
+        border: 1px solid;
+        border-radius: 14px;
+        transition: .5s;
+    }
+
+    .listRole:hover {
+        background-color: #2585ca57;
+    }
+
+    .detailPersonne img {
+        width: 350px;
+        height: 350px;
+    }
+
+    .wrapperGestion img {
+        height: 500px;
+    }
+
+    .detRoles {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .detRoles img {
+        height: 600px;
+        width: 50%;
+        object-fit:fill;
+        border-radius: 14px;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+    }
+
+ }

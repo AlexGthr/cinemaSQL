@@ -36,6 +36,14 @@
                 <li> <a href="index.php?action=gestion"> Gestion </a></li>
             </ul>
             <div id="icons"></div> <!-- Icone menu Burger -->
+                    <!-- Barre de recherche -->
+            <div class="searchNav">
+
+            <form action="index.php?action=research" method="post" enctype="multipart/form-data">
+            <input type="search" id="research" name="research" placeholder="Recherche film, acteur ...">
+            <button type="submit" name="submit" title="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+            </form>
         </nav>
         
 
@@ -61,6 +69,12 @@
 </form>
     
     <?= $content; ?>
+
+
+          <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+          <i class="fa-solid fa-arrow-up" title="scrollup"></i>
+        </a>
 
 </main>
 
