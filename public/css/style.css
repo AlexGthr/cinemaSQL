@@ -18,7 +18,7 @@ main {
 *********HEADER IMAGE***********
 ******************************* */
 
-figure {
+/* figure {
     position: relative;
     width: 100%;
 }
@@ -34,15 +34,24 @@ figcaption {
     top: 20px;
     left: 0px;
     margin: 0 40px;
-}
+} */
 
-figure h1 {
+.header__bg {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: url('../img/Movies.png');
+    width: 100%;
+    height: 200px;
+}
+.header__bg h1 {
     color: white;
     font-size: 3em;
 }
 
-figure a {
+.header__bg a {
     text-decoration: none;
+    padding-left: 50px;
 }
 
 /* *******************************
@@ -243,6 +252,7 @@ nav li {
     object-fit: cover;
     margin-bottom: 5px;
     width: 90%;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
 }
 
 .film a {
@@ -258,6 +268,7 @@ nav li {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 900;
     margin: 10px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
 }
 
 .afficheActeur, .afficheReal {
@@ -265,6 +276,8 @@ nav li {
     width: 90px;
     object-fit: cover;
     border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+    border: 1px solid #f1f1f1;
 }
 
 .afficherActeurs, .afficherRealisateurs {
@@ -347,6 +360,7 @@ a {
 
 .acceuilFilm img {
     height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
 }
 
 .acceuilFilm span {
@@ -847,7 +861,8 @@ a {
     border-radius: 50%;
     color: white;
     box-shadow: 0 12px 24px #05070f80;
-    padding: 8px;
+    border: 1px solid white;
+    padding: 12px;
     font-size: 1.25rem;
     z-index: 2;
     transition: bottom .6s, transform .4s;
@@ -945,6 +960,7 @@ footer a {
         height: auto;
         width: 50%;
         border-radius: 14px;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
 
     .acceuilFilm img {
@@ -956,11 +972,15 @@ footer a {
         width: 250px;
         height: 250px;
         border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+        border: 1px solid #f1f1f1;
     }
     .listActeur img {
         width: 250px;
         height: 250px;
         border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+        border: 1px solid #f1f1f1;
     }
 
     .wrapperGestion img {
@@ -980,6 +1000,7 @@ footer a {
     .acceuilFilm img {
         width: 50%;
         height: auto;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
 
     #titleFilm {
@@ -1121,8 +1142,9 @@ footer a {
     
     figure img {
         display: block;
-        width: 100vw;
+        width: 80vw;
         height: 200px;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
     
     figure h1 {
@@ -1144,6 +1166,7 @@ footer a {
     .acceuilFilm img {
         width: 80%;
         height: 500px;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
 
     .listActeurs,
@@ -1173,6 +1196,7 @@ footer a {
     .detailPersonne img {
         width: 350px;
         height: 350px;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
 
     .wrapperGestion img {
@@ -1189,10 +1213,22 @@ footer a {
 
     .detRoles img {
         height: 600px;
-        width: 50%;
-        object-fit:fill;
+        width: 90%;
+        object-fit: cover;
         border-radius: 14px;
         box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+    }
+
+    .notFoundresearch {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .notFoundresearch img {
+        height: auto;
     }
 
  }

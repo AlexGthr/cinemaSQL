@@ -12,12 +12,15 @@
     <header>
 
         <!-- Image MOVIE + titre -->
-        <figure>
-            <img src="public/img/Movies.png" title="Movies, nom du site">
-            <figcaption>
+        
+            <!-- <img src="public/img/Movies.png" title="Movies, nom du site">
+            <figcaption> -->
+
+            <div class="header__bg">
                 <a href="index.php"><h1>Movies</h1></a>
-            </figcaption>
-        </figure>
+            </div>
+            <!-- </figcaption>
+        </figure> -->
 
         <!-- Menu de navigation -->
         <nav>
