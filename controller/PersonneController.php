@@ -18,6 +18,7 @@ class PersonneController {
                 SELECT  
                         personne.id_personne,
                         personne.photo,
+                        personne.sexe,
                         CONCAT(personne.prenom, ' ',personne.nom) AS acteur,
                         DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
                 FROM acteur
@@ -66,6 +67,45 @@ class PersonneController {
 
         $pdo = Connect::seConnecter();
 
+        if(isset($_GET['order'])) {
+                
+                if ($_GET['order'] === "genre") {
+
+                        $requete = $pdo->query("
+                        SELECT  
+                                personne.id_personne,
+                                personne.photo,
+                                CONCAT(personne.prenom, ' ',personne.nom) AS leRealisateur,
+                                personne.sexe,
+                                DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
+                        FROM realisateur
+                        INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+                        ORDER BY personne.sexe
+                        ");
+
+                } elseif ($_GET['order'] === "date") {
+                        $requete = $pdo->query("
+                        SELECT  personne.id_personne,
+                                personne.photo,
+                                CONCAT(personne.prenom, ' ',personne.nom) AS leRealisateur,
+                                DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
+                        FROM realisateur
+                        INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+                        ORDER BY DATE_FORMAT(personne.dateDeNaissance, '%Y/%m/%d')
+                        ");
+                } else {
+                        $requete = $pdo->query("
+                        SELECT  personne.id_personne,
+                                personne.photo,
+                                CONCAT(personne.prenom, ' ',personne.nom) AS leRealisateur,
+                                DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
+                        FROM realisateur
+                        INNER JOIN personne ON realisateur.id_personne = personne.id_personne
+                        ORDER BY leRealisateur
+                        ");
+                }
+        } else {
+
         $requete = $pdo->query("
         SELECT  personne.id_personne,
                 personne.photo,
@@ -73,9 +113,10 @@ class PersonneController {
                 DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
         FROM realisateur
         INNER JOIN personne ON realisateur.id_personne = personne.id_personne
-        ORDER BY personne.sexe
+        ORDER BY leRealisateur
         ");
         
+        }
         require "view/realisateur/listRealisateur.php";
     }
 

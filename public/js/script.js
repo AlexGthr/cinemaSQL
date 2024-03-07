@@ -34,6 +34,13 @@ function redirigerTrieActeur() {
     window.location.href = 'index.php?action=listActeur&order=' + formulaireValue;
 };
 
+function redirigerTrieReal() {
+    let choixFormulaire = document.getElementById("orderby");
+    let formulaireValue = choixFormulaire.value;
+    window.location.href = 'index.php?action=listReal&order=' + formulaireValue;
+};
+
+
 
 
 // Je récupère mes éléments avec l'ID note

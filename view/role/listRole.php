@@ -1,13 +1,7 @@
 <?php 
     ob_start();
 ?>
-        <!-- Liste déroulante pour faire un trie -->
-    <label for="orderby">Trier par :</label>
 
-        <select name="order" id="orderby">
-            <option value="">Genre</option>
-            <option value="date">Date</option>
-        </select>
 
         <h1 id="titleSection" class="SectionTitle">Nos roles</h1>
 
