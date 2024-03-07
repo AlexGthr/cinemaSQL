@@ -11,6 +11,46 @@ class FilmController {
 
         $pdo = Connect::seConnecter();
 
+        if(isset($_GET['order'])) {
+                
+                if ($_GET['order'] === "duree") {
+                        $requete = $pdo->query("
+                        SELECT
+                            film.id_film,
+                            film.affiche,
+                            film.titre,
+                            DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie,
+                            TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%Hh%i') AS dureeFilm,
+                            film.note
+                        FROM film
+                        ORDER BY dureeFilm DESC
+                        ");
+                } elseif ($_GET['order'] === "note") {
+                        $requete = $pdo->query("
+                        SELECT
+                            film.id_film,
+                            film.affiche,
+                            film.titre,
+                            DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie,
+                            TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%Hh%i') AS dureeFilm,
+                            film.note
+                        FROM film
+                        ORDER BY note DESC
+                        ");
+                } else {
+                        $requete = $pdo->query("
+                        SELECT
+                            film.id_film,
+                            film.affiche,
+                            film.titre,
+                            DATE_FORMAT(film.dateDeSortie, '%d/%m/%Y') AS dateDeSortie,
+                            TIME_FORMAT(SEC_TO_TIME(film.duree*60), '%Hh%i') AS dureeFilm,
+                            film.note
+                        FROM film
+                        ORDER BY DATE_FORMAT(dateDeSortie, '%Y/%m/%d') DESC
+                        ");  
+                }
+        } else {
         // Requete pour afficher la liste des films
         $requete = $pdo->query("
         SELECT
@@ -23,6 +63,7 @@ class FilmController {
         FROM film
         ORDER BY DATE_FORMAT(dateDeSortie, '%Y/%m/%d') DESC
         ");
+        }
         require "view/film/listeFilm.php";
     }
 
@@ -114,7 +155,7 @@ class FilmController {
         require "view/formulaire/gestionFilm.php";
     }
 
-    public function addFilm() {
+    public function addFilm() { // Function traitement pour l'ajout d'un film
 
         session_start();
         $pdo = Connect::seConnecter();

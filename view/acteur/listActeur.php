@@ -1,13 +1,29 @@
 <?php 
     ob_start();
 ?>
-        <!-- Liste déroulante pour faire un trie -->
+<?php 
+    if(isset($_GET['order'])) {
+
+        $isSelectGenre = $_GET['order'] === "genre" ? true : false;
+        $isSelectDate = $_GET['order'] === "date" ? true : false;
+    }
+
+    else {
+        $isSelectGenre = false;
+        $isSelectDate = false;
+    }
+?>
+
+        <!-- Liste déroulante pour faire un trie d'affichage -->
+<form id="formulaireTrieActeur" action="index.php" method="get">
     <label for="orderby">Trier par :</label>
 
         <select name="order" id="orderby">
-            <option value="">Genre</option>
-            <option value="date">Date de naissance</option>
+            <option value="genre" <?= $isSelectGenre ? 'selected' : '' ?> >Genre</option>
+            <option value="date" <?= $isSelectDate ? 'selected' : '' ?>>Date de naissance</option>
         </select>
+    <button type="button" onclick="redirigerTrieActeur()">Valider</button>
+</form>
 
         <h1 id="titleSection" class="SectionTitle">Nos Acteurs</h1>
 

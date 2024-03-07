@@ -12,7 +12,7 @@
                 <img src='". $film['affiche'] . "' title='" . $film['titre'] . "'>
             </figure>",
             "<h2>" . $film['titre'] . "</h2>",
-            "<p><span id='note' class='noteCenter'>" . $film["note"] . "</span></p>",
+            "<p><span class='note noteCenter'>" . $film["note"] . "</span></p>",
             "<p><span class='detail'> Durée : </span> " . $film['dureeFilm'] . "</p>",
             "<p><span class='detail'> Date de sortie : </span> " . $film['dateDeSortie'] . "</p>",
             "<p><span class='detail'> Synopsys : </span> " . $film['synopsis'] . "</p>",

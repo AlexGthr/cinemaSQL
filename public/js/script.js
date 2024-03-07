@@ -22,17 +22,28 @@ function rediriger() {
     window.location.href = 'index.php?action=gestion' + formulaireValue;
 };
 
+function redirigerTrieFilm() {
+    let choixFormulaire = document.getElementById("orderby");
+    let formulaireValue = choixFormulaire.value;
+    window.location.href = 'index.php?action=listFilm&order=' + formulaireValue;
+};
+
+function redirigerTrieActeur() {
+    let choixFormulaire = document.getElementById("orderby");
+    let formulaireValue = choixFormulaire.value;
+    window.location.href = 'index.php?action=listActeur&order=' + formulaireValue;
+};
 
 
 
 // Je récupère mes éléments avec l'ID note
-let noteElements = document.querySelectorAll("#note");
+let noteElements = document.querySelectorAll(".note");
 
 // Je fais un forEach de mes éléments pour afficher une étoile
-noteElements.forEach(function() {
-    
+noteElements.forEach((noteElement) => {
+
     // Je passe ma value en INT
-    let noteValue = parseInt(noteElements.textContent);
+    let noteValue = parseInt(noteElement.textContent);
     
     // Je crée une variable qui va contenir les informations et le début de la div
     let starsHTML = "<div class='star'>";
@@ -47,7 +58,7 @@ noteElements.forEach(function() {
     
     starsHTML += "</div>";
     // Et je remplacer le contenu de l'élément span par les étoiles
-    noteElements.innerHTML = starsHTML;
+    noteElement.innerHTML = starsHTML;
 });
 
 // Gestion de l'ajout d'une personne en Acteur/Réalisateur/les deux

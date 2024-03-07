@@ -11,6 +11,44 @@ class PersonneController {
 
         $pdo = Connect::seConnecter();
 
+        if(isset($_GET['order'])) {
+                
+                if ($_GET['order'] === "genre") {
+                        $requete = $pdo->query("
+                SELECT  
+                        personne.id_personne,
+                        personne.photo,
+                        CONCAT(personne.prenom, ' ',personne.nom) AS acteur,
+                        DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
+                FROM acteur
+                INNER JOIN personne ON acteur.id_personne = personne.id_personne
+                ORDER BY personne.sexe
+                        ");
+                } elseif ($_GET['order'] === "date") {
+                        $requete = $pdo->query("
+                SELECT  
+                        personne.id_personne,
+                        personne.photo,
+                        CONCAT(personne.prenom, ' ',personne.nom) AS acteur,
+                        DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
+                FROM acteur
+                INNER JOIN personne ON acteur.id_personne = personne.id_personne
+                ORDER BY DATE_FORMAT(dateDeNaissance, '%Y/%m/%d') DESC
+                        ");
+                } else {
+
+                $requete = $pdo->query("
+                SELECT  personne.id_personne,
+                personne.photo,
+                CONCAT(personne.prenom, ' ',personne.nom) AS acteur,
+                DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
+                FROM acteur
+                INNER JOIN personne ON acteur.id_personne = personne.id_personne
+                ORDER BY acteur
+                "); }
+
+                } else {
+
         $requete = $pdo->query("
         SELECT  personne.id_personne,
                 personne.photo,
@@ -18,8 +56,8 @@ class PersonneController {
                 DATE_FORMAT(personne.dateDeNaissance, '%d/%m/%Y') as dateDeNaissance
         FROM acteur
         INNER JOIN personne ON acteur.id_personne = personne.id_personne
-        ORDER BY personne.sexe
-        ");
+        ORDER BY acteur
+        "); }
 
         require "view/acteur/listActeur.php";
     }
@@ -348,7 +386,7 @@ class PersonneController {
                                 header("Location:index.php?action=editerPersonne&id=$id");
 
                         } else {
-                                
+
                         //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
                         $file = $uniqueName.".".$extension;
                         move_uploaded_file($tmpName, './public/img/personne/'.$file);
