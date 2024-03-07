@@ -2,35 +2,40 @@
     ob_start();
 ?>
 
-<!-- <div class="slider-container slider-1">
-    <div class="slider">
-        <div class="sliders 1">
-            <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
-            <h2>Ceci est un titre pour l'image</h2>
-            <p>blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla </p>
-        </div>
 
-        <div class="sliders 2">
-            <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
-            <h2>Ceci est un titre pour l'image 2</h2>
-            <p>blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla </p>
-        </div>
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
 
-        <div class="sliders 3">
-            <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
-            <h2>Ceci est un titre pour l'image 3</h2>
-            <p>blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla </p>
-        </div>
+      <div class="swiper-slide">
 
-        <div class="sliders 1">
-            <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
-            <h2>Ceci est un titre pour l'image</h2>
-            <p>blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla </p>
+          <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
+
+        <div class="swiperCadreText">
+            <h2>Bob Marley review</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
         </div>
+      </div>
+      
+      <div class="swiper-slide">
+        <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
+        <div class="swiperCadreText">
+            <h2>Bob Marley review</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
+        <div class="swiperCadreText">
+            <h2>Bob Marley review</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+        </div>
+      </div>
     </div>
-</div> -->
-
-    <p>**********</br>ICI UN CAROUSSEL DANS LE FUTUR</br>**********</p>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
 
     <h1 id="titleSection" class="SectionTitle">A l'affiche !</h1>
 
@@ -114,6 +119,25 @@
                         View all
                      </a>
         </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+        var swiper = new Swiper(".mySwiper", {
+        navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+        // autoplay: {
+        //     delay: 5000,
+        //     },
+  });
+</script>
 
 <?php
 

@@ -10,10 +10,12 @@
         }
 ?>
 
+            <!-- Je récupère les éléments de la catégorie -->
         <?php $categorie = $requete->fetch(); ?>
 
     <h3 class="titleFormulaire"> Modifier une catégorie : </h3>
 
+            <!-- Formulaire d'édition de la catégorie  -->
     <form action="index.php?action=editCategorie&id=<?= $categorie['id_categorie']?>" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
     <div class="caseFormulaire">

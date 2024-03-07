@@ -142,7 +142,7 @@ class FilmController {
             // Je met l'extension en minuscule
             $extension = strtolower(end($tabExtension));
             // Je crée un tableau pour accepter UNIQUEMENT ce genre d'extension
-            $extensions = ['jpg', 'png', 'jpeg'];
+            $extensions = ['jpg', 'png', 'jpeg', 'webp'];
             // Et je crée une condition pour la taille MAX d'une image (1 MO ici)
             $maxSize = 1000000;
 
@@ -347,7 +347,7 @@ class FilmController {
                 // Je met l'extension en minuscule
                 $extension = strtolower(end($tabExtension));
                 // Je crée un tableau pour accepter UNIQUEMENT ce genre d'extension
-                $extensions = ['jpg', 'png', 'jpeg'];
+                $extensions = ['jpg', 'png', 'jpeg', 'webp'];
                 // Et je crée une condition pour la taille MAX d'une image (1 MO ici)
                 $maxSize = 1000000;
 
@@ -365,12 +365,21 @@ class FilmController {
                         header("Location:index.php?action=editerFilm&id=$id");
 
                 } else {
-
-                $file = $uniqueName.".".$extension;
-                move_uploaded_file($tmpName, './public/img/afficheFilm/'.$file);
-
-                // Je crée le chemin de l'image pour la BDD
-                $cheminfile = "public/img/afficheFilm/" . $file;
+                        
+                        $file = $uniqueName.".".$extension;
+                        move_uploaded_file($tmpName, './public/img/afficheFilm/'.$file);
+    
+                            // Je récupère mon image dans le dossier
+                            $image = imagecreatefromstring(file_get_contents('./public/img/afficheFilm/' . $file));
+                            // Je prépare ma nouvelle image
+                            $webpPath = "./public/img/afficheFilm/" . $uniqueName . ".webp";
+                            // Je convertie en webP
+                            imagewebp($image, $webpPath);
+                            // Et je supprime mon ancienne image
+                            unlink('./public/img/afficheFilm/'.$file);
+    
+                            // Je définie le chemin pour le BDD
+                            $cheminfile = $webpPath;
 
                 $requeteModifierAffiche = $pdo->prepare("
                 UPDATE film
@@ -441,7 +450,7 @@ class FilmController {
                         'id_realisateur' => $realisateur,
                         'id' => $id]);
 
-                // Je delete les catégories que le film posseder, pour pouvoir lui ajouter les nouvelles valeur
+                // Je delete les catégories que le film possède, pour pouvoir lui ajouter les nouvelles valeurs
                 $requeteDeleteCategories = $pdo->prepare("
                         DELETE FROM categoriser
                         WHERE id_film = :id_film 
@@ -449,7 +458,7 @@ class FilmController {
 
                 $requeteDeleteCategories->execute(['id_film' => $id]);
 
-                // J'ajoute ici les nouvelles valeur de catégories au film
+                // J'ajoute ici les nouvelles valeurs de catégories au film
                 foreach ($_POST['categorie'] as $categorieFilm) {
                         $categorieFilm = filter_var($categorieFilm, FILTER_VALIDATE_INT);
                         

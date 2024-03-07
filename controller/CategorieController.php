@@ -99,6 +99,7 @@ class CategorieController {
         }
     }
 
+    // Function qui permet l'édition d'une catégorie
     public function editerCategorie($id) {
         $pdo = Connect::seConnecter();
 
@@ -120,6 +121,7 @@ class CategorieController {
         }
     }
 
+    // Function traitement qui gère la modification de la catégorie
     public function editCategorie($id) {
         
         session_start();
@@ -153,6 +155,7 @@ class CategorieController {
         }
     }
 
+    // Function qui permet la suppression d'une catégorie
     public function delCategorie($id) {
 
         $pdo = Connect::seConnecter();
@@ -161,7 +164,7 @@ class CategorieController {
                 header("Location:index.php?action=listCategorie");
                 exit;
         } else { 
-
+                 // Je supprime d'abord les éléments dans catégorie (j'enlève la liaison entre catégorie et film)
                 $requeteCategoriser = $pdo->prepare("
                 DELETE FROM categoriser
                 WHERE id_categorie = :id
@@ -169,6 +172,7 @@ class CategorieController {
 
                 $requeteCategoriser->execute(["id" => $id]);
 
+                 // Puis je supprime la catégorie
                 $requete = $pdo->prepare("
                 DELETE FROM categorie
                 WHERE id_categorie = :id

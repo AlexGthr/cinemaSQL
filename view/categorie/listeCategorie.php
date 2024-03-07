@@ -13,6 +13,7 @@
         echo "<h2> Catégorie de film </h2>",
                 "<ul>";
 
+                // requête pour l'affichage de la liste
         foreach($requete->fetchAll() as $categorie) { ?>
 
             <li>

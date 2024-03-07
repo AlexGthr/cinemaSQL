@@ -18,24 +18,6 @@ main {
 *********HEADER IMAGE***********
 ******************************* */
 
-/* figure {
-    position: relative;
-    width: 100%;
-}
-
-figure img {
-    display: block;
-    width: 100vw;
-    height: 100px;
-}
-
-figcaption {
-    position: absolute;
-    top: 20px;
-    left: 0px;
-    margin: 0 40px;
-} */
-
 .header__bg {
     display: flex;
     justify-content: flex-start;
@@ -81,11 +63,13 @@ nav > ul {
 
 .listeDeroulante {
     color: white;
+    cursor: pointer;
 }
 
 .sous-nav {
     display: none;
     transition: 0.5s;
+    z-index: 3;
 }
 
 .listeDeroulante:hover .sous-nav {
@@ -111,6 +95,8 @@ nav > ul {
     position: fixed;
     top: -10px;
     right: -12px;
+    z-index: 4;
+    cursor: pointer;
 }
 
 .active #icons:before {
@@ -131,43 +117,49 @@ nav li {
 *********HEADER Caroussel***********
 ******************************* */
 
-.slider-1 {
-    max-width: 800px;
-    margin: 100px auto;
-    overflow: hidden;
-}
-
-.slider-1 .slider {
-    animation: slider-1 15s infinite ease-in-out;
-    display: flex;
-}
-
-.slider-1 .sliders {
-    flex-shrink: 0;
+.swiper {
     width: 100%;
-}
+    height: 100%;
+  }
 
-/* @keyframes slider-1 {
-    0%,
-    20% {
-      transform: translateX(0);
-    }
-    25%,
-    45% {
-      transform: translateX(-100%);
-    }
-    50%,
-    70% {
-      transform: translateX(-200%);
-    }
-    75%,
-    95% {
-      transform: translateX(-300%);
-    }
-    100% {
-      transform: translateX(-400%);
-    }
-  }  */
+  .swiper-slide {
+    text-align: center;
+    font-size: 12px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .swiper-slide img {
+    display: block;
+    border-radius: 14px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .swiperCadreText {
+    position: absolute;
+    bottom: 0px;
+    left: 50px;
+    height: 80px;
+    width: 60%;
+    background-color: rgba(128, 128, 128, 0.75);
+    border-radius: 0px 15px 50px 0px;
+    border-left: 3px solid red;
+  }
+
+  .swiperCadreText h2, p {
+    color: white;
+  }
+
+  .swiperCadreText p {
+    width: 70%;
+    padding: 10px 0;
+  }
+
 
 /* *******************************
 ************   Body   ************
@@ -187,7 +179,7 @@ nav li {
 }
 
 #research {
-    padding: 0 10px;
+    padding: 0 15px;
     height: 28px;
     width: 70%;
     border-radius: 15px;
@@ -200,8 +192,10 @@ nav li {
     border: none;
 }
 
-.searchBar i {
+.fa-magnifying-glass {
     padding: 0 5px;
+    color: white;
+    cursor: pointer;
 }
 
 /* *******************************
@@ -993,6 +987,35 @@ footer a {
         border-radius: 14px;
         box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
+    
+      .swiper-slide {
+        font-size: 18px;
+      }
+    
+      .swiperCadreText {
+        position: absolute;
+        bottom: 0px;
+        left: 150px;
+        height: 80px;
+        width: 60%;
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(128, 128, 128, 0.60);
+        border-radius: 0px 15px 50px 0px;
+        border-left: 5px solid red;
+      }
+    
+      .swiperCadreText h2, p {
+        color: white;
+      }
+    
+      .swiperCadreText p {
+        width: 70%;
+        padding: 10px 0;
+      }
 }
 
 @media only screen and (min-width: 900px) {

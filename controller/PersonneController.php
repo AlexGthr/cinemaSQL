@@ -7,11 +7,10 @@ use Model\Service;
 
 class PersonneController { 
 
-    public function listActeur() {
+    public function listActeur() { // Requete pour afficher la liste de tout les acteurs
 
         $pdo = Connect::seConnecter();
 
-        // Requete pour afficher la liste de tout les acteurs
         $requete = $pdo->query("
         SELECT  personne.id_personne,
                 personne.photo,
@@ -25,7 +24,7 @@ class PersonneController {
         require "view/acteur/listActeur.php";
     }
 
-    public function listRealisateur() {
+    public function listRealisateur() { // Requete pour afficher la liste de tout les réalisateurs
 
         $pdo = Connect::seConnecter();
 
@@ -42,7 +41,7 @@ class PersonneController {
         require "view/realisateur/listRealisateur.php";
     }
 
-    public function detPersonne($id) {
+    public function detPersonne($id) { // Requete pour afficher le detail d'une personne
 
         $pdo = Connect::seConnecter();
 
@@ -87,6 +86,7 @@ class PersonneController {
         ");
         $requeteFilmoActeur->execute(["id" => $id]);
 
+        // affiche la filmographie d'un réalisateur (film/titre/année)
         $requeteFilmoRealisateur = $pdo->prepare("
         SELECT
                 film.id_film,
@@ -103,11 +103,11 @@ class PersonneController {
         }
     }
 
-    public function gestionPersonne() {
+    public function gestionPersonne() { // Affiche la vue gestion Personne
         require "view/formulaire/gestionPersonne.php";
     }
 
-    public function addPersonne() {
+    public function addPersonne() { // Permet l'ajout d'une personne
 
         session_start();
         $pdo = Connect::seConnecter();
@@ -136,7 +136,7 @@ class PersonneController {
                 // Je met l'extension en minuscule
                 $extension = strtolower(end($tabExtension));
                 // Je crée un tableau pour accepter UNIQUEMENT ce genre d'extension
-                $extensions = ['jpg', 'png', 'jpeg'];
+                $extensions = ['jpg', 'png', 'jpeg', 'webp'];
                 // Et je crée une condition pour la taille MAX d'une image (1 MO ici)
                 $maxSize = 1000000;
 
@@ -169,14 +169,22 @@ class PersonneController {
                    // Si tout vas bien, je crée une condition total puis j'ajoute la personne dans la BDD
                 elseif ($condition1 && $condition2 && ($genre == "M" || $genre == "F") && $dateNaissance && $metier && $size <= $maxSize && $erreur == 0) {
 
-                        // Je crée une nom unique à l'image
                         $uniqueName = uniqid('', true);
                         //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
                         $file = $uniqueName.".".$extension;
                         move_uploaded_file($tmpName, './public/img/personne/'.$file);
-
-                        // Je crée le chemin de l'image pour la BDD
-                        $cheminfile = "public/img/personne/" . $file;
+    
+                            // Je récupère mon image dans le dossier
+                            $image = imagecreatefromstring(file_get_contents('./public/img/personne/' . $file));
+                            // Je prépare ma nouvelle image
+                            $webpPath = "./public/img/personne/" . $uniqueName . ".webp";
+                            // Je convertie en webP
+                            imagewebp($image, $webpPath);
+                            // Et je supprime mon ancienne image
+                            unlink('./public/img/personne/'.$file);
+    
+                            // Je définie le chemin pour le BDD
+                            $cheminfile = $webpPath;
 
                         $requete = $pdo->prepare("
                         INSERT INTO personne
@@ -247,7 +255,7 @@ class PersonneController {
         }
     }
 
-    public function editerPersonne($id) {
+    public function editerPersonne($id) { // Affiche le formulaire pour l'édition d'une personne
 
         $pdo = Connect::seConnecter();
 
@@ -279,7 +287,7 @@ class PersonneController {
     }
     }
 
-    public function editPersonne($id) {
+    public function editPersonne($id) { // Traitement de l'édition d'une personne
 
                 session_start();
                 $pdo = Connect::seConnecter();
@@ -289,6 +297,10 @@ class PersonneController {
                 if(isset($_GET['action']) && isset($_GET['type'])) {
         
                     if(isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+                        
+                        // Si il y a une nouvelle image dans la modification :
+                        
+                        // Je récupère le lien de la photo actuel
                         $requetePhoto = $pdo->prepare("
                         SELECT personne.photo
                         FROM personne
@@ -297,7 +309,11 @@ class PersonneController {
                         $requetePhoto->execute(['id' => $id]);
         
                         $photoPersonne = $requetePhoto->fetch();
+                        
+                        // Et j'enrengistre le lien dans une variable
                         $lienPhotoPersonne = $photoPersonne['photo'];
+
+                        // Si la variable à reçu un élément, on supprime l'image
                         if(isset($lienPhotoPersonne)) {
 
                                 unlink($lienPhotoPersonne);
@@ -315,7 +331,7 @@ class PersonneController {
                         // Je met l'extension en minuscule
                         $extension = strtolower(end($tabExtension));
                         // Je crée un tableau pour accepter UNIQUEMENT ce genre d'extension
-                        $extensions = ['jpg', 'png', 'jpeg'];
+                        $extensions = ['jpg', 'png', 'jpeg', 'webp'];
                         // Et je crée une condition pour la taille MAX d'une image (1 MO ici)
                         $maxSize = 1000000;
         
@@ -332,13 +348,24 @@ class PersonneController {
                                 header("Location:index.php?action=editerPersonne&id=$id");
 
                         } else {
+                                
                         //uniqid génère quelque chose comme ca : 5f586bf96dcd38.73540086
                         $file = $uniqueName.".".$extension;
                         move_uploaded_file($tmpName, './public/img/personne/'.$file);
+
+                        // Je récupère mon image dans le dossier
+                        $image = imagecreatefromstring(file_get_contents('./public/img/personne/' . $file));
+                        // Je prépare ma nouvelle image
+                        $webpPath = "./public/img/personne/" . $uniqueName . ".webp";
+                        // Je convertie en webP
+                        imagewebp($image, $webpPath);
+                        // Et je supprime mon ancienne image
+                        unlink('./public/img/personne/'.$file);
+
+                        // Je définie le chemin pour le BDD
+                        $cheminfile = $webpPath;
                         
-                        // Je crée le chemin de l'image pour la BDD
-                        $cheminfile = "public/img/personne/" . $file;
-                        
+                        // Puis j'update la nouvelle photo dans le champ photo de ma personne
                         $requeteModifierPhoto = $pdo->prepare("
                         UPDATE personne
                         SET 
@@ -352,6 +379,8 @@ class PersonneController {
         
                     }}
                 
+
+                // Après la gestion des photos, on gère le formulaire. On commence par un tri des valeurs reçu.
                 $lastname = filter_input(INPUT_POST, "last", FILTER_SANITIZE_SPECIAL_CHARS);
                 $lastname = ucfirst($lastname);
                 $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -375,7 +404,7 @@ class PersonneController {
                         $_SESSION['message'] .= "<p> Problème avec le genre. Merci de changer le genre. </p>";
                         header("Location:index.php?action=editerPersonne&id=$id");
                 }
-                   // Si tout vas bien, je crée une condition total puis j'ajoute la personne dans la BDD
+                   // Si tout vas bien, je crée une condition total puis j'edit la personne dans la BDD
                 elseif ($condition1 && $condition2 && ($genre == "M" || $genre == "F") && $dateNaissance && $metier) {
                 
                         $requete = $pdo->prepare("                
@@ -396,7 +425,10 @@ class PersonneController {
                                 'id' => $id]);
                 }
 
+                // Je m'occupe ici de la gestion de la modification d'une personne en Acteur/Réalisateur/Les deux
                 if(isset($_GET['type'])) {
+
+                        // Je récupère le type de ma personne (acteur/réalisateur/les deux)
                         $requeteType = $pdo->prepare("
                         SELECT
                                 personne.id_personne,
@@ -408,6 +440,7 @@ class PersonneController {
                         WHERE personne.id_personne = :id
                         ");
 
+                        // Je vérifie si il y a des films en tant que réalisateur avec l'id de la personne
                         $requeteTypeCheckFilm = $pdo->prepare("
                         SELECT
                                 film.id_realisateur AS idFilmReal
@@ -417,6 +450,7 @@ class PersonneController {
                         WHERE personne.id_personne = :id
                         ");
 
+                        // Je vérifie si il y a des roles en tant qu'acteur avec l'id de la personne
                         $requeteTypeCheckRole = $pdo->prepare("
                         SELECT
                                 joue.id_acteur AS idActeurRole
@@ -426,6 +460,7 @@ class PersonneController {
                         WHERE personne.id_personne = :id
                         ");
 
+                        // J'execute les requetes avec l'id
                         $requeteType->execute(["id" => $id]);
                         $requeteTypeCheckFilm->execute(["id" => $id]);
                         $requeteTypeCheckRole->execute(["id" => $id]);
@@ -434,18 +469,22 @@ class PersonneController {
                         $typeFilmRealisateur = $requeteTypeCheckFilm->fetch();
                         $typeRoleActeur = $requeteTypeCheckRole->fetch();
 
+                        // J'insère les infos dans des variables pour pouvoir les tester
                         $idActeur = $typeActeurRealisateur['idActor'];
                         $idRealisateur = $typeActeurRealisateur['idReal'];
                         $idFilmRealisateur = $typeFilmRealisateur['idFilmReal'];
                         $idRoleActeur = $typeRoleActeur['idActeurRole'];
 
+                        // SI ON MODIFIE EN TANT QU'ACTEUR :
                         if($_GET['type'] == "acteur") {
+                                // Si c'était un réalisateur et qu'il à des films en tant que réalisateur, on empêche la suppression.
                                 if($idRealisateur !== null && $idFilmRealisateur !== null) {
 
                                         $_SESSION['message'] .= "<p> Vous ne pouvez pas modifier un réalisateur en acteur alors qu'il à un film dans sa filmographie. Modifier d'abord le film.</p>";
                                         header("Location:index.php?action=editerPersonne&id=$id");
                                         exit;
 
+                                        // Sinon, si c'etait un réalisateur sans film, je le supprime de la table realisateur.
                                 } elseif ($idRealisateur !== null) {
                                         $requeteRealisateur = $pdo->prepare("
                                         DELETE FROM realisateur 
@@ -453,6 +492,7 @@ class PersonneController {
                                         ");
                                         $requeteRealisateur->execute(["id" => $id]);
 
+                                        // Puis je le rajoute en acteur (Je vérifie la condition dans le cas ou on passerai de "Les deux" à "Acteur" uniquement, dans quel cas il existerai déjà dans la table acteur)
                                         if($idActeur === null) {
         
                                                 $requeteActeur = $pdo->prepare("
@@ -468,7 +508,10 @@ class PersonneController {
                                 
                         }
 
+                        // SI ON MODIFIE EN TANT QUE REALISATEUR :
                         if($_GET['type'] == "realisateur") {
+
+                                // Si c'était un acteur et qu'il avais des rôles en cours dans des films, on empêche la suppression
                                 if($idRoleActeur !== null && $idActeur !== null) {
 
                                         $_SESSION['message'] .= "<p> Vous ne pouvez pas modifier un acteur qui à des rôles dans des films. Supprimer d'abord les roles.</p>
@@ -476,6 +519,7 @@ class PersonneController {
                                         header("Location:index.php?action=editerPersonne&id=$id");
                                         exit;
 
+                                // Sinon, si c'était un acteur sans rôle, je le supprime de la table acteur.
                                 } elseif ($idActeur !== null) {
                                         $requeteActeur = $pdo->prepare("
                                         DELETE FROM acteur 
@@ -483,6 +527,7 @@ class PersonneController {
                                         ");
                                         $requeteActeur->execute(["id" => $id]);
 
+                                        // Puis je le rajoute en réalisateur (Je vérifie la condition dans le cas ou on passerai de "Les deux" à "réalisateur" uniquement, dans quel cas il existerai déjà dans la table réalisateur)
                                         if($idRealisateur === null) {
         
                                                 $requeteRealisateur = $pdo->prepare("
@@ -498,7 +543,10 @@ class PersonneController {
                                 
                         }
 
-                        if($_GET['type'] == "lesdeux") {                            
+                        // SI ON MODIFIE POUR "LES DEUX"
+                        if($_GET['type'] == "lesdeux") {     
+                                
+                                // Si il n'existe pas en tant que réalisateur, je l'ajoute.
                                 if($idRealisateur === null) {
         
                                         $requeteRealisateur = $pdo->prepare("
@@ -510,6 +558,7 @@ class PersonneController {
                                         $requeteRealisateur->execute(['id_personne' => $id]);
                                 }
 
+                                // Si il n'existe pas en tant qu'acteur, je l'ajoute.
                                 if($idActeur === null) {
         
                                         $requeteActeur = $pdo->prepare("
@@ -530,19 +579,26 @@ class PersonneController {
 }
     }
 
-    public function delPersonne($id) {
+    public function delPersonne($id) { // Traitement pour la suppression d'une personne
         session_start();
         $pdo = Connect::seConnecter();
 
+        // Si la personne est un acteur, je récupère son id via l'url
         $idActeur = (isset($_GET["idActeur"])) ? $_GET["idActeur"] : null;
 
         if(!Service::exist("personne", $id)) {
+
+                if(!Service::exist("acteur", $idActeur)) {
+                        header("Location:index.php");
+                        exit; 
+                }
+
                 header("Location:index.php");
                 exit;
         } else {
 
-                
-            if($idActeur !== null) {
+                // Si l'id de l'acteur n'est pas null je supprime ses roles :
+                if($idActeur !== null) {
                 $requeteJoue = $pdo->prepare("
                 DELETE FROM joue
                 WHERE id_acteur = :idActeur
@@ -551,6 +607,7 @@ class PersonneController {
                 $requeteJoue->execute(["idActeur" => $idActeur]);
             }
                 
+                // Puis je supprime la personne de la table acteur
                 $requeteActeur = $pdo->prepare("
                 DELETE FROM acteur
                 WHERE id_personne = :id
@@ -558,6 +615,8 @@ class PersonneController {
         
                 $requeteActeur->execute(["id" => $id]);
 
+
+                // Je récupère les informations de ma personne (si il est acteur ou réalisateur)
                 $requeteType = $pdo->prepare("
                 SELECT
                         personne.id_personne,
@@ -569,6 +628,7 @@ class PersonneController {
                 WHERE personne.id_personne = :id
                 ");
 
+                // Je vérifie si il y a un film associés à mon réalisateur
                 $requeteTypeCheckFilm = $pdo->prepare("
                 SELECT
                         film.id_realisateur AS idFilmReal
@@ -587,6 +647,7 @@ class PersonneController {
                 $idRealisateur = $typeActeurRealisateur['idReal'];
                 $idFilmRealisateur = $typeFilmRealisateur['idFilmReal'];
 
+                // Si c'est un réalisateur et qu'il à des films associés, j'empêche la suppression
                 if($idRealisateur !== null && $idFilmRealisateur !== null) {
 
                 $_SESSION['message'] .= "<p> Vous ne pouvez pas supprimer une personne qui à réaliser un film. Modifier ou supprimer d'abord le film.</p>";
@@ -595,6 +656,7 @@ class PersonneController {
 
                 } else {
         
+                        // sinon je peux supprimer la personne dans la table réalisateur
                 $requeteRealisateur = $pdo->prepare("
                 DELETE FROM realisateur
                 WHERE id_personne = :id
@@ -604,6 +666,25 @@ class PersonneController {
 
                 }
 
+                // Avant de supprimer la personne, je récupère le lien de sa photo pour la supprimer du dossier
+                $requetePhoto = $pdo->prepare("
+                SELECT personne.photo
+                FROM personne
+                WHERE personne.id_personne = :id ");
+                
+                $requetePhoto->execute(['id' => $id]);
+                
+                $photoPersonne = $requetePhoto->fetch();
+                $lienPhoto = $photoPersonne['photo'];
+                
+                // Si elle existe, je la supprime pour ajouter la nouvelle
+                if(isset($lienPhoto)) {
+                
+                        unlink($lienPhoto);
+                
+                }
+
+                // Et je supprime finalement ma personne de la table personne
                 $requete = $pdo->prepare("
                 DELETE FROM personne
                 WHERE id_personne = :id

@@ -21,7 +21,7 @@
     ?>
 
     <?php
-
+                        // Affiche la liste des catégories du film
         echo "<p><span class='detail'> Catégorie : </span> ";
 
             foreach($requeteCategorie->fetchAll() as $categorie) { ?>
@@ -48,6 +48,8 @@
                 <a href='index.php?action=detRole&id=<?= $liste['idRole'] ?>'> <?= $liste['nomRole'] ?></a> 
                 &#x2904;
                 <a href='index.php?action=detPersonne&id=<?= $liste['idPersonne'] ?>'> <?= $liste['nomActeurs'] ?></a>
+
+                 <!-- Boutton pour supprimer le film / acteur / role de la table joue -->
                 <button title="trash" id="trashActor">
                     <a href="index.php?action=delRoleFilm&id=<?= $film['id_film'] ?>&idActeur=<?= $liste['idActeur'] ?>&idRole=<?= $liste['idRole'] ?>"><i class="fa-regular fa-trash-can"></i></a>
                 </button>
@@ -58,15 +60,19 @@
 
 </div>
 
+            <!-- Bouton edition et suppression -->
 <div class="editOrDel">
 
+                <!-- Lien édition du film -->
     <a href='index.php?action=editerFilm&id=<?= $film['id_film'] ?>' title="edit"> <i class="fa-solid fa-pen-to-square"></i></a>
 
+                <!-- Button suppression du film -->
     <button title="trash" id="alertOn"> <i class="fa-regular fa-trash-can"></i></button>
 
 </div>
 
 
+                    <!-- POP UP confirmation suppression -->
 <div class="alert">
 <div class="alertBox">
     <p> Êtes vous sur de vouloir supprimer ce film ? </p>

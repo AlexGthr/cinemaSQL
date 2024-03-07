@@ -89,7 +89,7 @@
 
     <div class="caseFormulaire">
     <p>
-        Affiche (Format : jpg, png, jpeg - 1MO max): *
+        Affiche (Format : jpg, png, jpeg, webp - 1MO max): *
         <label>
             <input type="file" name="file">
         </label>

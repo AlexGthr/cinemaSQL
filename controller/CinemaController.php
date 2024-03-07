@@ -51,16 +51,21 @@ class CinemaController {
         require "view/acceuil.php";
      }
 
-     public function gestion() {
+     public function gestion() { // Affiche la vue Gestion.php pour l'affichage de la page
         require "view/formulaire/gestion.php";
      }
 
-     public function research() {
+     public function research() { // Function permettant d'utiliser la barre de recherche
         $pdo = Connect::seConnecter();
 
-        if (isset($_GET['action'])) {
+        if (isset($_GET['action'])) { // Si j'ai une action dans l'url
+
+                // Je filtre la recherche
                 $research = filter_input(INPUT_POST, "research", FILTER_SANITIZE_SPECIAL_CHARS);
 
+                // Puis je recherche dans mes tables les éléments qui pourraient correspondre
+
+                // Recherche dans les films
             $requeteFilm = $pdo->prepare("
             SELECT
                 film.id_film,
@@ -71,6 +76,7 @@ class CinemaController {
             
             $requeteFilm->execute(["research" => '%' . $research . '%']);
 
+                // Recherche dans les personnes (acteurs/réalisateurs)
             $requetePersonne = $pdo->prepare("
             SELECT
                 CONCAT(personne.prenom, ' ',personne.nom) AS nomPersonne,
@@ -82,6 +88,7 @@ class CinemaController {
 
             $requetePersonne->execute(["research" => '%' . $research . '%']);
 
+                // Recherche dans les roles
             $requeteRole = $pdo->prepare("
             SELECT
                 nom,
@@ -92,6 +99,7 @@ class CinemaController {
 
             $requeteRole->execute(["research" => '%' . $research . '%']);
 
+            // Recherche dans les catégories
             $requeteCategorie = $pdo->prepare("
             SELECT
                 type,

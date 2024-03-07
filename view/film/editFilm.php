@@ -10,15 +10,19 @@
     }
 ?>
 
+                    <!-- Page modification d'un film -->
 
 <h3 class="titleFormulaire"> Modifier un film : </h3>
 
+ <!-- Je récupère les éléments de mon film -->
 <?php $film = $requete->fetch(); ?>
 
-<form id="personne" action="index.php?action=editFilm&id=<?= $film['id_film']?>" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
+
+                        <!-- Formulaire pour envoyer un produit -->
+<form id="personne" action="index.php?action=editFilm&id=<?= $film['id_film']?>" method="post" enctype="multipart/form-data">
 
 
-<div>
+
 <div class="caseFormulaire">
 <p>
     <label> 
@@ -76,7 +80,7 @@
 <div class="caseFormulaire">
 <p>
     <label>
-        Affiche (Format : jpg, png, jpeg - 1MO max):
+        Affiche (Format : jpg, png, jpeg, webp - 1MO max):
         <input type="file" name="file">
     </label>
 </p>
@@ -86,6 +90,8 @@
 <p>
     <label>
         Réalisateur :
+
+                            <!-- Requete pour afficher en premier le réalisateur du film en selected puis les autres réalisateurs  -->
         <select name="realisateur" required>
 
             <?php foreach($requeteReal->fetchall() as $real) { ?>
@@ -118,13 +124,15 @@
 
 <?php    
 
+ // Je récupère les catégories de mon film
 $filmCategories = $requeteCategoriesFilm->fetchAll();
 
+// Puis je fais une boucle pour tester si les catégories du film correspondent à des catégories de la table categorie
 foreach ($requeteCategorie->fetchAll() as $categorie) { 
     $isChecked = in_array($categorie['idCategorie'], array_column($filmCategories, 'id_categorie'));
 ?>
     <br>
-    <div class='checkboxAll'>
+    <div class='checkboxAll'>                                                                                                          <!-- Si checked est "true", alors checked -->
         <input type="checkbox" name="categorie[]" id='<?= $categorie['typeCategorie'] ?>' value="<?= $categorie['idCategorie'] ?>" <?= $isChecked ? 'checked' : '' ?>>
         <label for='<?= $categorie['typeCategorie'] ?>'> <?= $categorie['typeCategorie'] ?>  </label>
     </div>

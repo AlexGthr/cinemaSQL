@@ -8,7 +8,7 @@ use Model\Service;
 class RoleController { 
 
 
-    public function listRole() {
+    public function listRole() { // Requête pour l'affichage de ma liste de role
 
         $pdo = Connect::seConnecter();
 
@@ -28,7 +28,7 @@ class RoleController {
 
     }
 
-    public function detRole($id) {
+    public function detRole($id) { // Requête pour l'affichae des details d'un role
 
         $pdo = Connect::seConnecter();
 
@@ -61,21 +61,26 @@ class RoleController {
         }
     }
 
-    public function gestionRole() {
+    public function gestionRole() { // Affiche la vue du formulaire pour l'ajout de rôle
         require "view/formulaire/gestionRole.php";
     }
 
-    public function addRole() {
+    public function addRole() { // Traitement de l'ajout d'un role
 
         session_start();
 
         $pdo = Connect::seConnecter();
 
+        // Si j'ai bien une action :
         if(isset($_GET['action'])) {
+
+                // Je filtre la valeur reçu
                 $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_SPECIAL_CHARS);
 
+                // Je vérifie qu'elle à certaines conditions
                 if(!empty($role) && strlen($role) <= 20 && preg_match("/^[A-Za-z '-]+$/", $role)) {
 
+                        // Si oui, je l'ajoute
                         $requete = $pdo->prepare("
                         INSERT INTO role
                            (nom)
@@ -88,14 +93,14 @@ class RoleController {
                         $_SESSION['message'] = "<p> Votre role à bien été enrengistré ! </p>";
                         header("Location:index.php?action=gestionRole");
                 }
-                else {
+                else { // Sinon, je préviens l'utilisateur
                         $_SESSION['message'] = "<p>Oups. Votre role n'as pas pu être enrengistré. Verifier vos informations.</p>";
                         header("Location:index.php?action=gestionRole");
                 }
         }
     }
 
-    public function editerRole($id) {
+    public function editerRole($id) { // Requête pour l'affichage de la valeur d'un role dans le formulaire d'édition
 
         $pdo = Connect::seConnecter();
 
@@ -117,17 +122,22 @@ class RoleController {
         }
 }
 
-        public function editRole($id) {
+    public function editRole($id) { // Traitement de l'édition d'un role
 
         session_start();
 
         $pdo = Connect::seConnecter();
 
+        // Je vérifie que j'ai une action
         if(isset($_GET['action'])) {
+                
+                // Je filtre la nouvelle valeur reçu
                 $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_SPECIAL_CHARS);
 
+                // Je vérifie avec des conditions
                 if(!empty($role) && strlen($role) <= 20 && preg_match("/^[A-Za-z '-]+$/", $role)) {
 
+                        // Si tout va bien, je l'update
                         $requete = $pdo->prepare("
                         UPDATE role
                         SET 
@@ -143,7 +153,7 @@ class RoleController {
                                                 <a href='index.php?action=detRole&id=". $id . "'> Accès au role </a>";
                         header("Location:index.php?action=editerRole&id=$id");
                 }
-                else {
+                else { // Sinon, je préviens l'utilisateur d'un problème.
                         $_SESSION['message'] = "<p>Oups. Votre role n'as pas pu être enrengistré. Verifier vos informations.</p>";
                         header("Location:index.php?action=editerRole&id=$id");
                 }

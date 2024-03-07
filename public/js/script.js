@@ -1,19 +1,21 @@
-let icons = document.querySelector('#icons');
-let nav = document.querySelector('nav');
-let links = document.querySelectorAll('nav a');
-let listeDeroulante = document.querySelector('.listeDeroulante');
-let liste = document.querySelector('.sous-nav');
+let icons = document.querySelector('#icons'); // Recupère l'icone de la navBar (Menu burger)
+let nav = document.querySelector('nav'); // Recupère la balise nav
+let links = document.querySelectorAll('nav a');  // Récupère la balise A dans la nav
+let listeDeroulante = document.querySelector('.listeDeroulante'); // Récupère la classe .listeDeroulante
+let liste = document.querySelector('.sous-nav'); // Recupère la classe .sous-nav
 
+// Si je clic sur l'icone de ma nav bar, j'ajoute ou supprime la classe Active de ma navbar
 icons.addEventListener("click", () => {
     nav.classList.toggle("active");
 });
 
+// Si je clique sur ma liste déroulante, j'ajoute ou supprime la classe Active de ma liste (.sous-nav)
 listeDeroulante.addEventListener("click", () => {
     liste.classList.toggle("active");
 });
 
 
-
+// Function qui gère l'url de redirection après un choix dans le formulaire de gestion d'ajout.
 function rediriger() {
     let choixFormulaire = document.getElementById("choixFormulaire");
     let formulaireValue = choixFormulaire.value;
@@ -27,10 +29,10 @@ function rediriger() {
 let noteElements = document.querySelectorAll("#note");
 
 // Je fais un forEach de mes éléments pour afficher une étoile
-noteElements.forEach(function(noteElement) {
+noteElements.forEach(function() {
     
     // Je passe ma value en INT
-    let noteValue = parseInt(noteElement.textContent);
+    let noteValue = parseInt(noteElements.textContent);
     
     // Je crée une variable qui va contenir les informations et le début de la div
     let starsHTML = "<div class='star'>";
@@ -45,7 +47,7 @@ noteElements.forEach(function(noteElement) {
     
     starsHTML += "</div>";
     // Et je remplacer le contenu de l'élément span par les étoiles
-    noteElement.innerHTML = starsHTML;
+    noteElements.innerHTML = starsHTML;
 });
 
 // Gestion de l'ajout d'une personne en Acteur/Réalisateur/les deux
