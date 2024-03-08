@@ -66,7 +66,7 @@ class CategorieController {
 
     public function addCategorie() { // Traitement pour l'ajout d'une catégorie
 
-        session_start();
+        
 
         $pdo = Connect::seConnecter();
 
@@ -91,10 +91,12 @@ class CategorieController {
 
                         $_SESSION['message'] = "<p> Votre catégorie à bien été enrengistré ! </p>";
                         header("Location:index.php?action=gestionCategorie");
+                        exit;
                 }
                 else {
                         $_SESSION['message'] = "<p>Oups. Votre catégorie n'as pas pu être enrengistré. Verifier vos informations.</p>";
                         header("Location:index.php?action=gestionCategorie");
+                        exit;
                 }
         }
     }
@@ -124,7 +126,7 @@ class CategorieController {
     // Function traitement qui gère la modification de la catégorie
     public function editCategorie($id) {
         
-        session_start();
+        
 
         $pdo = Connect::seConnecter();
 
@@ -147,10 +149,12 @@ class CategorieController {
                         $_SESSION['message'] = "<p> Votre categorie à bien été enrengistré ! </p>
                                                 <a href='index.php?action=detCategorie&id=". $id . "'> Accès à la catégorie </a>";
                         header("Location:index.php?action=editerCategorie&id=$id");
+                        exit;
                 }
                 else {
                         $_SESSION['message'] = "<p>Oups. Votre categorie n'as pas pu être enrengistré. Verifier vos informations.</p>";
                         header("Location:index.php?action=editerCategorie&id=$id");
+                        exit;
                 }
         }
     }
@@ -180,6 +184,8 @@ class CategorieController {
                 $requete->execute(["id" => $id]);
 
                 header("Location:index.php");
+                exit;
         }
     }
  }
+ ?>

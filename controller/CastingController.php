@@ -45,7 +45,7 @@ class CastingController {
 
     public function addCasting() { // Permet l'ajout d'un casting
 
-        session_start();
+        
 
         $pdo = Connect::seConnecter();
 
@@ -99,3 +99,4 @@ class CastingController {
         
     }
 }
+?>

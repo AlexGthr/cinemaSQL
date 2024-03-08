@@ -14,3 +14,5 @@ abstract class Service {
         return $element = $exist->fetch();
     }
 }
+
+?>

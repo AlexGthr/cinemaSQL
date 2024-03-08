@@ -67,7 +67,7 @@ class RoleController {
 
     public function addRole() { // Traitement de l'ajout d'un role
 
-        session_start();
+        
 
         $pdo = Connect::seConnecter();
 
@@ -92,10 +92,12 @@ class RoleController {
 
                         $_SESSION['message'] = "<p> Votre role à bien été enrengistré ! </p>";
                         header("Location:index.php?action=gestionRole");
+                        exit;
                 }
                 else { // Sinon, je préviens l'utilisateur
                         $_SESSION['message'] = "<p>Oups. Votre role n'as pas pu être enrengistré. Verifier vos informations.</p>";
                         header("Location:index.php?action=gestionRole");
+                        exit;
                 }
         }
     }
@@ -124,7 +126,7 @@ class RoleController {
 
     public function editRole($id) { // Traitement de l'édition d'un role
 
-        session_start();
+        
 
         $pdo = Connect::seConnecter();
 
@@ -152,11 +154,14 @@ class RoleController {
                         $_SESSION['message'] = "<p> Votre role à bien été enrengistré ! </p>
                                                 <a href='index.php?action=detRole&id=". $id . "'> Accès au role </a>";
                         header("Location:index.php?action=editerRole&id=$id");
+                        exit;
                 }
                 else { // Sinon, je préviens l'utilisateur d'un problème.
                         $_SESSION['message'] = "<p>Oups. Votre role n'as pas pu être enrengistré. Verifier vos informations.</p>";
                         header("Location:index.php?action=editerRole&id=$id");
+                        exit;
                 }
         }
     }
 }
+?>

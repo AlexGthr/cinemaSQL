@@ -188,7 +188,7 @@ class PersonneController {
 
     public function addPersonne() { // Permet l'ajout d'une personne
 
-        session_start();
+        
         $pdo = Connect::seConnecter();
 
         // Je vérifie que j'ai bien recu via le formulaire une action, un type et un file.
@@ -210,6 +210,7 @@ class PersonneController {
                 $size = $_FILES['file']['size'];
                 $erreur = $_FILES['file']['error'];
 
+
                 // Je sépare le nom de l'extension
                 $tabExtension = explode('.', $nameImg);
                 // Je met l'extension en minuscule
@@ -226,24 +227,24 @@ class PersonneController {
 
 
                 if(!$condition1) { // Si le nom à un problème
-                        $_SESSION['message'] .= "<p> Problème avec le nom. Merci de changer le nom </p>";
-                        header("Location:index.php?action=gestionPersonne");
+                        $_SESSION['message'] = "<p> Problème avec le nom. Merci de changer le nom </p>";
+                        header("Location:index.php?action=gestionPersonne");die;
 
                 } elseif (!$condition2) { // si le prénom à un problème
-                        $_SESSION['message'] .= "<p> Problème avec le prénom. Merci de changer le prénom </p>";
-                        header("Location:index.php?action=gestionPersonne");
+                        $_SESSION['message'] = "<p> Problème avec le prénom. Merci de changer le prénom </p>";
+                        header("Location:index.php?action=gestionPersonne");die;
 
                 } elseif ($genre !== "M" && $genre !== "F") { // si le genre n'est pas bon
-                        $_SESSION['message'] .= "<p> Problème avec le genre. Merci de changer le genre. </p>";
-                        header("Location:index.php?action=gestionPersonne");
+                        $_SESSION['message'] = "<p> Problème avec le genre. Merci de changer le genre. </p>";
+                        header("Location:index.php?action=gestionPersonne");die;
 
                 } elseif ($size >= $maxSize) { // Si la taille de l'image n'est pas correct
-                        $_SESSION['message'] .= "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
-                        header("Location:index.php?action=gestionPersonne");
+                        $_SESSION['message'] = "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
+                        header("Location:index.php?action=gestionPersonne");die;
 
                 } elseif ($erreur > 0) { // Si l'image à une erreur
-                        $_SESSION['message'] .= "<p> Erreur upload file. </p>";
-                        header("Location:index.php?action=gestionPersonne");
+                        $_SESSION['message'] = "<p> Erreur upload file. </p>";
+                        header("Location:index.php?action=gestionPersonne");die;
                 }
                    // Si tout vas bien, je crée une condition total puis j'ajoute la personne dans la BDD
                 elseif ($condition1 && $condition2 && ($genre == "M" || $genre == "F") && $dateNaissance && $metier && $size <= $maxSize && $erreur == 0) {
@@ -289,8 +290,8 @@ class PersonneController {
                         ");
                         $requeteActeur->execute(['id_personne' => $idPersonne]);
 
-                        $_SESSION['message'] .= "<p> Votre ACTEUR est bien enrengistré </p>";
-                        header("Location:index.php?action=gestionPersonne");
+                        $_SESSION['message'] = "<p> Votre ACTEUR est bien enrengistré </p>";
+                        header("Location:index.php?action=gestionPersonne");exit;
 
                         // Si la personne est un réalisateur, alors je la rajoute dans la table REALISATEUR
                 } elseif (isset($_GET['type']) && $_GET['type'] == "realisateur") {
@@ -305,8 +306,8 @@ class PersonneController {
                         ");
                         $requeteRealisateur->execute(['id_personne' => $idPersonne]);
 
-                        $_SESSION['message'] .= "<p> Votre REALISATEUR est bien enrengistré </p>";
-                        header("Location:index.php?action=gestionPersonne");
+                        $_SESSION['message'] = "<p> Votre REALISATEUR est bien enrengistré </p>";
+                        header("Location:index.php?action=gestionPersonne");die;
 
                         // Si elle à les deux métier, alors je l'ajoute dans les deux table
                 } elseif (isset($_GET['type']) && $_GET['type'] == "lesdeux") {
@@ -328,8 +329,8 @@ class PersonneController {
                         $requeteRealisateur->execute(['id_personne' => $idPersonne]);
 
 
-                        $_SESSION['message'] .= "<p> Votre REALISATEUR+ACTEUR est bien enrengistré </p>";
-                        header("Location:index.php?action=gestionPersonne");     
+                        $_SESSION['message'] = "<p> Votre REALISATEUR+ACTEUR est bien enrengistré </p>";
+                        header("Location:index.php?action=gestionPersonne");die;
                 }
         }
     }
@@ -368,7 +369,7 @@ class PersonneController {
 
     public function editPersonne($id) { // Traitement de l'édition d'une personne
 
-                session_start();
+                
                 $pdo = Connect::seConnecter();
 
                 // Je vérifie que j'ai bien recu via le formulaire l'action :
@@ -418,13 +419,13 @@ class PersonneController {
 
                         if ($size >= $maxSize) { // Si la taille de l'image n'est pas correct
                                 
-                                $_SESSION['message'] .= "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
-                                header("Location:index.php?action=editerPersonne&id=$id");
+                                $_SESSION['message'] = "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
+                                header("Location:index.php?action=editerPersonne&id=$id");exit;
 
                         } elseif ($erreur > 0) { // Si l'image à une erreur
 
-                                $_SESSION['message'] .= "<p> Erreur upload file. </p>";
-                                header("Location:index.php?action=editerPersonne&id=$id");
+                                $_SESSION['message'] = "<p> Erreur upload file. </p>";
+                                header("Location:index.php?action=editerPersonne&id=$id");exit;
 
                         } else {
 
@@ -472,16 +473,16 @@ class PersonneController {
                 $condition2 = !empty($name) && strlen($name) <= 20 && preg_match("/^[A-Za-z '-]+$/", $name);
 
                 if(!$condition1) { // Si le nom à un problème
-                        $_SESSION['message'] .= "<p> Problème avec le nom. Merci de changer le nom </p>";
-                        header("Location:index.php?action=editerPersonne&id=$id");
+                        $_SESSION['message'] = "<p> Problème avec le nom. Merci de changer le nom </p>";
+                        header("Location:index.php?action=editerPersonne&id=$id");exit;
 
                 } elseif (!$condition2) { // si le prénom à un problème
-                        $_SESSION['message'] .= "<p> Problème avec le prénom. Merci de changer le prénom </p>";
-                        header("Location:index.php?action=editerPersonne&id=$id");
+                        $_SESSION['message'] = "<p> Problème avec le prénom. Merci de changer le prénom </p>";
+                        header("Location:index.php?action=editerPersonne&id=$id");exit;
 
                 } elseif ($genre !== "M" && $genre !== "F") { // si le genre n'est pas bon
-                        $_SESSION['message'] .= "<p> Problème avec le genre. Merci de changer le genre. </p>";
-                        header("Location:index.php?action=editerPersonne&id=$id");
+                        $_SESSION['message'] = "<p> Problème avec le genre. Merci de changer le genre. </p>";
+                        header("Location:index.php?action=editerPersonne&id=$id");exit;
                 }
                    // Si tout vas bien, je crée une condition total puis j'edit la personne dans la BDD
                 elseif ($condition1 && $condition2 && ($genre == "M" || $genre == "F") && $dateNaissance && $metier) {
@@ -559,7 +560,7 @@ class PersonneController {
                                 // Si c'était un réalisateur et qu'il à des films en tant que réalisateur, on empêche la suppression.
                                 if($idRealisateur !== null && $idFilmRealisateur !== null) {
 
-                                        $_SESSION['message'] .= "<p> Vous ne pouvez pas modifier un réalisateur en acteur alors qu'il à un film dans sa filmographie. Modifier d'abord le film.</p>";
+                                        $_SESSION['message'] = "<p> Vous ne pouvez pas modifier un réalisateur en acteur alors qu'il à un film dans sa filmographie. Modifier d'abord le film.</p>";
                                         header("Location:index.php?action=editerPersonne&id=$id");
                                         exit;
 
@@ -593,7 +594,7 @@ class PersonneController {
                                 // Si c'était un acteur et qu'il avais des rôles en cours dans des films, on empêche la suppression
                                 if($idRoleActeur !== null && $idActeur !== null) {
 
-                                        $_SESSION['message'] .= "<p> Vous ne pouvez pas modifier un acteur qui à des rôles dans des films. Supprimer d'abord les roles.</p>
+                                        $_SESSION['message'] = "<p> Vous ne pouvez pas modifier un acteur qui à des rôles dans des films. Supprimer d'abord les roles.</p>
                                         <a href='index.php?action=detPersonne&id=$id'>Role</a>";
                                         header("Location:index.php?action=editerPersonne&id=$id");
                                         exit;
@@ -652,14 +653,14 @@ class PersonneController {
                 }
 
 
-        $_SESSION['message'] .= "<p> Modification reussi !</p>
+        $_SESSION['message'] = "<p> Modification reussi !</p>
         <a href='index.php?action=detPersonne&id=". $id . "'> Accès à la personne </a>";
-        header("Location:index.php?action=editerPersonne&id=$id");
+        header("Location:index.php?action=editerPersonne&id=$id");exit;
 }
     }
 
     public function delPersonne($id) { // Traitement pour la suppression d'une personne
-        session_start();
+        
         $pdo = Connect::seConnecter();
 
         // Si la personne est un acteur, je récupère son id via l'url
@@ -722,7 +723,7 @@ class PersonneController {
                 // Si c'est un réalisateur et qu'il à des films associés, j'empêche la suppression
                 if($idRealisateur !== null && $idFilmRealisateur !== null) {
 
-                $_SESSION['message'] .= "<p> Vous ne pouvez pas supprimer une personne qui à réaliser un film. Modifier ou supprimer d'abord le film.</p>";
+                $_SESSION['message'] = "<p> Vous ne pouvez pas supprimer une personne qui à réaliser un film. Modifier ou supprimer d'abord le film.</p>";
                 header("location:" . $_SERVER['HTTP_REFERER']);
                 exit;
 
@@ -764,12 +765,11 @@ class PersonneController {
 
                 $requete->execute(["id" => $id]);
 
-                header("Location:index.php");
+                header("Location:index.php");exit;
                 }
 
     }
 
 
 }
-
-
+?>

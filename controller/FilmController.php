@@ -157,7 +157,7 @@ class FilmController {
 
     public function addFilm() { // Function traitement pour l'ajout d'un film
 
-        session_start();
+        
         $pdo = Connect::seConnecter();
 
         // Je vérifie que j'ai bien recu via le formulaire l'action :
@@ -195,32 +195,32 @@ class FilmController {
             // Je teste mes conditions et j'affiche un message personnalisé en fonction de l'erreur
             if (!$condition1) {
 
-                    $_SESSION['message'] .= "<p> Problème avec le titre. Merci de changer le titre </p>";
+                    $_SESSION['message'] = "<p> Problème avec le titre. Merci de changer le titre </p>";
                     header("Location:index.php?action=gestionFilm");
 
             } elseif (!is_numeric($duree) && $duree < 0) {
 
-                    $_SESSION['message'] .= "<p> La durée n'est pas correct. </p>";
+                    $_SESSION['message'] = "<p> La durée n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
 
             } elseif (!is_numeric($note) && $note > 5 && $note < 0) {
 
-                    $_SESSION['message'] .= "<p> La note n'est pas correct. </p>";
+                    $_SESSION['message'] = "<p> La note n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
 
             } elseif (!is_numeric($realisateur)) {
 
-                    $_SESSION['message'] .= "<p> Problème avec le réalisateur. </p>";
+                    $_SESSION['message'] = "<p> Problème avec le réalisateur. </p>";
                     header("Location:index.php?action=gestionFilm"); 
 
             } else if ($size >= $maxSize) { // Si la taille de l'image n'est pas correct
                                 
-                        $_SESSION['message'] .= "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
+                        $_SESSION['message'] = "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
                         header("Location:index.php?action=gestionFilm");
 
             } elseif ($erreur > 0) { // Si l'image à une erreur
 
-                        $_SESSION['message'] .= "<p> Erreur upload file. </p>";
+                        $_SESSION['message'] = "<p> Erreur upload file. </p>";
                         header("Location:index.php?action=gestionFilm");
 
             }  elseif ($condition1 && $condition2 && $size <= $maxSize && $erreur == 0) { // Si tout vas bien, on ajoute le film
@@ -284,8 +284,9 @@ class FilmController {
                     }
 
 
-                    $_SESSION['message'] .= "<p> Votre film est bien enrengistré </p>";
+                    $_SESSION['message'] = "<p> Votre film est bien enrengistré </p>";
                     header("Location:index.php?action=gestionFilm");
+                    exit;
             }
             
             
@@ -350,7 +351,7 @@ class FilmController {
 
     public function editFilm($id) { // Function pour editer un film (traitement)
 
-        session_start();
+        
         $pdo = Connect::seConnecter();
 
         // Je vérifie que j'ai bien recu via le formulaire l'action :
@@ -397,13 +398,15 @@ class FilmController {
 
                 if ($size >= $maxSize) { // Si la taille de l'image n'est pas correct
                                 
-                        $_SESSION['message'] .= "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
+                        $_SESSION['message'] = "<p> Problème avec la taille de votre image. Merci de changer votre image. (taille max : 1mo)</p>";
                         header("Location:index.php?action=editerFilm&id=$id");
+                        exit;
 
                 } elseif ($erreur > 0) { // Si l'image à une erreur
 
-                        $_SESSION['message'] .= "<p> Erreur upload file. </p>";
+                        $_SESSION['message'] = "<p> Erreur upload file. </p>";
                         header("Location:index.php?action=editerFilm&id=$id");
+                        exit;
 
                 } else {
                         
@@ -449,23 +452,27 @@ class FilmController {
             // Je teste chaque conditions pour afficher un message personnalisé en fonction de l'erreur
             if (!$condition1) {
 
-                    $_SESSION['message'] .= "<p> Problème avec le titre. Merci de changer le titre </p>";
+                    $_SESSION['message'] = "<p> Problème avec le titre. Merci de changer le titre </p>";
                     header("Location:index.php?action=gestionFilm");
+                    exit;
 
             } elseif (!is_numeric($duree) && $duree < 0) {
 
-                    $_SESSION['message'] .= "<p> La durée n'est pas correct. </p>";
+                    $_SESSION['message'] = "<p> La durée n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
+                    exit;
 
             } elseif (!is_numeric($note) && $note > 5 && $note < 0) {
 
-                    $_SESSION['message'] .= "<p> La note n'est pas correct. </p>";
+                    $_SESSION['message'] = "<p> La note n'est pas correct. </p>";
                     header("Location:index.php?action=gestionFilm");
+                    exit;
                     
             } elseif (!is_numeric($realisateur)) {
 
-                    $_SESSION['message'] .= "<p> Problème avec le réalisateur. </p>";
+                    $_SESSION['message'] = "<p> Problème avec le réalisateur. </p>";
                     header("Location:index.php?action=gestionFilm");
+                    exit;
 
             }  elseif ($condition1 && $condition2) { // Et si tout vas bien, j'edit mon film
 
@@ -521,10 +528,10 @@ class FilmController {
                         
                 }
         
-        $_SESSION['message'] .= "<p> Modification reussi !</p>
+        $_SESSION['message'] = "<p> Modification reussi !</p>
                                 <a href='index.php?action=detFilm&id=". $id . "'> Accès au film </a>";
         header("Location:index.php?action=editerFilm&id=$id");
-
+        exit;
         }
      }
 
@@ -579,6 +586,7 @@ class FilmController {
 
         $requete->execute(["id" => $id]);
         header("Location:index.php");
+        exit;
         }
 
      }
@@ -610,8 +618,10 @@ class FilmController {
                         "idRole" => $idRole
                 ]);
                 header("location:" . $_SERVER['HTTP_REFERER']);
+                exit;
      }
 
 }
 
 }
+?>

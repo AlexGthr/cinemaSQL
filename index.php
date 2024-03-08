@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use Controller\CinemaController;        // Utilise le Controller : CinemaController qui s'occupe functions "Acceuil" et "Gestion" (formulaire)
 use Controller\FilmController;          // Utilise le Controller : FilmController qui s'occupe des functions lié au films
 use Controller\PersonneController;      // Utilise le Controller : PersonneController qui s'occupe des functions lié au Personnes (acteur/réalisateur)

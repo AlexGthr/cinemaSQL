@@ -33,3 +33,4 @@ abstract class Connect {
 //Pourquoi PDO au lieu de MySQLi : l'extension MySQLi ne va fonctionner qu'avec les bases de données MySQL tandis que PDO va fonctionner avec 12 systèmes de bases de données différents
 
 // Encapsulation class : Restrein les accès au données via la visibilité donnée par les mots cles donnée
+?>
