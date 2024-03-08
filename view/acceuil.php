@@ -8,7 +8,7 @@
 
       <div class="swiper-slide">
 
-          <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
+          <img src="./public/img/bobmarley.webp" alt="carousselbobmarley">
 
         <div class="swiperCadreText">
             <h2>Bob Marley review</h2>
@@ -17,7 +17,7 @@
       </div>
       
       <div class="swiper-slide">
-        <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
+        <img src="./public/img/bobmarley.webp" alt="carousselbobmarley">
         <div class="swiperCadreText">
             <h2>Bob Marley review</h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
@@ -25,7 +25,7 @@
       </div>
 
       <div class="swiper-slide">
-        <img src="./public/img/bobmarley.jpg" alt="carousselbobmarley">
+        <img src="./public/img/bobmarley.webp" alt="carousselbobmarley">
         <div class="swiperCadreText">
             <h2>Bob Marley review</h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
@@ -46,11 +46,15 @@
         foreach($requete->fetchAll() as $film) { ?>
         <div class="film">
             
-        <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
-            <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
-        </a>
+            <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
+                <img class="afficheFilm" src='<?= $film["affiche"] ?>' title='<?= $film["titre"] ?>'>
+            </a>
             <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>"><?= $film["titre"] ?></a>
-        
+
+            <div class="hoverFilm">
+                <p><span class="note"> <?= $film["note"] ?></span></p>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, tempora.</p>
+            </div>
         </div>
         <?php } ?>
 

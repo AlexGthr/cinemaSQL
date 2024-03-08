@@ -80,15 +80,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    let alertOn = document.getElementById("alertOn");
-    let alertBox = document.querySelector(".alert");
+
+    let alertOn = document.getElementById("alertOn") ? document.getElementById("alertOn") : null;
+    let alertBox = document.querySelector(".alert") ? document.querySelector(".alert") : null;
+
+if (alertOn != null && alertBox != null) {
 
     alertOn.addEventListener("click", function() {
     alertBox.classList.toggle('alertOnOff');
 });
+}
 
-});
 
 /*=============== SHOW SCROLL UP ===============*/ 
 const scrollUp = () => {
@@ -98,3 +100,24 @@ const scrollUp = () => {
                         : scrollUp.classList.remove('show-scroll')
 }
 window.addEventListener('scroll', scrollUp)
+
+let imageNotFound = document.querySelector('.notFoundresearch') ? document.querySelector('.notFoundresearch') : null;
+
+if (imageNotFound != null) {
+
+    var imageUrls = [
+        'public/img/notFound/random1.svg',
+        'public/img/notFound/random2.svg',
+        'public/img/notFound/random3.svg',
+        'public/img/notFound/random4.svg',
+        'public/img/notFound/random5.svg'
+       ];
+
+    var img = document.getElementById('notFoundImage');
+    window.addEventListener("load", function() {
+
+        img.src = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+    
+    });
+
+}

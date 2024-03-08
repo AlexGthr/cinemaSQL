@@ -14,7 +14,11 @@ class CinemaController {
 
         // Requete pour l'affichage des films sur l'acceuil
         $requete = $pdo->query("
-                SELECT film.affiche, film.titre, film.id_film
+                SELECT 
+                    film.affiche, 
+                    film.titre, 
+                    film.id_film,
+                    film.note
                 FROM film
                 ORDER BY film.dateDeSortie DESC
                 LIMIT 2

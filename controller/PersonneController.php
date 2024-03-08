@@ -550,10 +550,10 @@ class PersonneController {
                         $typeRoleActeur = $requeteTypeCheckRole->fetch();
 
                         // J'insère les infos dans des variables pour pouvoir les tester
-                        $idActeur = $typeActeurRealisateur['idActor'];
-                        $idRealisateur = $typeActeurRealisateur['idReal'];
-                        $idFilmRealisateur = $typeFilmRealisateur['idFilmReal'];
-                        $idRoleActeur = $typeRoleActeur['idActeurRole'];
+                        $idActeur = (isset($typeActeurRealisateur['idActor']) && $typeActeurRealisateur['idActor']!== null) ? $typeActeurRealisateur['idActor'] : null;
+                        $idRealisateur = (isset($typeActeurRealisateur['idReal']) && $typeActeurRealisateur['idReal']!== null) ? $typeActeurRealisateur['idReal'] : null;
+                        $idFilmRealisateur = (isset($typeFilmRealisateur['idFilmReal']) && $typeFilmRealisateur['idFilmReal']!== null) ? $typeFilmRealisateur['idFilmReal'] : null;
+                        $idRoleActeur = (isset($typeRoleActeur['idActeurRole']) && $typeRoleActeur['idActeurRole'] !== null) ? $typeRoleActeur['idActeurRole'] : null;;
 
                         // SI ON MODIFIE EN TANT QU'ACTEUR :
                         if($_GET['type'] == "acteur") {
@@ -596,7 +596,7 @@ class PersonneController {
 
                                         $_SESSION['message'] = "<p> Vous ne pouvez pas modifier un acteur qui à des rôles dans des films. Supprimer d'abord les roles.</p>
                                         <a href='index.php?action=detPersonne&id=$id'>Role</a>";
-                                        header("Location:index.php?action=editerPersonne&id=$id");
+                                        header("Location:index.php?action=editerPersonne&id=" . $id . "");
                                         exit;
 
                                 // Sinon, si c'était un acteur sans rôle, je le supprime de la table acteur.
@@ -652,10 +652,11 @@ class PersonneController {
                         }
                 }
 
-
         $_SESSION['message'] = "<p> Modification reussi !</p>
-        <a href='index.php?action=detPersonne&id=". $id . "'> Accès à la personne </a>";
-        header("Location:index.php?action=editerPersonne&id=$id");exit;
+        <a href='index.php?action=detPersonne&id=" . $id . "'> Accès à la personne </a>";
+        $path = "Location:index.php?action=editerPersonne&id=" . $id;
+        header($path);
+        exit;
 }
     }
 

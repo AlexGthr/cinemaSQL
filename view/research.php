@@ -71,9 +71,19 @@ if (!empty($categories)) {
 
 <?php if(empty($films) && empty($roles) && empty($categories) && empty($personnes)) { ?>
 
-<figure class="notFoundresearch"> 
-    <img src="./public/img/search_no_result.png" title="research not found">
-</figure>
+<div class="aucunResultat">
+    <div class="textAucunResultat">
+        <h2> 404 <span> NOT </span> FOUND </h2>
+        <h3> Aucun résultats trouvée </h3>
+        <a href="index.php" title="index"> Revenir en lieu sûr </a>
+    </div>
+
+    <figure class="notFoundresearch"> 
+        <img id="notFoundImage" src="#" title="research not found">
+    </figure>
+    
+    
+</div>
 
 <?php } ?>
 

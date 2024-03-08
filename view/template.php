@@ -41,7 +41,7 @@
             <div class="searchNav">
 
             <form action="index.php?action=research" method="post" enctype="multipart/form-data">
-            <input type="search" id="research" name="research" placeholder="Recherche film, acteur ...">
+            <input type="search" class="research" name="research" placeholder="Recherche film, acteur ...">
             <button type="submit" name="submit" title="button"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
             </form>
@@ -62,7 +62,7 @@
     <form action="index.php?action=research" method="post" enctype="multipart/form-data"> <!-- Formulaire pour envoyer un produit -->
 
 
-    <input type="search" id="research" name="research" placeholder="Recherche film, acteur ...">
+    <input type="search" class="research" name="research" placeholder="Recherche film, acteur ...">
     <button type="submit" name="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 
 </div>

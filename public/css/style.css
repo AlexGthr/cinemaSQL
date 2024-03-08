@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -15,6 +15,7 @@ main {
 }
 
 @media only screen and (min-width: 250px) {
+
 /* *******************************
 *********HEADER IMAGE***********
 ******************************* */
@@ -165,6 +166,13 @@ nav li {
     padding: 10px 0;
   }
 
+  .swiper-button-next,
+  .swiper-button-prev {
+    font-weight: 800;
+    background-color: rgba(0, 0, 0, 0.452);
+    border-radius: 50%;
+  }
+
 
 /* *******************************
 ************   Body   ************
@@ -183,7 +191,7 @@ nav li {
     align-items: center;
 }
 
-#research {
+.research {
     padding: 0 15px;
     height: 28px;
     width: 70%;
@@ -249,8 +257,8 @@ nav li {
 
 .film img {
     object-fit: cover;
-    margin-bottom: 5px;
-    width: 90%;
+    margin: 0 20px;
+    width: 300px;
     box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
 }
 
@@ -307,7 +315,7 @@ a {
 }
 
 .button{
-    background-color: #2585CA;
+    background-color: #17527D;
     color: white;
     font-weight: 500;
     padding: .5rem 1.5rem .5rem .5rem;
@@ -320,7 +328,7 @@ a {
   
   .button span {
     background-color: white;
-    color: #2585CA;
+    color: #17527D;
     padding: .5rem;
     font-size: 1.25rem;
     border-radius: 50%;
@@ -856,12 +864,17 @@ a {
     position: fixed;
     right: 3rem;
     bottom: -50%;
-    background-color: #2585CA;
+    height: 40px;
+    width: 40px;
+    background-color: #17527D;
     border-radius: 50%;
     color: white;
     box-shadow: 0 12px 24px #05070f80;
     border: 1px solid white;
-    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
     font-size: 1.25rem;
     z-index: 2;
     transition: bottom .6s, transform .4s;
@@ -937,6 +950,35 @@ footer a {
     
     .afficherTitreFilm {
         font-size: 1.5em;
+    }
+
+    .film {
+        overflow: hidden;
+        object-fit: cover;
+        position: relative;
+    }
+
+    .hoverFilm {
+        font-size: 0.7em;
+        text-align: center;
+        width: 89%;
+        position: absolute;
+        top: -100%;
+        border-radius: 14px;
+        backdrop-filter: blur(14px); 
+        background-color: rgba(255, 255, 255, 0.4); 
+        padding: 10px; 
+        text-align: center; 
+    }
+
+    .film:hover {
+        transform: scale(1.02);
+        transition: all 0.4s;
+    }
+
+    .film:hover .hoverFilm {
+        top: 0;
+        transition: all 0.8s;
     }
     
     .afficheFilm {
@@ -1020,6 +1062,20 @@ footer a {
 }
 
 @media only screen and (min-width: 900px) {
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      height: 60px;
+      width: 60px;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background-color: rgba(0, 0, 0, 0.747);
+        transform: scale(1.1);
+        transition: all .4s;
+    }
+  
 
     .acceuilFilm img {
         width: 50%;
@@ -1142,7 +1198,7 @@ footer a {
         align-items: center;
     }
     
-    #research {
+    .research {
         padding: 0 10px;
         height: 28px;
         width: 70%;
@@ -1168,7 +1224,7 @@ footer a {
         display: block;
         width: 80vw;
         height: 200px;
-        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+
     }
     
     figure h1 {
@@ -1243,16 +1299,32 @@ footer a {
         box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
 
-    .notFoundresearch {
+    .aucunResultat {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .notFoundresearch {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         text-align: center;
-        width: 100%;
+    }
+
+    .textAucunResultat {
+        flex-direction: column;
+        text-align: center;
+        line-height: 2rem;
+    }
+
+    .textAucunResultat span {
+        color: #3a78a5;
     }
 
     .notFoundresearch img {
-        height: auto;
+        height: 500px;
+        width: 90%;
     }
 
  }
