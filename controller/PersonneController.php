@@ -677,14 +677,7 @@ class PersonneController {
         } else {
 
                 // Si l'id de l'acteur n'est pas null je supprime ses roles :
-                if($idActeur !== null) {
-                $requeteJoue = $pdo->prepare("
-                DELETE FROM joue
-                WHERE id_acteur = :idActeur
-                ");
-                
-                $requeteJoue->execute(["idActeur" => $idActeur]);
-            }
+              
                 
                 // Puis je supprime la personne de la table acteur
                 $requeteActeur = $pdo->prepare("

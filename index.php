@@ -9,7 +9,7 @@ use Controller\CastingController;       // Utilise le Controller : CastingContro
 
 // Je récupère les classes existante dans mon document
 spl_autoload_register(function ($class_name) {
-    include $class_name . '.php';
+    require str_replace("\\", DIRECTORY_SEPARATOR, $class_name) . '.php';
 
 });
 

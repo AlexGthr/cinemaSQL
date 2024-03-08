@@ -133,9 +133,9 @@
         el: ".swiper-pagination",
         clickable: true,
       },
-        // autoplay: {
-        //     delay: 5000,
-        //     },
+        autoplay: {
+            delay: 5000,
+            },
   });
 </script>
 

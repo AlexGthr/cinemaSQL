@@ -8,7 +8,7 @@ namespace Model;
 // C'est à dire qu'on ne va pas pouvoir manipuler directement la classe.
 abstract class Connect {
 
-    const HOST = "localhost";
+    const HOST = "db";
     const DB = "cinema";
     const USER = "root";
     const PASS = "";
@@ -17,7 +17,13 @@ abstract class Connect {
     // Les function static sont associées à la classe et non à une instance de la classe.
     public static function seConnecter() {
         try {
-            return new \PDO("mysql:host=".self::HOST.";dbname=".self::DB.";charset=utf8", self::USER, self::PASS);
+            return new \PDO(
+                "mysql:host=" .self::HOST. 
+                ";dbname=" .self::DB. 
+                ";charset=utf8", 
+                  self::USER, 
+                  self::PASS
+            );
         } catch(\PDOException $ex) {
             return $ex->getMessage();
         }
