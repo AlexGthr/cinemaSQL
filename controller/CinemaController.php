@@ -18,7 +18,8 @@ class CinemaController {
                     film.affiche, 
                     film.titre, 
                     film.id_film,
-                    film.note
+                    film.note,
+                    film.synopsis
                 FROM film
                 ORDER BY film.dateDeSortie DESC
                 LIMIT 2

@@ -53,7 +53,7 @@
 
             <div class="hoverFilm">
                 <p><span class="note"> <?= $film["note"] ?></span></p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, tempora.</p>
+                <p><?= $film["synopsis"] ?></p>
             </div>
         </div>
         <?php } ?>
@@ -81,7 +81,7 @@
         <a href='index.php?action=detPersonne&id=<?= $acteur['id_personne']?>'>
             <img class="afficheActeur" src='<?= $acteur["photo"] ?>' title='<?= $acteur["acteur"] ?>'>
         </a>
-            <a href='index.php?action=detPersonne&id=<?= $acteur['id_personne']?>'><?= $acteur["acteur"] ?></a></br>
+            <a class="nomPersonne" href='index.php?action=detPersonne&id=<?= $acteur['id_personne']?>'><?= $acteur["acteur"] ?></a></br>
         
         </div>
         <?php } ?>
@@ -109,7 +109,7 @@
         <a href='index.php?action=detPersonne&id=<?= $realisateur['id_personne']?>'>
             <img class="afficheReal" src='<?= $realisateur["photo"] ?>' title='<?= $realisateur["realisateur"] ?>'>
         </a>
-            <a href='index.php?action=detPersonne&id=<?= $realisateur['id_personne']?>'><?= $realisateur["realisateur"] ?></a></br>
+            <a class="nomPersonne" href='index.php?action=detPersonne&id=<?= $realisateur['id_personne']?>'><?= $realisateur["realisateur"] ?></a></br>
         
         </div>
         <?php } ?>
@@ -125,6 +125,7 @@
         </div>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="public/js/scrollreveal.min.js"></script>
 
 <!-- Initialize Swiper -->
 <script>

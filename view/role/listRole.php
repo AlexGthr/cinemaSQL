@@ -20,12 +20,13 @@
             </a></h2>
 
             <h3>Acteur ayant joué ce role</h3>
-
+            
             <p>
                 <a href="index.php?action=detPersonne&id=<?= $role['idPersonne']?>">
                 <?= $role['nomActeurs'] ?>
                 </a>
             </p><br>
+
 
         </div>
 

@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-
+        <div class="wrapper_header">
             <div class="header__bg">
                 <a href="index.php"><h1>Movies</h1></a>
             </div>
@@ -35,19 +35,20 @@
                 </ul>
                 </li>
                 <li> <a href="index.php?action=gestion"> Gestion </a></li>
+                <li>
+                    <div class="searchNav">
+
+                        <form action="index.php?action=research" method="post" enctype="multipart/form-data">
+                        <input type="search" class="research" name="research" placeholder="Recherche film, acteur ...">
+                        <button type="submit" name="submit" title="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
+                    </li>
             </ul>
             <div id="icons"></div> <!-- Icone menu Burger -->
-                    <!-- Barre de recherche -->
-            <div class="searchNav">
-
-            <form action="index.php?action=research" method="post" enctype="multipart/form-data">
-            <input type="search" class="research" name="research" placeholder="Recherche film, acteur ...">
-            <button type="submit" name="submit" title="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-            </form>
         </nav>
         
-
+        </div>
     </header>
 
 <main>
@@ -63,7 +64,7 @@
 
 
     <input type="search" class="research" name="research" placeholder="Recherche film, acteur ...">
-    <button type="submit" name="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button type="submit" name="submit" class="fa-mobile"><i class="fa-solid fa-magnifying-glass"></i></button>
 
 </div>
 
@@ -80,6 +81,7 @@
 </main>
 
     <footer>
+        <div class="wrapper_footer">
         <h2>Contact</h2>
         <p>monmail@monmail.fr <i class="fa-regular fa-envelope"></i></p>
 
@@ -89,6 +91,7 @@
         </div>
 
         <p id="copyright">Copyright Alex -&nbsp;<a href="#">Mentions légal </a></p>
+        </div>
     </footer>
 
     <script defer src="public/js/script.js"></script>

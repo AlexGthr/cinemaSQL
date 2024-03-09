@@ -57,6 +57,7 @@ if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
         case "addRole" : $ctlrRole->addRole(); break; // Permet l'ajout d'un Role
         case "editerRole" : $ctlrRole->editerRole($id); break;
         case "editRole" : $ctlrRole->editRole($id); break;
+        case "delRole" : $ctlrRole->delRole($id); break;
 
         case "listCategorie": $ctlrCategorie->listCategorie(); break; // Affiche la vue Liste Catégorie
         case "detCategorie": $ctlrCategorie->detCategorie($id); break; // affiche la vue Detail Catégorie

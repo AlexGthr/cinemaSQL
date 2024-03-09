@@ -36,7 +36,10 @@
 
         <div class="listRealisateur">
 
+        <a href="index.php?action=detPersonne&id=<?= $realisateur["id_personne"] ?>">
             <img class="afficheActeur" src='<?= $realisateur["photo"] ?>' title='<?= $realisateur["leRealisateur"] ?>'>
+        </a>
+        
             <a href="index.php?action=detPersonne&id=<?= $realisateur["id_personne"] ?>">
                 <p>« <?= $realisateur["leRealisateur"] ?> »</p>
             </a>

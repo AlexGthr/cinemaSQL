@@ -121,3 +121,18 @@ if (imageNotFound != null) {
     });
 
 }
+
+
+/*=============== SCROLL REVEAL ANIMATION ===============*/
+const sr = ScrollReveal({
+    origin: 'bottom',
+    distance: '80px',
+    duration: 2500,
+    delay: 300,
+    // reset: true // animation repeat
+})
+
+sr.reveal(`.afficheFilm`)
+sr.reveal(`.afficherTitreFilm`, {delay: 700})
+sr.reveal(`.afficherActeurs, .acceuil`, {delay: 400, interval: 80})
+sr.reveal(`.afficherRealisateurs`, {delay: 400, interval: 80})

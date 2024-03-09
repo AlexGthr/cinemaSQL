@@ -553,7 +553,7 @@ class PersonneController {
                         $idActeur = (isset($typeActeurRealisateur['idActor']) && $typeActeurRealisateur['idActor']!== null) ? $typeActeurRealisateur['idActor'] : null;
                         $idRealisateur = (isset($typeActeurRealisateur['idReal']) && $typeActeurRealisateur['idReal']!== null) ? $typeActeurRealisateur['idReal'] : null;
                         $idFilmRealisateur = (isset($typeFilmRealisateur['idFilmReal']) && $typeFilmRealisateur['idFilmReal']!== null) ? $typeFilmRealisateur['idFilmReal'] : null;
-                        $idRoleActeur = (isset($typeRoleActeur['idActeurRole']) && $typeRoleActeur['idActeurRole'] !== null) ? $typeRoleActeur['idActeurRole'] : null;;
+                        $idRoleActeur = (isset($typeRoleActeur['idActeurRole']) && $typeRoleActeur['idActeurRole'] !== null) ? $typeRoleActeur['idActeurRole'] : null;
 
                         // SI ON MODIFIE EN TANT QU'ACTEUR :
                         if($_GET['type'] == "acteur") {
@@ -718,8 +718,8 @@ class PersonneController {
                 $typeActeurRealisateur = $requeteType->fetch();
                 $typeFilmRealisateur = $requeteTypeCheckFilm->fetch();
 
-                $idRealisateur = $typeActeurRealisateur['idReal'];
-                $idFilmRealisateur = $typeFilmRealisateur['idFilmReal'];
+                $idRealisateur = (isset($typeActeurRealisateur['idReal']) && $typeActeurRealisateur['idReal'] !== null) ? $typeActeurRealisateur['idReal'] : null;
+                $idFilmRealisateur = (isset($typeFilmRealisateur['idFilmReal']) && $typeFilmRealisateur['idFilmReal'] !== null) ? $typeFilmRealisateur['idFilmReal'] : null;
 
                 // Si c'est un réalisateur et qu'il à des films associés, j'empêche la suppression
                 if($idRealisateur !== null && $idFilmRealisateur !== null) {

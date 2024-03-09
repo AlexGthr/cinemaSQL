@@ -163,5 +163,32 @@ class RoleController {
                 }
         }
     }
+
+    public function delRole($id) {
+
+        $pdo = Connect::seConnecter();
+
+        if(!Service::exist("role", $id)) {
+                header("Location:index.php?action=listRole");
+                exit;
+        } else {
+
+                // Puis je delete dans la table joue ce que je désire
+                $requeteJoue = $pdo->prepare("
+                DELETE FROM joue
+                WHERE id_role = :id
+                ");
+
+                $requeteRole = $pdo->prepare("
+                DELETE FROM role
+                WHERE id_role = :id
+                ");
+        
+                $requeteJoue->execute([ "id" => $id]);
+                $requeteRole->execute([ "id" => $id]);
+                header("location:" . $_SERVER['HTTP_REFERER']);
+                exit;
+     }
+    }
 }
 ?>

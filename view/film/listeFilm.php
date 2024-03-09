@@ -41,7 +41,7 @@
 
             <a href="index.php?action=detFilm&id=<?= $film["id_film"] ?>">
             <img src='<?= $film["affiche"] ?>' class="afficheFilm" title='<?= $film["titre"] ?>'>
-                <p id="titleFilm"><?= $film["titre"] ?></p>
+                <p class="titleFilm"><?= $film["titre"] ?></p>
             </a>
             <p><span class="note"> <?= $film["note"] ?></span></p>
             <p><span>Durée :</span> <?= $film["dureeFilm"] ?></p>

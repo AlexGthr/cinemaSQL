@@ -11,6 +11,7 @@ body {
 }
 
 main {
+    background-color: white;
     min-height: 80vh;
 }
 
@@ -19,6 +20,11 @@ main {
 /* *******************************
 *********HEADER IMAGE***********
 ******************************* */
+.wrapper_header {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .header__bg {
     display: flex;
@@ -115,6 +121,14 @@ nav li {
     padding: 10px 0;
 }
 
+.fa-mobile i {
+    color: black;
+}
+
+.fa-mobile:before {
+    display: none;
+}
+
 /* *******************************
 *********HEADER Caroussel***********
 ******************************* */
@@ -136,7 +150,7 @@ nav li {
 
   .swiper-slide img {
     display: block;
-    border-radius: 14px;
+    border-radius: 0 0 14px 14px;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -163,7 +177,9 @@ nav li {
 
   .swiperCadreText > p {
     width: 70%;
+    font-size: 0.7em;
     padding: 10px 0;
+    text-align: center;
   }
 
   .swiper-button-next,
@@ -173,13 +189,17 @@ nav li {
     border-radius: 50%;
   }
 
+  .swiper-pagination {
+    position: relative;
+    padding-top: 10px;
+  }
+
 
 /* *******************************
 ************   Body   ************
 ******************************* */
 
 .backPage {
-    padding-top: 15px;
     padding-left: 5px;
 }
 
@@ -235,9 +255,10 @@ nav li {
 }
 
 .afficherTitreFilm {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 147px);
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 
 .afficheFilm {
@@ -245,6 +266,10 @@ nav li {
     width: 80%;
     text-align: center;
     border-radius: 14px;
+}
+
+.hoverFilm {
+    display: none;
 }
 
 .film {
@@ -257,9 +282,7 @@ nav li {
 
 .film img {
     object-fit: cover;
-    margin: 0 20px;
-    width: 300px;
-    box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
+    width: 120px;
 }
 
 .film a {
@@ -284,14 +307,24 @@ nav li {
     object-fit: cover;
     border-radius: 50px;
     box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
-    border: 1px solid #f1f1f1;
+}
+
+.afficheActeur:hover {
+    filter: contrast(0.7);
+    transition: 0.5s;
+}
+
+.afficheReal:hover {
+    filter: contrast(0.7);
+    transition: 0.5s;
 }
 
 .afficherActeurs, .afficherRealisateurs {
-    display: flex;
-    justify-content: space-evenly;
-    text-align: center;
-    margin: 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    justify-content: space-around;
+    align-items: start;
+    padding: 15px 0;
 }
 
 .acceuil {
@@ -301,7 +334,11 @@ nav li {
 }
 
 .acceuil a {
-    padding: 5px 0;
+    text-decoration: none;
+}
+
+.acceuil a:hover {
+    text-decoration: underline;
 }
 
 a {
@@ -374,7 +411,7 @@ a {
     font-weight: 700;
 }
 
-#titleFilm {
+.titleFilm {
     position: absolute;
     text-align: center;
     font-size: 1.1em;
@@ -383,8 +420,8 @@ a {
     justify-content: center;
     border-radius: 50px;
     font-weight: 600;
-    height: 30px;
-    bottom: 90px;
+    height: fit-content;
+    bottom: 110px;
     left: 20%;
     right: 20%;
 
@@ -475,7 +512,7 @@ a {
 
 .listRole {
     padding: 15px 0;
-    height: 120px;
+    height: 140px;
 }
 
 
@@ -896,8 +933,10 @@ a {
 ************  FOOTER  ************
 ******************************* */
 
-footer {
-    width: 100%;
+.wrapper_footer {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #0F5494;
 }
 
@@ -919,19 +958,30 @@ footer h2, p {
 
 footer a {
     color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: black;
     text-decoration: underline;
 }
 
 .reseau {
     display: flex;
     justify-content: center;
-    padding: 10px 0;
+    padding: 15px 0;
 }
 
 .reseau i {
     color: white;
     margin: 0 15px;
     font-size: 1.5em;
+    cursor: pointer;
+}
+
+.reseau i:hover {
+    color: black;
+    transition: 0.7s;
 }
 
 #copyright {
@@ -950,34 +1000,64 @@ footer a {
     
     .afficherTitreFilm {
         font-size: 1.5em;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 300px);
+        gap: 30px;
+    }
+
+    .acceuil {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
     }
 
     .film {
         overflow: hidden;
-        object-fit: cover;
         position: relative;
+    }
+    
+    .film img {
+        width: 100%;
+        overflow: hidden;
+        object-fit: cover;   
+    }
+
+    .film a {
+        text-decoration: none;
+    }
+
+    .film a:hover {
+        text-decoration: underline;
+        opacity: 0.7;
+        transition: all 1s;
     }
 
     .hoverFilm {
+        display: block;
         font-size: 0.7em;
         text-align: center;
-        width: 89%;
+        width: 80%;
         position: absolute;
-        top: -100%;
+        bottom: 50px;
+        left: -100%;
+        color: white;
         border-radius: 14px;
         backdrop-filter: blur(14px); 
-        background-color: rgba(255, 255, 255, 0.4); 
+        background-color: rgba(0, 0, 0, 0.4); 
         padding: 10px; 
         text-align: center; 
     }
 
-    .film:hover {
-        transform: scale(1.02);
-        transition: all 0.4s;
+    .film:hover img {
+        filter: contrast(0.5);
+        transition: all 0.8s;
     }
 
     .film:hover .hoverFilm {
-        top: 0;
+        left: 35px;
         transition: all 0.8s;
     }
     
@@ -996,6 +1076,11 @@ footer a {
     
     .afficherActeurs, .afficherRealisateurs {
         font-size: 1.5em;
+        display: grid;
+        grid-template-columns: repeat(3, 200px);
+        justify-content: space-around;
+        align-items: start;
+        padding: 15px 0;
     }
     .detFilms img {
         height: auto;
@@ -1014,14 +1099,12 @@ footer a {
         height: 250px;
         border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
-        border: 1px solid #f1f1f1;
     }
     .listActeur img {
         width: 250px;
         height: 250px;
         border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
-        border: 1px solid #f1f1f1;
     }
 
     .wrapperGestion img {
@@ -1056,7 +1139,7 @@ footer a {
       }
     
       .swiperCadreText > p {
-        width: 70%;
+        font-size: 1em;
         padding: 10px 0;
       }
 }
@@ -1083,11 +1166,27 @@ footer a {
         box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
 
-    #titleFilm {
+    .titleFilm {
         width:fit-content;
         margin: auto;
         padding: 0 10px;
     }
+
+    .titleFilm:hover {
+        animation: 1s sliderColor forwards;
+    }
+    
+    @keyframes sliderColor {
+        from {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: rgba(255, 255, 255, 0, 0.4);          
+        }
+        to {
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);  
+        }
+    }
+
     .detRoles {
         width: 100%;
         display: flex;
@@ -1125,13 +1224,14 @@ footer a {
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: center;
         padding: 5px 0px;
         list-style: none;
         transition: 0.25s;
     }
 
     nav li {
-        padding: 15px 90px;
+        padding: 15px 60px;
         position: relative;
         font-size: 1.2em;
     }
@@ -1184,18 +1284,7 @@ footer a {
 
     .searchNav {
         display: block;
-        position: absolute;
-        width: 400px;
-        top: 205px;
-        right: 0;
-    }
-
-    .searchNav form {
-        padding: 20px 0;
-        position: relative;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        width: 300px;
     }
     
     .research {
@@ -1225,6 +1314,17 @@ footer a {
         width: 80vw;
         height: 200px;
 
+    }
+
+    .afficherTitreFilm {
+        display: grid;
+        grid-template-columns: repeat(2, 400px);
+        gap: 30px;
+    }
+
+    .film img {
+        height: 600px;
+        object-fit: cover;   
     }
     
     figure h1 {
@@ -1256,6 +1356,7 @@ footer a {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 5px;
+        justify-items: center;
     }
 
     .listRoles hr,
@@ -1264,13 +1365,15 @@ footer a {
     }
 
     .listRole {
+        width: 90%;
         border: 1px solid;
         border-radius: 14px;
         transition: .5s;
+        cursor: default;
     }
 
     .listRole:hover {
-        background-color: #2585ca57;
+        box-shadow: rgba(0, 0, 0, 0.55) 0px 5px 15px;
     }
 
     .detailPersonne img {
