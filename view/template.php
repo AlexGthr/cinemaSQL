@@ -34,7 +34,27 @@
                     <li> <a href="index.php?action=listCategorie">Catégorie</a></li>
                 </ul>
                 </li>
-                <li> <a href="index.php?action=gestion"> Gestion </a></li>
+                <li>
+                    <span class="listeDeroulante listeCompte"> Compte &#x21b4; </span> <!-- Liste déroulante -->
+
+                    <!-- Si je suis connecté : -->
+                    <?php if (isset($_SESSION['user'])) { ?>
+
+                        <ul class="sous-nav sousNavCompte"> 
+                            <!-- <li> <a href="index.php?action=listFilm">Profil</a></li> -->
+                            <li> <a href="index.php?action=logout">Se déconnecter</a></li>
+                            <li> <a href="index.php?action=gestion"> Gestion </a></li>
+                        </ul>
+
+                        <!-- Si je suis pas connecter : -->
+                    <?php } else { ?>
+                        <ul class="sous-nav sousNavCompte"> 
+                            <li> <a href="index.php?action=register">S'inscrire</a></li>
+                            <li> <a href="index.php?action=connexion">Se connecter</a></li>
+                    </ul>
+                    <?php } ?>
+
+                </li>
                 <li>
                     <div class="searchNav">
 

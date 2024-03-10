@@ -3,6 +3,8 @@ let nav = document.querySelector('nav'); // Recupère la balise nav
 let links = document.querySelectorAll('nav a');  // Récupère la balise A dans la nav
 let listeDeroulante = document.querySelector('.listeDeroulante'); // Récupère la classe .listeDeroulante
 let liste = document.querySelector('.sous-nav'); // Recupère la classe .sous-nav
+let listeCompte = document.querySelector('.listeCompte');
+let sousNavCompte = document.querySelector('.sousNavCompte');
 
 // Si je clic sur l'icone de ma nav bar, j'ajoute ou supprime la classe Active de ma navbar
 icons.addEventListener("click", () => {
@@ -12,6 +14,10 @@ icons.addEventListener("click", () => {
 // Si je clique sur ma liste déroulante, j'ajoute ou supprime la classe Active de ma liste (.sous-nav)
 listeDeroulante.addEventListener("click", () => {
     liste.classList.toggle("active");
+});
+
+listeCompte.addEventListener("click", () => {
+    sousNavCompte.classList.toggle("active");
 });
 
 

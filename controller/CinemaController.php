@@ -118,6 +118,139 @@ class CinemaController {
             require "view/research.php";
         }
      }
+
+     public function register() {
+
+        require "view/formulaire/register.php";
+
+     }
+
+     public function addUser() {
+         
+         if($_POST["submit"]) { 
+
+            $pdo = Connect::seConnecter();
+
+            $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
+            $pass1 = filter_input(INPUT_POST, "pass1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $pass2 = filter_input(INPUT_POST, "pass2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($pseudo && $email && $pass1 && $pass2) { 
+
+                // Je teste via une requête si le MAIL est déjà existant dans ma BDD
+                $requeteMail = $pdo->prepare("SELECT * FROM user WHERE email = :email");
+                $requeteMail->execute(["email" => $email]);
+
+                $userEmail = $requeteMail->fetch();
+
+                // Je teste via une requête si mon PSEUDO est déjà existant dans ma BDD
+                $requetePseudo = $pdo->prepare("SELECT * FROM user WHERE pseudo = :pseudo");
+                $requetePseudo->execute(["pseudo" => $pseudo]);
+
+                $userPseudo = $requetePseudo->fetch();
+
+                // Si le mail existe déjà, j'envoi un message d'erreur
+                if($userEmail) {
+                    $_SESSION['message'] = "Email déjà existante";
+                    header("Location: index.php?action=register"); exit;
+
+                // Si le pseudo existe déjà, j'envoi un message d'erreur
+                } elseif ($userPseudo) {
+                    $_SESSION['message'] = "Pseudo déjà utilisé";
+                    header("Location: index.php?action=register"); exit;
+
+                // Si c'est ok, je passe à la suite
+                } else {
+
+                    // Je vérifie que mon MDP soit identique et qu'il est une taille adapté (12 caractères CNIL) (4 ici pour les testes)
+                    if($pass1 == $pass2 && strlen($pass1) > 4) { 
+
+                        // Si c'est ok, j'ajoute en BDD
+                        $insertUser = $pdo->prepare("INSERT INTO user (pseudo, email, password) VALUES (:pseudo, :email, :password)");
+
+                        $insertUser->execute([
+                            "pseudo" => $pseudo,
+                            "email" => $email,
+                            "password" => password_hash($pass1, PASSWORD_DEFAULT)
+                        ]);
+
+                        $_SESSION['message'] = "Inscription reussi ! Vous pouvez vous connectez.";
+                        header("Location: index.php?action=login"); exit;
+
+                    } else { // Sinon, message d'erreur
+
+                        $_SESSION['message'] = "Mots de passe différent";
+                        header("Location: index.php?action=register"); exit;
+                    }
+                }
+
+            } else { // Si la vérification des données est fausse
+                header("Location: index.php?action=register"); exit;
+            }
+        } else { // Si on est sur la page mais pas depuis le formulaire.
+            header("Location: index.php?action=register"); exit;
+        }
+    }
+
+    public function connexion() {
+        require "view/formulaire/login.php";
+    }
+
+    public function login() {
+        if($_POST["submit"]) { 
+
+            $pdo = Connect::seConnecter();
+
+            // Filtrage de la saisie du formulaire (faille XSS)
+            $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($pseudo && $password) { 
+
+                // Je vérifie que le pseudo existe (prepare -> injection SQL)
+                $requete = $pdo->prepare("SELECT * FROM user WHERE pseudo = :pseudo");
+                $requete->execute(["pseudo" => $pseudo]);
+
+                $user = $requete->fetch();
+
+                if ($user) { 
+
+                    // Je récupère le hash du mot de passe
+                    $hash = $user['password'];
+
+                    // Et je vérifie qu'il correspond au mots de passe taper
+                    if(password_verify($password, $hash)) { 
+
+                        // Si c'est le cas, j'enrengistre l'user en session. IL EST DESORMAIS CONNECTER !
+                        $_SESSION['user'] = $user;
+                        header("Location: index.php"); exit;                        
+
+                    } else {
+                        $_SESSION['message'] = "mot de passe incorrect.";
+                        header("Location: index.php?action=connexion"); exit;
+                    }
+
+
+                } else {
+                    $_SESSION['message'] = "Le pseudo n'existe pas.";
+                    header("Location: index.php?action=connexion"); exit;
+                }
+
+            } else {
+                header("Location: index.php?action=connexion"); exit;
+            }
+        }
+
+        header("Location: index.php?action=connexion"); exit;
+        
+    }
+
+    public function logout() {
+
+        unset($_SESSION['user']);
+        header("Location: index.php"); exit;
+    }
    
 }
 ?>
