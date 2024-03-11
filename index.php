@@ -25,7 +25,9 @@ $ctlrCasting = new CastingController();
 
 if (isset($_GET["action"])) {  // Si j'ai une action dans l'url alors :
 
-    $id = (isset($_GET["id"])) ? $_GET["id"] : null; // Je récupère l'id si il existe
+    $idOrigine = (isset($_GET["id"])) ? $_GET["id"] : null; // Je récupère l'id si il existe
+    $id = filter_var($idOrigine, FILTER_VALIDATE_INT);
+  
 
     switch ($_GET["action"]) {  // Et j'effectue un switch suivant l'action :
 
